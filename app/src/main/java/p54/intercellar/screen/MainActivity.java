@@ -1,4 +1,4 @@
-package p54.intercellar.activity;
+package p54.intercellar.screen;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
