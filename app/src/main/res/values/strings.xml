@@ -4,5 +4,9 @@
     <string name="app_name">InterCellar</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="my_bottles">Mes bouteilles</string>
+    <string name="my_cellar">Ma cave</string>
+    <string name="title_activity_bottle">BottleActivity</string>
+    <string name="title_activity_cellar">CellarActivity</string>
 
 </resources>

@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".screen.BottleActivity"
+            android:label="@string/title_activity_bottle" >
+        </activity>
+        <activity
+            android:name=".screen.CellarActivity"
+            android:label="@string/title_activity_cellar" >
+        </activity>
     </application>
 
 </manifest>
