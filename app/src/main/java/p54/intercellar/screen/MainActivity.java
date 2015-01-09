@@ -1,9 +1,12 @@
 package p54.intercellar.screen;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import p54.intercellar.R;
 
@@ -37,5 +40,15 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void launchBottleActivity(View v) {
+        Intent bottleActivity = new Intent(this, BottleActivity.class);
+        startActivity(bottleActivity);
+    }
+
+    public void launchCellarActivity(View v) {
+        Intent cellarActivity = new Intent(this, CellarActivity.class);
+        startActivity(cellarActivity);
     }
 }
