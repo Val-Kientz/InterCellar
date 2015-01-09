@@ -1,9 +1,11 @@
-package p54.intercellar;
+package p54.intercellar.activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import p54.intercellar.R;
 
 
 public class MainActivity extends ActionBarActivity {
