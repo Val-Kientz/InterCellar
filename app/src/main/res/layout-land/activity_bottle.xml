@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:layout_width="151dp"
+        android:layout_height="match_parent"
+        android:name="p54.intercellar.screen.BottleFragment"
+        android:id="@+id/fragment_bottle_land"
+        tools:layout="@layout/simple_list_item_1" />
+
+    <fragment
+        android:layout_width="358dp"
+        android:layout_height="match_parent"
+        android:name="p54.intercellar.screen.BottleDetailsFragment"
+        android:id="@+id/fragment_bottle_details_land"
+        tools:layout="@layout/fragment_bottle_details" />
+
+</LinearLayout>

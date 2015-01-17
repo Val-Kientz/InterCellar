@@ -1,27 +1,25 @@
 package p54.intercellar.screen;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import p54.intercellar.R;
 
-public class BottleActivity extends ActionBarActivity implements BottleFragment.OnFragmentInteractionListener {
+public class BottleDetailsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottle);
+        setContentView(R.layout.activity_bottle_details);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bottle, menu);
+        getMenuInflater().inflate(R.menu.menu_bottle_details, menu);
         return true;
     }
 
@@ -38,19 +36,5 @@ public class BottleActivity extends ActionBarActivity implements BottleFragment.
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(String id) {
-        BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
-                .findFragmentById(R.id.fragment_bottle_details_land);
-
-        if (bottleDetailsFragment == null) {
-            Intent bottleDetailsActivity = new Intent(this, BottleDetailsActivity.class);
-            bottleDetailsActivity.putExtra("id", id);
-            startActivity(bottleDetailsActivity);
-        } else {
-            bottleDetailsFragment.updateBottleId(id);
-        }
     }
 }

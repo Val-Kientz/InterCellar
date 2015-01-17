@@ -24,6 +24,10 @@
             android:name=".screen.CellarActivity"
             android:label="@string/title_activity_cellar" >
         </activity>
+        <activity
+            android:name=".screen.BottleDetailsActivity"
+            android:label="@string/title_activity_bottle_details" >
+        </activity>
     </application>
 
 </manifest>

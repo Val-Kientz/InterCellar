@@ -6,5 +6,7 @@
     <string name="action_settings">Paramètres</string>
     <string name="title_activity_bottle">Mes Bouteilles</string>
     <string name="title_activity_cellar">Ma Cave</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_bottle_details">BottleDetailsActivity</string>
 
 </resources>
