@@ -8,12 +8,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import p54.intercellar.R;
+import p54.intercellar.controller.BottleController;
 
 public class BottleActivity extends ActionBarActivity implements BottleFragment.OnFragmentInteractionListener {
+    private BottleController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        controller = new BottleController(this);
+
         setContentView(R.layout.activity_bottle);
     }
 

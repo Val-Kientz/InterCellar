@@ -18,7 +18,7 @@ public class Bottle {
 
     private Chateau chateau;
     // A user can rate several times the same bottle.
-    private List<Rating> rating;
+    private List<Rating> ratingList;
 
     public String getYear() {
         return year;
@@ -92,12 +92,16 @@ public class Bottle {
         this.chateau = chateau;
     }
 
-    public List<Rating> getRating() {
-        return rating;
+    public List<Rating> getRatingList() {
+        return ratingList;
     }
 
-    public void setRating(List<Rating> rating) {
-        this.rating = rating;
+    public void setRatingList(List<Rating> rating) {
+        this.ratingList = rating;
+    }
+
+    public void addRating(Rating rating) {
+        this.ratingList.add(rating);
     }
 
     public long getId() {
