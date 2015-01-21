@@ -28,7 +28,7 @@ public class InterCellarDatabase extends SQLiteOpenHelper {
     // region Fields
 
     // id field for all
-    private static final String COMMON_KEY_ID = "id";
+    public static final String COMMON_KEY_ID = "id";
 
     // bottle fields
     public static final String BOTTLE_KEY_YEAR = "year";
@@ -39,6 +39,7 @@ public class InterCellarDatabase extends SQLiteOpenHelper {
     public static final String BOTTLE_KEY_TYPE = "type";
     public static final String BOTTLE_KEY_MARKET = "market";
     public static final String BOTTLE_KEY_COORDINATES = "coordinates";
+    public static final String BOTTLE_KEY_CHATEAU_ID = "chateau_id";
 
     // cellar fields
     public static final String CELLAR_KEY_NAME = "name";
@@ -86,7 +87,9 @@ public class InterCellarDatabase extends SQLiteOpenHelper {
             + BOTTLE_KEY_DESCRIPTION + " TEXT,"
             + BOTTLE_KEY_TYPE + " TEXT,"
             + BOTTLE_KEY_MARKET + " TEXT,"
-            + BOTTLE_KEY_COORDINATES + " TEXT)";
+            + BOTTLE_KEY_COORDINATES + " TEXT,"
+            + BOTTLE_KEY_CHATEAU_ID + " INTEGER,"
+            + "FOREIGN KEY (" + BOTTLE_KEY_CHATEAU_ID + ") REFERENCES " + TABLE_CHATEAU + "(" + COMMON_KEY_ID + "))";
 
     private static final String CREATE_CELLAR = "CREATE TABLE "
             + TABLE_CELLAR + "(" + COMMON_KEY_ID + " INTEGER PRIMARY KEY,"

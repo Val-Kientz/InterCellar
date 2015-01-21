@@ -3,6 +3,8 @@ package p54.intercellar.controller;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import p54.intercellar.data.BottleManager;
 import p54.intercellar.data.InterCellarDatabase;
@@ -26,6 +28,18 @@ public class BottleController {
         chateau.setDomain("TestDomain");
         chateau.setRegion("TestRegion");
 
+        List<Rating> ratingList = new ArrayList<Rating>();
+        Rating rating1 = new Rating();
+        rating1.setRate(34);
+        rating1.setDate(new Date());
+        rating1.setComment("Test");
+        Rating rating2 = new Rating();
+        rating2.setRate(176);
+        rating2.setDate(new Date());
+        rating2.setComment("Re test");
+        ratingList.add(rating1);
+        ratingList.add(rating2);
+
         Bottle bottle = new Bottle();
         bottle.setYear("1998");
         bottle.setName("Test");
@@ -36,6 +50,11 @@ public class BottleController {
         bottle.setMarket("St Jean");
         bottle.setCoordinates(new int[]{1,1});
         bottle.setChateau(chateau);
-        bottle.setRatingList(new ArrayList<Rating>());
+        bottle.setRatingList(ratingList);
+
+        bottleManager.create(bottle);
+
+        Bottle bot = bottleManager.findById(1);
+        System.out.print(bot.toString());
     }
 }
