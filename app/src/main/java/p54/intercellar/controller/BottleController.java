@@ -53,8 +53,13 @@ public class BottleController {
         bottle.setRatingList(ratingList);
 
         bottleManager.create(bottle);
+    }
 
-        Bottle bot = bottleManager.findById(1);
-        System.out.print(bot.toString());
+    public List<Bottle> getBottleList() {
+        return bottleManager.findAll();
+    }
+
+    public List<String> getBottleNamesList() {
+        return bottleManager.findAllNames();
     }
 }

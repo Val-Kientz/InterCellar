@@ -9,9 +9,14 @@ import android.widget.Toast;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
+import p54.intercellar.model.Bottle;
 
 public class BottleActivity extends ActionBarActivity implements BottleFragment.OnFragmentInteractionListener {
     private BottleController controller;
+
+    public BottleController getController() {
+        return this.controller;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import p54.intercellar.model.Bottle;
@@ -105,5 +106,30 @@ public class BottleManager extends InterCellarManager {
         }
 
         return bottle;
+    }
+
+    public List<Bottle> findAll() {
+        List<Bottle> bottleList = new ArrayList<Bottle>();
+        bottleList.add(this.findById(1));
+        return bottleList;
+        // TODO : Find all with ratings and chateau
+    }
+
+    public List<String> findAllNames() {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        List<String> nameList = new ArrayList<String>();
+
+        String[] columns = new String[] {
+          databaseHelper.BOTTLE_KEY_NAME
+        };
+        Cursor cursor = database.query(databaseHelper.TABLE_BOTTLE, columns, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            nameList.add(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_NAME)));
+        }
+
+        return nameList;
     }
 }
