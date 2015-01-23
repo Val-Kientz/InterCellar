@@ -22,7 +22,6 @@ import p54.intercellar.screen.dummy.DummyContent;
  * interface.
  */
 public class BottleFragment extends InterCellarListFragment<BottleController> {
-    private BottleController bottleController;
     private OnFragmentInteractionListener mListener;
 
     // TODO: Rename and change types of parameters
@@ -43,11 +42,10 @@ public class BottleFragment extends InterCellarListFragment<BottleController> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bottleController = ((BottleActivity) getActivity()).getController();
 
         // TODO: Change Adapter to display your content
         setListAdapter(new ArrayAdapter<Bottle>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, bottleController.getBottleList()));
+                android.R.layout.simple_list_item_1, android.R.id.text1, getController().getBottleList()));
     }
 
 
