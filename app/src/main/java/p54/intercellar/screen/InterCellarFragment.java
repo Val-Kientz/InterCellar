@@ -13,7 +13,7 @@ import p54.intercellar.data.InterCellarDatabase;
 /**
  * @param <T> The activity class (e.g.: BottleActivity)
  */
-public abstract class InterCellarFragments<T> extends Fragment {
+public abstract class InterCellarFragment<T> extends Fragment {
     private T controller;
 
     @Override
