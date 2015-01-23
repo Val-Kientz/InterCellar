@@ -1,7 +1,31 @@
 package p54.intercellar.controller;
 
+import android.content.Context;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import p54.intercellar.data.CellarManager;
+import p54.intercellar.model.Cellar;
+import p54.intercellar.model.Shelf;
+
 /**
  * Created by Simon on 09/01/2015.
  */
-public class CellarController {
+public class CellarController extends InterCellarController<CellarManager>
+{
+    public CellarController(Context context) {
+        super(context);
+
+        Cellar cellar = new Cellar();
+        cellar.setName("Epic Cellar");
+        cellar.setShelfList(new ArrayList<Shelf>());
+        getManager().create(cellar);
+
+    }
+
+    public List<Cellar> getCellarList() {
+        return getManager().findAll();
+    }
+
 }

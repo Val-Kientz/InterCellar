@@ -5,13 +5,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import p54.intercellar.R;
+import java.util.List;
 
-public class CellarActivity extends ActionBarActivity {
+import p54.intercellar.R;
+import p54.intercellar.controller.CellarController;
+import p54.intercellar.model.Cellar;
+
+public class CellarActivity extends InterCellarActivity<CellarController> implements CellarFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_cellar);
     }
 
@@ -36,5 +41,10 @@ public class CellarActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(String id) {
+
     }
 }

@@ -14,8 +14,9 @@ public class Bottle {
     private String description;
     private String type;
     private String market;
-    private int[] coordinates = {-1,-1};
+    private int coordinates = -1;
 
+    private Shelf shelf;
     private Chateau chateau;
     // A user can rate several times the same bottle.
     private List<Rating> ratingList;
@@ -76,11 +77,11 @@ public class Bottle {
         this.market = market;
     }
 
-    public int[] getCoordinates() {
+    public int getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(int[] coordinates) {
+    public void setCoordinates(int coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -91,6 +92,10 @@ public class Bottle {
     public void setChateau(Chateau chateau) {
         this.chateau = chateau;
     }
+
+    public Shelf getShelf(){return shelf;}
+
+    public void setShelf(Shelf shelf) {this.shelf = shelf;}
 
     public List<Rating> getRatingList() {
         return ratingList;

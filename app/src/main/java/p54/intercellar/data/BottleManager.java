@@ -29,7 +29,7 @@ public class BottleManager extends InterCellarManager<Bottle> {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
-        String coordinates = bottle.getCoordinates()[0] + ";" + bottle.getCoordinates()[1];
+        String coordinates = String.valueOf(bottle.getCoordinates());
 
         ContentValues values = new ContentValues();
         values.put(databaseHelper.BOTTLE_KEY_YEAR, bottle.getYear());
@@ -138,8 +138,8 @@ public class BottleManager extends InterCellarManager<Bottle> {
         bottle.setDescription(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_DESCRIPTION)));
         bottle.setType(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_TYPE)));
         bottle.setMarket(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_MARKET)));
-        String[] coordStrings = cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_COORDINATES)).split(";");
-        bottle.setCoordinates(new int[]{Integer.parseInt(coordStrings[0]), Integer.parseInt(coordStrings[1])});
+        String coordStrings = cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_COORDINATES));
+        bottle.setCoordinates(Integer.parseInt(coordStrings));
 
         Long chateauId = cursor.getLong(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_CHATEAU_ID));
 

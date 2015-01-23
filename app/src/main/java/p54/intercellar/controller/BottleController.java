@@ -44,7 +44,7 @@ public class BottleController extends InterCellarController<BottleManager> {
         bottle.setDescription("");
         bottle.setType("Rouge");
         bottle.setMarket("St Jean");
-        bottle.setCoordinates(new int[]{1,1});
+        bottle.setCoordinates(1);
         bottle.setChateau(chateau);
         bottle.setRatingList(ratingList);
 
