@@ -19,7 +19,7 @@ public class ShelfManager extends InterCellarManager
 
     public ShelfManager(InterCellarDatabase databaseHelper)
     {
-        setDatabaseHelper(databaseHelper);
+        super(databaseHelper);
         this.cellarManager = new CellarManager(databaseHelper);
         this.bottleManager = new BottleManager(databaseHelper);
     }

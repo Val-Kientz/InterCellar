@@ -43,11 +43,6 @@ public class ChateauManager extends InterCellarManager<Chateau> {
         return chateau;
     }
 
-    public List<Chateau> findAll() {
-        // TODO: Find all
-        return new ArrayList<Chateau>();
-    }
-
     public Chateau findById(long id) {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
