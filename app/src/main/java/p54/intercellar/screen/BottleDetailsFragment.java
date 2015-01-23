@@ -10,16 +10,23 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import p54.intercellar.R;
+import p54.intercellar.controller.BottleController;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BottleDetailsFragment extends Fragment {
+    private BottleController bottleController;
 
     public BottleDetailsFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bottleController = ((BottleActivity) getActivity()).getController();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,7 +35,7 @@ public class BottleDetailsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_bottle_details, container, false);
     }
 
-    public void updateBottleId(String id) {
+    public void showBottleDetails(long id) {
 
     }
 }

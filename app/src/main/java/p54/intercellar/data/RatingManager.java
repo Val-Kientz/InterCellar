@@ -15,7 +15,7 @@ import p54.intercellar.model.Rating;
  */
 public class RatingManager extends InterCellarManager {
     public RatingManager(InterCellarDatabase databaseHelper) {
-        setDatabaseHelper(databaseHelper);
+        super(databaseHelper);
     }
 
     public Rating create(Rating rating) {

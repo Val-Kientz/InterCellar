@@ -15,14 +15,10 @@ import p54.intercellar.model.Rating;
 /**
  * Created by Simon on 09/01/2015.
  */
-public class BottleController {
-    private Context context;
-    private BottleManager bottleManager;
-
+public class BottleController extends InterCellarController<BottleManager> {
     public BottleController(Context context) {
-        this.context = context;
-        InterCellarDatabase databaseHelper = new InterCellarDatabase(context);
-        bottleManager = new BottleManager(databaseHelper);
+        super(context);
+
 
         Chateau chateau = new Chateau();
         chateau.setDomain("TestDomain");
@@ -52,14 +48,15 @@ public class BottleController {
         bottle.setChateau(chateau);
         bottle.setRatingList(ratingList);
 
-        bottleManager.create(bottle);
+        BottleManager bottleManager = getManager();
+        getManager().create(bottle);
     }
 
     public List<Bottle> getBottleList() {
-        return bottleManager.findAll();
+        return getManager().findAll();
     }
 
     public List<String> getBottleNamesList() {
-        return bottleManager.findAllNames();
+        return getManager().findAllNames();
     }
 }

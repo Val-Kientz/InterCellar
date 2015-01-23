@@ -15,12 +15,12 @@ import p54.intercellar.model.Rating;
 /**
  * Created by sreiss on 17/01/15.
  */
-public class BottleManager extends InterCellarManager {
+public class BottleManager extends InterCellarManager<Bottle> {
     private ChateauManager chateauManager;
     private RatingManager ratingManager;
 
     public BottleManager (InterCellarDatabase databaseHelper) {
-        setDatabaseHelper(databaseHelper);
+        super(databaseHelper);
         this.chateauManager = new ChateauManager(databaseHelper);
         this.ratingManager = new RatingManager(databaseHelper);
     }

@@ -60,7 +60,7 @@ public class BottleActivity extends ActionBarActivity implements BottleFragment.
             bottleDetailsActivity.putExtra("id", id);
             startActivity(bottleDetailsActivity);
         } else {
-            bottleDetailsFragment.updateBottleId(id);
+            //bottleDetailsFragment.updateBottleId(id);
         }
     }
 }

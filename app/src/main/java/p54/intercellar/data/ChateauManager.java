@@ -12,9 +12,9 @@ import p54.intercellar.model.Chateau;
 /**
  * Created by sreiss on 17/01/15.
  */
-public class ChateauManager extends InterCellarManager {
+public class ChateauManager extends InterCellarManager<Chateau> {
     public ChateauManager(InterCellarDatabase databaseHelper) {
-        setDatabaseHelper(databaseHelper);
+        super(databaseHelper);
     }
 
     public Chateau create(Chateau chateau) {
@@ -41,6 +41,11 @@ public class ChateauManager extends InterCellarManager {
         database.update(getDatabaseHelper().TABLE_CHATEAU, values, "id=?", new String[]{"" + chateau.getId()});
 
         return chateau;
+    }
+
+    public List<Chateau> findAll() {
+        // TODO: Find all
+        return new ArrayList<Chateau>();
     }
 
     public Chateau findById(long id) {
