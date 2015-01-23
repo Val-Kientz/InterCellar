@@ -29,8 +29,6 @@ public class BottleManager extends InterCellarManager<Bottle> {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
-        String coordinates = String.valueOf(bottle.getCoordinates());
-
         ContentValues values = new ContentValues();
         values.put(databaseHelper.BOTTLE_KEY_YEAR, bottle.getYear());
         values.put(databaseHelper.BOTTLE_KEY_NAME, bottle.getName());
@@ -39,7 +37,7 @@ public class BottleManager extends InterCellarManager<Bottle> {
         values.put(databaseHelper.BOTTLE_KEY_DESCRIPTION, bottle.getDescription());
         values.put(databaseHelper.BOTTLE_KEY_TYPE, bottle.getType());
         values.put(databaseHelper.BOTTLE_KEY_MARKET, bottle.getMarket());
-        values.put(databaseHelper.BOTTLE_KEY_COORDINATES, coordinates);
+        values.put(databaseHelper.BOTTLE_KEY_COORDINATES, bottle.getCoordinates());
         if (bottle.getChateau().getId() > 0) {
             chateauManager.update(bottle.getChateau());
         } else {
@@ -138,8 +136,7 @@ public class BottleManager extends InterCellarManager<Bottle> {
         bottle.setDescription(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_DESCRIPTION)));
         bottle.setType(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_TYPE)));
         bottle.setMarket(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_MARKET)));
-        String coordStrings = cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_COORDINATES));
-        bottle.setCoordinates(Integer.parseInt(coordStrings));
+        bottle.setCoordinates(cursor.getInt(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_COORDINATES)));
 
         Long chateauId = cursor.getLong(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_CHATEAU_ID));
 
