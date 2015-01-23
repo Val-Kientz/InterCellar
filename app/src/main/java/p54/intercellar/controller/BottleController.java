@@ -19,7 +19,7 @@ public class BottleController extends InterCellarController<BottleManager> {
     public BottleController(Context context) {
         super(context);
 
-
+        /*
         Chateau chateau = new Chateau();
         chateau.setDomain("TestDomain");
         chateau.setRegion("TestRegion");
@@ -49,6 +49,7 @@ public class BottleController extends InterCellarController<BottleManager> {
         bottle.setRatingList(ratingList);
 
         getManager().create(bottle);
+        */
     }
 
     public Bottle getBottle(long id) {

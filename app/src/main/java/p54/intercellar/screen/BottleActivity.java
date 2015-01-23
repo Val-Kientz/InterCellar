@@ -4,13 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
+import p54.intercellar.view.AddBottleButtonFragment;
 import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.BottleFragment;
 
-public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener {
+public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener, AddBottleButtonFragment.OnAddButtonPressedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,5 +56,16 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         } else {
             bottleDetailsFragment.showBottleDetails(id);
         }
+    }
+
+    @Override
+    public void onAddButtonPressed() {
+        Intent addBottleActivity = new Intent(this, AddBottleActivity.class);
+        startActivity(addBottleActivity);
+    }
+
+    public void onAddButtonPressed(View v) {
+        Intent addBottleActivity = new Intent(this, AddBottleActivity.class);
+        startActivity(addBottleActivity);
     }
 }

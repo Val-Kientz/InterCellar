@@ -8,5 +8,17 @@
     <string name="title_activity_cellar">Ma Cave</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_bottle_details">BottleDetailsActivity</string>
-
+    <string name="add_a_bottle">Ajouter une bouteille</string>
+    <string name="title_activity_add_bottle">Ajouter une bouteille</string>
+    <string name="bottle_name">Nom</string>
+    <string name="bottle_year">Année de mise en bouteille</string>
+    <string name="bottle_price">Prix</string>
+    <string name="bottle_picture">Photographie</string>
+    <string name="bottle_description">Description</string>
+    <string name="bottle_type">Type de vin</string>
+    <string name="bottle_market">Marché d\'acquisition</string>
+    <string name="bottle_coordinates">Position sur l\'étagère</string>
+    <string name="bottle_chateau">Chateau</string>
+    <string name="bottle_shelve">Numéro d\'étagère</string>
+    
 </resources>

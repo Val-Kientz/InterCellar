@@ -28,6 +28,14 @@
             android:name=".screen.BottleDetailsActivity"
             android:label="@string/title_activity_bottle_details" >
         </activity>
+        <activity
+            android:name=".screen.AddBottleActivity"
+            android:label="@string/title_activity_add_bottle"
+            android:parentActivityName=".screen.BottleActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="p54.intercellar.screen.BottleActivity" />
+        </activity>
     </application>
 
 </manifest>

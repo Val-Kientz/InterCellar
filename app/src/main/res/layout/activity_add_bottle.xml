@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="p54.intercellar.screen.AddBottleActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/add_a_bottle"
+        android:id="@+id/text_add_bottle_title"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/bottle_name"
+        android:id="@+id/label_bottle_name"
+        android:layout_below="@+id/text_add_bottle_title"
+        android:layout_centerHorizontal="true"
+        android:labelFor="@id/text_add_bottle_title" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_text_bottle_name"
+        android:layout_below="@+id/label_bottle_name"
+        android:layout_centerHorizontal="true"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/bottle_year"
+        android:id="@+id/label_bottle_year"
+        android:layout_below="@+id/edit_text_bottle_name"
+        android:layout_centerHorizontal="true"
+        android:labelFor="@id/text_add_bottle_title" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_text_bottle_year"
+        android:layout_below="@+id/label_bottle_year"
+        android:layout_centerHorizontal="true"
+        android:inputType="text" />
+
+</RelativeLayout>
