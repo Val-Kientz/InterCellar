@@ -90,7 +90,7 @@ public class CellarFragment extends InterCellarListFragment<CellarController> {
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
+            mListener.onFragmentInteraction(getController().getCellarList().get(position).getId());
         }
     }
 
@@ -119,7 +119,7 @@ public class CellarFragment extends InterCellarListFragment<CellarController> {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
+        public void onFragmentInteraction(long id);
     }
 
 }

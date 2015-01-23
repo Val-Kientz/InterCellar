@@ -1,5 +1,6 @@
 package p54.intercellar.screen;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,7 +12,7 @@ import p54.intercellar.R;
 import p54.intercellar.controller.CellarController;
 import p54.intercellar.model.Cellar;
 
-public class CellarActivity extends InterCellarActivity<CellarController> implements CellarFragment.OnFragmentInteractionListener{
+public class CellarActivity extends InterCellarActivity<CellarController> implements CellarFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,17 @@ public class CellarActivity extends InterCellarActivity<CellarController> implem
     }
 
     @Override
-    public void onFragmentInteraction(String id) {
+    public void onFragmentInteraction(long id)
+    {
+        CellarDetailsFragment cellarDetailsFragment = (CellarDetailsFragment) getFragmentManager()
+                .findFragmentById(R.id.fragment_cellar_land);
 
+        if (cellarDetailsFragment == null) {
+            Intent bottleDetailsActivity = new Intent(this, BottleDetailsActivity.class);
+            bottleDetailsActivity.putExtra("id", id);
+            startActivity(bottleDetailsActivity);
+        } else {
+            //cellarDetailsFragment.showBottleDetails(id);
+        }
     }
 }
