@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import p54.intercellar.model.Chateau;
 
 /**
@@ -52,15 +55,40 @@ public class ChateauManager extends InterCellarManager {
 
         Chateau chateau;
         if (cursor.moveToFirst()) {
-            chateau = new Chateau();
-            chateau.setId(cursor.getLong(cursor.getColumnIndex(databaseHelper.COMMON_KEY_ID)));
-            chateau.setDomain(cursor.getString(cursor.getColumnIndex(databaseHelper.CHATEAU_KEY_DOMAIN)));
-            chateau.setRegion(cursor.getString(cursor.getColumnIndex(databaseHelper.CHATEAU_KEY_REGION)));
+            chateau = buildChateau(databaseHelper,cursor);
         } else {
             chateau = null;
         }
 
         cursor.close();
+
+        return chateau;
+    }
+
+    public List<Chateau> findAll()
+    {
+        List<Chateau> chateauList = new ArrayList<Chateau>();
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        Cursor cursor = database.query(databaseHelper.TABLE_CHATEAU, null, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            Chateau chateau = buildChateau(databaseHelper, cursor);
+            chateauList.add(chateau);
+        }
+
+        cursor.close();
+
+        return chateauList;
+    }
+
+    private Chateau buildChateau(InterCellarDatabase databaseHelper, Cursor cursor)
+    {
+        Chateau chateau = new Chateau();
+        chateau.setId(cursor.getLong(cursor.getColumnIndex(databaseHelper.COMMON_KEY_ID)));
+        chateau.setDomain(cursor.getString(cursor.getColumnIndex((databaseHelper.CHATEAU_KEY_DOMAIN))));
+        chateau.setRegion(cursor.getString(cursor.getColumnIndex(databaseHelper.CHATEAU_KEY_REGION)));
 
         return chateau;
     }

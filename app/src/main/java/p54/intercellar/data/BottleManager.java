@@ -50,13 +50,14 @@ public class BottleManager extends InterCellarManager {
         long id = database.insert(databaseHelper.TABLE_BOTTLE, null, values);
         bottle.setId(id);
 
-        for (int i = 0; i < bottle.getRatingList().size(); i += 1) {
-            Rating rating = bottle.getRatingList().get(i);
-            if (rating.getId() > 0) {
-                rating = ratingManager.update(rating);
-            } else {
-                rating = ratingManager.create(rating);
-            }
+
+            for (int i = 0; i < bottle.getRatingList().size(); i += 1) {
+                Rating rating = bottle.getRatingList().get(i);
+                if (rating.getId() > 0) {
+                    rating = ratingManager.update(rating);
+                } else {
+                    rating = ratingManager.create(rating);
+                }
 
             ContentValues bottleRatingContent = new ContentValues();
             bottleRatingContent.put(databaseHelper.BOTTLE_RATING_KEY_BOTTLE_ID, bottle.getId());

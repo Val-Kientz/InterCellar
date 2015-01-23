@@ -62,18 +62,24 @@ public class RatingManager extends InterCellarManager {
 
         List<Rating> ratingList = new ArrayList<Rating>();
         while(cursor.moveToNext()) {
-            Rating rating = new Rating();
-            rating.setId(cursor.getLong(cursor.getColumnIndex(databaseHelper.COMMON_KEY_ID)));
-            rating.setComment(cursor.getString(cursor.getColumnIndex(databaseHelper.RATING_KEY_COMMENT)));
-            Date date = new Date(Long.parseLong(cursor.getString(cursor.getColumnIndex(databaseHelper.RATING_KEY_DATE))));
-            rating.setDate(date);
-            rating.setRate(cursor.getFloat(cursor.getColumnIndex(databaseHelper.RATING_KEY_RATE)));
 
+            Rating rating = buildRating(databaseHelper, cursor);
             ratingList.add(rating);
         }
 
         cursor.close();
 
         return ratingList;
+    }
+    private Rating buildRating(InterCellarDatabase databaseHelper, Cursor cursor)
+    {
+        Rating rating = new Rating();
+        rating.setId(cursor.getLong(cursor.getColumnIndex(databaseHelper.COMMON_KEY_ID)));
+        rating.setComment(cursor.getString(cursor.getColumnIndex(databaseHelper.RATING_KEY_COMMENT)));
+        Date date = new Date(Long.parseLong(cursor.getString(cursor.getColumnIndex(databaseHelper.RATING_KEY_DATE))));
+        rating.setDate(date);
+        rating.setRate(cursor.getFloat(cursor.getColumnIndex(databaseHelper.RATING_KEY_RATE)));
+
+        return rating;
     }
 }

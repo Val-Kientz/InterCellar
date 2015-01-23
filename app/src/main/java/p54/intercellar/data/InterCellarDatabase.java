@@ -54,9 +54,9 @@ public class InterCellarDatabase extends SQLiteOpenHelper {
     public static final String RATING_KEY_RATE = "rate";
 
     // shelf fields
-    private static final String SHELF_KEY_CAPACITY = "capacity";
-    private static final String SHELF_KEY_WIDTH = "width";
-    private static final String SHELF_KEY_HEIGHT = "height";
+    public static final String SHELF_KEY_CAPACITY = "capacity";
+    public static final String SHELF_KEY_WIDTH = "width";
+    public static final String SHELF_KEY_HEIGHT = "height";
 
     // bottle_chateau fields
     public static final String BOTTLE_CHATEAU_KEY_BOTTLE_ID = "bottle_id";
