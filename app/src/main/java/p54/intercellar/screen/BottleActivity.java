@@ -1,15 +1,14 @@
 package p54.intercellar.screen;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
-import p54.intercellar.model.Bottle;
+import p54.intercellar.view.BottleDetailsFragment;
+import p54.intercellar.view.BottleFragment;
 
 public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener {
 

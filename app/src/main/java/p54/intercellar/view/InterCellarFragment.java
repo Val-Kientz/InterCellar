@@ -1,16 +1,20 @@
-package p54.intercellar.screen;
+package p54.intercellar.view;
 
-import android.app.ListFragment;
+import android.app.Fragment;
 import android.os.Bundle;
+
+import p54.intercellar.controller.InterCellarController;
+import p54.intercellar.data.InterCellarDatabase;
+import p54.intercellar.screen.InterCellarActivity;
 
 /**
  * Created by sreiss on 23/01/15.
  */
 
 /**
- * @param <T> The controller class (e.g.: BottleController).
+ * @param <T> The activity class (e.g.: BottleActivity)
  */
-public abstract class InterCellarListFragment<T> extends ListFragment {
+public abstract class InterCellarFragment<T> extends Fragment {
     private T controller;
 
     @Override

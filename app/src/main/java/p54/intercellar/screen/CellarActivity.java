@@ -1,16 +1,13 @@
 package p54.intercellar.screen;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
-
 import p54.intercellar.R;
 import p54.intercellar.controller.CellarController;
-import p54.intercellar.model.Cellar;
+import p54.intercellar.view.CellarDetailsFragment;
 
 public class CellarActivity extends InterCellarActivity<CellarController> implements CellarFragment.OnFragmentInteractionListener {
 

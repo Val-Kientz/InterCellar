@@ -1,4 +1,4 @@
-package p54.intercellar.screen;
+package p54.intercellar.view;
 
 import android.app.Activity;
 import android.net.Uri;

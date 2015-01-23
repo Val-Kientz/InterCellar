@@ -2,22 +2,16 @@ package p54.intercellar.screen;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import p54.intercellar.R;
-
 import p54.intercellar.controller.CellarController;
 import p54.intercellar.model.Cellar;
-import p54.intercellar.screen.dummy.DummyContent;
+import p54.intercellar.view.InterCellarListFragment;
 
 /**
  * A fragment representing a list of Items.

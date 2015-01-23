@@ -9,7 +9,7 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="p54.intercellar.screen.BottleDetailsFragment"
+        android:name="p54.intercellar.view.BottleDetailsFragment"
         android:id="@+id/fragment_bottle_details"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

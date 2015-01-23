@@ -7,14 +7,14 @@
     <fragment
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:name="p54.intercellar.screen.BottleFragment"
+        android:name="p54.intercellar.view.BottleFragment"
         android:id="@+id/fragment_bottle_land"
         tools:layout="@layout/simple_list_item_1" />
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="p54.intercellar.screen.BottleDetailsFragment"
+        android:name="p54.intercellar.view.BottleDetailsFragment"
         android:id="@+id/fragment_bottle_details_land"
         android:layout_gravity="right"
         tools:layout="@layout/fragment_bottle_details" />

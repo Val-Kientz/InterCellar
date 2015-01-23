@@ -1,18 +1,13 @@
-package p54.intercellar.screen;
+package p54.intercellar.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 import p54.intercellar.controller.BottleController;
-import p54.intercellar.data.BottleManager;
 import p54.intercellar.model.Bottle;
-import p54.intercellar.screen.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
