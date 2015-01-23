@@ -6,13 +6,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import p54.intercellar.R;
+import p54.intercellar.controller.BottleController;
 
-public class BottleDetailsActivity extends ActionBarActivity {
+public class BottleDetailsActivity extends InterCellarActivity<BottleController> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        long id = getIntent().getLongExtra("bottleId", -1);
+
         setContentView(R.layout.activity_bottle_details);
+
+        BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_details);
+        bottleDetailsFragment.showBottleDetails(id);
     }
 
 

@@ -48,15 +48,14 @@ public class BottleController extends InterCellarController<BottleManager> {
         bottle.setChateau(chateau);
         bottle.setRatingList(ratingList);
 
-        BottleManager bottleManager = getManager();
         getManager().create(bottle);
+    }
+
+    public Bottle getBottle(long id) {
+        return getManager().findById(id);
     }
 
     public List<Bottle> getBottleList() {
         return getManager().findAll();
-    }
-
-    public List<String> getBottleNamesList() {
-        return getManager().findAllNames();
     }
 }

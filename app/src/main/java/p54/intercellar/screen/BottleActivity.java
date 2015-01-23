@@ -14,7 +14,7 @@ import p54.intercellar.model.Bottle;
 public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_bottle);
@@ -44,7 +44,7 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     }
 
     @Override
-    public void onFragmentInteraction(String id) {
+    public void onFragmentInteraction(long id) {
         BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_bottle_details_land);
 
@@ -53,7 +53,7 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
             bottleDetailsActivity.putExtra("id", id);
             startActivity(bottleDetailsActivity);
         } else {
-            //bottleDetailsFragment.updateBottleId(id);
+            bottleDetailsFragment.showBottleDetails(id);
         }
     }
 }

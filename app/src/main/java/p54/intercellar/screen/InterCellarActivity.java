@@ -22,8 +22,7 @@ import p54.intercellar.data.InterCellarDatabase;
 public abstract class InterCellarActivity<T> extends ActionBarActivity {
     private T controller;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         try {

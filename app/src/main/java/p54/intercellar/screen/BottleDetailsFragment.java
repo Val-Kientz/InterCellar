@@ -11,12 +11,12 @@ import android.widget.Toast;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
+import p54.intercellar.model.Bottle;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BottleDetailsFragment extends Fragment {
-    private BottleController bottleController;
+public class BottleDetailsFragment extends InterCellarFragment<BottleController> {
 
     public BottleDetailsFragment() {
         // Required empty public constructor
@@ -25,7 +25,6 @@ public class BottleDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bottleController = ((BottleActivity) getActivity()).getController();
     }
 
     @Override
@@ -36,6 +35,6 @@ public class BottleDetailsFragment extends Fragment {
     }
 
     public void showBottleDetails(long id) {
-
+        Bottle bottle = getController().getBottle(id);
     }
 }
