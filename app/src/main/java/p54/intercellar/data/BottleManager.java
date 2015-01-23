@@ -27,7 +27,7 @@ public class BottleManager extends InterCellarManager {
 
     public Bottle create(Bottle bottle) {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
-        SQLiteDatabase database = getDatabaseHelper().getWritableDatabase();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
         String coordinates = bottle.getCoordinates()[0] + ";" + bottle.getCoordinates()[1];
 
@@ -80,27 +80,8 @@ public class BottleManager extends InterCellarManager {
 
         Bottle bottle;
         if (cursor.moveToFirst()) {
-            bottle = new Bottle();
-            bottle.setId(cursor.getLong(cursor.getColumnIndex(databaseHelper.COMMON_KEY_ID)));
-            bottle.setYear(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_YEAR)));
-            bottle.setName(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_NAME)));
-            bottle.setPrice(cursor.getFloat(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_PRICE)));
-            bottle.setPicture(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_PICTURE)));
-            bottle.setDescription(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_DESCRIPTION)));
-            bottle.setType(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_TYPE)));
-            bottle.setMarket(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_MARKET)));
-            String[] coordStrings = cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_COORDINATES)).split(";");
-            bottle.setCoordinates(new int[]{Integer.parseInt(coordStrings[0]), Integer.parseInt(coordStrings[1])});
-
-            Long chateauId = cursor.getLong(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_CHATEAU_ID));
-
+            bottle = buildBottle(databaseHelper, cursor);
             cursor.close();
-
-            Chateau chateau = chateauManager.findById(chateauId);
-            bottle.setChateau(chateau);
-
-            List<Rating> ratingList = ratingManager.listRatingsByBottleId(bottle.getId());
-            bottle.setRatingList(ratingList);
         } else {
             bottle = null;
         }
@@ -110,7 +91,18 @@ public class BottleManager extends InterCellarManager {
 
     public List<Bottle> findAll() {
         List<Bottle> bottleList = new ArrayList<Bottle>();
-        bottleList.add(this.findById(1));
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        Cursor cursor = database.query(databaseHelper.TABLE_BOTTLE, null, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            Bottle bottle = buildBottle(databaseHelper, cursor);
+            bottleList.add(bottle);
+        }
+
+        cursor.close();
+
         return bottleList;
         // TODO : Find all with ratings and chateau
     }
@@ -132,4 +124,32 @@ public class BottleManager extends InterCellarManager {
 
         return nameList;
     }
+
+    // region builders
+
+    private Bottle buildBottle(InterCellarDatabase databaseHelper, Cursor cursor) {
+        Bottle bottle = new Bottle();
+        bottle.setId(cursor.getLong(cursor.getColumnIndex(databaseHelper.COMMON_KEY_ID)));
+        bottle.setYear(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_YEAR)));
+        bottle.setName(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_NAME)));
+        bottle.setPrice(cursor.getFloat(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_PRICE)));
+        bottle.setPicture(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_PICTURE)));
+        bottle.setDescription(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_DESCRIPTION)));
+        bottle.setType(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_TYPE)));
+        bottle.setMarket(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_MARKET)));
+        String[] coordStrings = cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_COORDINATES)).split(";");
+        bottle.setCoordinates(new int[]{Integer.parseInt(coordStrings[0]), Integer.parseInt(coordStrings[1])});
+
+        Long chateauId = cursor.getLong(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_CHATEAU_ID));
+
+        Chateau chateau = chateauManager.findById(chateauId);
+        bottle.setChateau(chateau);
+
+        List<Rating> ratingList = ratingManager.listRatingsByBottleId(bottle.getId());
+        bottle.setRatingList(ratingList);
+
+        return bottle;
+    }
+
+    // end region
 }
