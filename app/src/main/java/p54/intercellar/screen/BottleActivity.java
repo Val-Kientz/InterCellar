@@ -11,18 +11,11 @@ import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.model.Bottle;
 
-public class BottleActivity extends ActionBarActivity implements BottleFragment.OnFragmentInteractionListener {
-    private BottleController controller;
-
-    public BottleController getController() {
-        return this.controller;
-    }
+public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        controller = new BottleController(this);
 
         setContentView(R.layout.activity_bottle);
     }

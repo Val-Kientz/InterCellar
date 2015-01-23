@@ -21,7 +21,7 @@ import p54.intercellar.screen.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class BottleFragment extends ListFragment {
+public class BottleFragment extends InterCellarListFragment<BottleController> {
     private BottleController bottleController;
     private OnFragmentInteractionListener mListener;
 
