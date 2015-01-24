@@ -20,5 +20,6 @@
     <string name="bottle_coordinates">Position sur l\'étagère</string>
     <string name="bottle_chateau">Chateau</string>
     <string name="bottle_shelve">Numéro d\'étagère</string>
+    <string name="bottle_successfully_added">Bouteille ajoutée avec succès</string>
     
 </resources>

@@ -1,6 +1,7 @@
 package p54.intercellar.controller;
 
 import android.content.Context;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,5 +59,9 @@ public class BottleController extends InterCellarController<BottleManager> {
 
     public List<Bottle> getBottleList() {
         return getManager().findAll();
+    }
+
+    public Bottle createBottle(Bottle bottle) {
+        return getManager().create(bottle);
     }
 }
