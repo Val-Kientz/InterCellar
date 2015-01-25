@@ -1,5 +1,6 @@
 package p54.intercellar.screen;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Chateau;
 import p54.intercellar.model.Rating;
 import p54.intercellar.model.Shelf;
+import p54.intercellar.view.BottleDetailsFragment;
 
 public class AddBottleActivity extends InterCellarActivity<BottleController> {
     private static final int PICTURE_TAKEN = 1;
@@ -47,7 +49,7 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
             selectChateau.setAdapter(new ArrayAdapter<Chateau>(this,
                     R.layout.support_simple_spinner_dropdown_item, chateauList));
         } else {
-            selectChateau.setVisibility(View.INVISIBLE);
+            selectChateau.setVisibility(View.GONE);
         }
     }
 
@@ -128,10 +130,10 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
         } else {
             price = 0;
         }
-        String picture = "";
         String description = ((EditText) findViewById(R.id.edit_text_bottle_description)).getText().toString();
         String type = ((EditText) findViewById(R.id.edit_text_bottle_type)).getText().toString();
         String market = ((EditText) findViewById(R.id.edit_text_bottle_market)).getText().toString();
+        String picture = ((ImageView) findViewById(R.id.image_bottle_piture)).getTag().toString();
 
         bottle.setName(name);
         bottle.setYear(year);
@@ -140,6 +142,7 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
         bottle.setDescription(description);
         bottle.setType(type);
         bottle.setMarket(market);
+        bottle.setPicture(picture);
 
         Chateau chateau = (Chateau) ((Spinner) findViewById(R.id.spinner_select_chateau)).getSelectedItem();
         bottle.setChateau(chateau);

@@ -1,5 +1,6 @@
 package p54.intercellar.screen;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,6 +26,7 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
 
         BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_bottle_details_land);
+
 
         if (bottleDetailsFragment != null) {
             List<Bottle> bottleList = getController().getBottleList();

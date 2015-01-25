@@ -19,6 +19,9 @@
         <activity
             android:name=".screen.BottleActivity"
             android:label="@string/title_activity_bottle" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="p54.intercellar.screen.MainActivity" />
         </activity>
         <activity
             android:name=".screen.CellarActivity"
@@ -27,6 +30,9 @@
         <activity
             android:name=".screen.BottleDetailsActivity"
             android:label="@string/title_activity_bottle_details" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="p54.intercellar.screen.BottleActivity" />
         </activity>
         <activity
             android:name=".screen.AddBottleActivity"

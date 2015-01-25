@@ -124,6 +124,25 @@ public class BottleManager extends InterCellarManager<Bottle> {
         return nameList;
     }
 
+    public int count() {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        String sql = "SELECT COUNT(*) FROM " + databaseHelper.TABLE_BOTTLE;
+        Cursor cursor = database.rawQuery(sql, null);
+
+        int count;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        } else {
+            count = 0;
+        }
+
+        cursor.close();
+
+        return count;
+    }
+
     // region builders
 
     private Bottle buildBottle(InterCellarDatabase databaseHelper, Cursor cursor) {

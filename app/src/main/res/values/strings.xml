@@ -7,7 +7,7 @@
     <string name="title_activity_bottle">Mes Bouteilles</string>
     <string name="title_activity_cellar">Ma Cave</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_bottle_details">BottleDetailsActivity</string>
+    <string name="title_activity_bottle_details">Détails de la bouteille</string>
     <string name="add_a_bottle">Ajouter une bouteille</string>
     <string name="title_activity_add_bottle">Ajouter une bouteille</string>
     <string name="bottle_name">Nom</string>

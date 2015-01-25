@@ -1,11 +1,14 @@
 package p54.intercellar.view;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import p54.intercellar.R;
@@ -43,14 +46,21 @@ public class BottleDetailsFragment extends InterCellarFragment<BottleController>
     }
 
     private void setBottleDetails(Bottle bottle) {
-        ((TextView) getView().findViewById(R.id.text_view_no_bottle)).setVisibility(View.INVISIBLE);
+        ((TextView) getView().findViewById(R.id.text_view_no_bottle)).setVisibility(View.GONE);
 
         ((TextView) getView().findViewById(R.id.text_view_bottle_name)).setText(bottle.getName());
         ((TextView) getView().findViewById(R.id.text_view_bottle_year)).setText(bottle.getYear());
         ((TextView) getView().findViewById(R.id.text_view_bottle_market)).setText(bottle.getMarket());
         ((TextView) getView().findViewById(R.id.text_view_bottle_price)).setText(String.valueOf(bottle.getPrice()));
         ((TextView) getView().findViewById(R.id.text_view_bottle_chateau)).setText(bottle.getChateau().toString());
+        ((TextView) getView().findViewById(R.id.text_view_bottle_description)).setText(bottle.getDescription());
         ((TextView) getView().findViewById(R.id.text_view_bottle_type)).setText(bottle.getType());
+
+        String picturePath = bottle.getPicture();
+        if (picturePath != null && !picturePath.equals("")) {
+            Bitmap image = BitmapFactory.decodeFile(picturePath);
+            ((ImageView) getView().findViewById(R.id.image_bottle_piture)).setImageBitmap(image);
+        }
     }
 
     private void setNoBottleMessage() {

@@ -71,4 +71,8 @@ public class BottleController extends InterCellarController<BottleManager> {
     public List<Chateau> getChateauList() {
         return chateauController.getChateauList();
     }
+
+    public int getBottleCount() {
+        return getManager().count();
+    }
 }
