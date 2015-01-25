@@ -58,7 +58,7 @@ public class BottleDetailsFragment extends InterCellarFragment<BottleController>
 
         String picturePath = bottle.getPicture();
         if (picturePath != null && !picturePath.equals("")) {
-            Bitmap image = BitmapFactory.decodeFile(picturePath);
+            Bitmap image = getController().getPicture(getActivity(), picturePath);
             ((ImageView) getView().findViewById(R.id.image_bottle_piture)).setImageBitmap(image);
         }
     }
