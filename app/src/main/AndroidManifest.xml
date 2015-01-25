@@ -36,6 +36,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="p54.intercellar.screen.BottleActivity" />
         </activity>
+        <activity
+            android:name=".screen.AddChateauActivity"
+            android:label="@string/title_activity_add_chateau"
+            android:parentActivityName=".screen.AddBottleActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="p54.intercellar.screen.AddBottleActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -21,5 +21,9 @@
     <string name="bottle_chateau">Chateau</string>
     <string name="bottle_shelve">Numéro d\'étagère</string>
     <string name="bottle_successfully_added">Bouteille ajoutée avec succès</string>
-    
+    <string name="title_activity_add_chateau">AddChateauActivity</string>
+    <string name="add_a_chateau">Add a Chateau</string>
+    <string name="chateau_region">Region</string>
+    <string name="chateau_domain">Domain</string>
+
 </resources>

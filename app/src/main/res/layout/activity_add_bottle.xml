@@ -161,5 +161,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="onAddButtonBottlePressed" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/button_add_bottle"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
 </ScrollView>

@@ -1,6 +1,7 @@
 package p54.intercellar.screen;
 
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import p54.intercellar.model.Rating;
 import p54.intercellar.model.Shelf;
 
 public class AddBottleActivity extends InterCellarActivity<BottleController> {
+    private final int REFRESH_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +54,17 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onSelectImagePressed(View v) {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, REFRESH_IMAGE);
+    }
+
     public void onAddButtonBottlePressed(View v) {
         Bottle bottle = new Bottle();
 
         String name = ((EditText) findViewById(R.id.edit_text_bottle_name)).getText().toString();
         String year = ((EditText) findViewById(R.id.edit_text_bottle_year)).getText().toString();
-        float price = 10.2F;
+        double price = Double.parseDouble(((EditText) findViewById(R.id.edit_text_bottle_price)).getText().toString());
         String picture = "";
         String description = ((EditText) findViewById(R.id.edit_text_bottle_description)).getText().toString();
         String type = ((EditText) findViewById(R.id.edit_text_bottle_type)).getText().toString();
