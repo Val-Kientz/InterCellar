@@ -1,7 +1,7 @@
 package p54.intercellar.view;
 
+
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 
 import p54.intercellar.R;
 
-public class AddBottleButtonFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class EditBottleButtonFragment extends Fragment {
 
-    public AddBottleButtonFragment() {
+    public EditBottleButtonFragment() {
         // Required empty public constructor
     }
 
@@ -21,7 +24,6 @@ public class AddBottleButtonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_bottle_button, container, false);
+        return inflater.inflate(R.layout.fragment_edit_bottle_button, container, false);
     }
-
 }

@@ -1,11 +1,14 @@
 package p54.intercellar.screen;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,7 +19,9 @@ import p54.intercellar.view.AddBottleButtonFragment;
 import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.BottleFragment;
 
-public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener, AddBottleButtonFragment.OnAddButtonPressedListener {
+public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener {
+    private static final int ADD_BOTTLE = 1;
+    private static final int EDIT_BOTTLE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +78,34 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         }
     }
 
-    @Override
-    public void onAddButtonPressed() {
-        Intent addBottleActivity = new Intent(this, AddBottleActivity.class);
-        startActivity(addBottleActivity);
-    }
-
     public void onAddButtonPressed(View v) {
         Intent addBottleActivity = new Intent(this, AddBottleActivity.class);
-        startActivity(addBottleActivity);
+        startActivityForResult(addBottleActivity, ADD_BOTTLE);
+    }
+
+    public void onEditButtonPressed(View v) {
+        Intent editBottleActivity = new Intent(this, AddBottleActivity.class);
+        editBottleActivity.putExtra("action", "edit");
+        // TODO: Put bottle id in extras!!!
+        //editBottleActivity.putExtra("bottleId", );
+        startActivityForResult(editBottleActivity, EDIT_BOTTLE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case ADD_BOTTLE:
+                Toast.makeText(this, R.string.bottle_successfully_added, Toast.LENGTH_LONG);
+                break;
+
+            case EDIT_BOTTLE:
+                Toast.makeText(this, R.string.bottle_successfully_edited, Toast.LENGTH_LONG);
+                break;
+        }
+
+        BottleFragment bottleFragment = (BottleFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle);
+        bottleFragment.refreshList();
     }
 }

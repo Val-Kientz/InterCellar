@@ -25,37 +25,43 @@ public class BottleManager extends InterCellarManager<Bottle> {
         this.ratingManager = new RatingManager(databaseHelper);
     }
 
+    public Bottle update(Bottle bottle) {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        ContentValues values = buildBottleContentValues(databaseHelper, bottle);
+
+        String whereClause = databaseHelper.COMMON_KEY_ID + " = ?";
+        String[] whereArgs = { String.valueOf(bottle.getId()) };
+        database.update(databaseHelper.TABLE_BOTTLE, values, whereClause, whereArgs);
+
+        bottle = saveBottleRatings(databaseHelper, database, bottle);
+
+        return bottle;
+    }
+
     public Bottle create(Bottle bottle) {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(databaseHelper.BOTTLE_KEY_YEAR, bottle.getYear());
-        values.put(databaseHelper.BOTTLE_KEY_NAME, bottle.getName());
-        values.put(databaseHelper.BOTTLE_KEY_PRICE, bottle.getPrice());
-        values.put(databaseHelper.BOTTLE_KEY_PICTURE, bottle.getPicture());
-        values.put(databaseHelper.BOTTLE_KEY_DESCRIPTION, bottle.getDescription());
-        values.put(databaseHelper.BOTTLE_KEY_TYPE, bottle.getType());
-        values.put(databaseHelper.BOTTLE_KEY_MARKET, bottle.getMarket());
-        values.put(databaseHelper.BOTTLE_KEY_COORDINATES, bottle.getCoordinates());
-        if (bottle.getChateau().getId() > 0) {
-            chateauManager.update(bottle.getChateau());
-        } else {
-            chateauManager.create(bottle.getChateau());
-        }
-        values.put(databaseHelper.BOTTLE_KEY_CHATEAU_ID, bottle.getChateau().getId());
+        ContentValues values = buildBottleContentValues(databaseHelper, bottle);
 
         long id = database.insert(databaseHelper.TABLE_BOTTLE, null, values);
         bottle.setId(id);
 
+        bottle = saveBottleRatings(databaseHelper, database, bottle);
 
-            for (int i = 0; i < bottle.getRatingList().size(); i += 1) {
-                Rating rating = bottle.getRatingList().get(i);
-                if (rating.getId() > 0) {
-                    rating = ratingManager.update(rating);
-                } else {
-                    rating = ratingManager.create(rating);
-                }
+        return bottle;
+    }
+
+    private Bottle saveBottleRatings(InterCellarDatabase databaseHelper, SQLiteDatabase database, Bottle bottle) {
+        for (int i = 0; i < bottle.getRatingList().size(); i += 1) {
+            Rating rating = bottle.getRatingList().get(i);
+            if (rating.getId() > 0) {
+                rating = ratingManager.update(rating);
+            } else {
+                rating = ratingManager.create(rating);
+            }
 
             ContentValues bottleRatingContent = new ContentValues();
             bottleRatingContent.put(databaseHelper.BOTTLE_RATING_KEY_BOTTLE_ID, bottle.getId());
@@ -166,6 +172,22 @@ public class BottleManager extends InterCellarManager<Bottle> {
         bottle.setRatingList(ratingList);
 
         return bottle;
+    }
+
+    private ContentValues buildBottleContentValues(InterCellarDatabase databaseHelper, Bottle bottle) {
+        ContentValues values = new ContentValues();
+
+        values.put(databaseHelper.BOTTLE_KEY_YEAR, bottle.getYear());
+        values.put(databaseHelper.BOTTLE_KEY_NAME, bottle.getName());
+        values.put(databaseHelper.BOTTLE_KEY_PRICE, bottle.getPrice());
+        values.put(databaseHelper.BOTTLE_KEY_PICTURE, bottle.getPicture());
+        values.put(databaseHelper.BOTTLE_KEY_DESCRIPTION, bottle.getDescription());
+        values.put(databaseHelper.BOTTLE_KEY_TYPE, bottle.getType());
+        values.put(databaseHelper.BOTTLE_KEY_MARKET, bottle.getMarket());
+        values.put(databaseHelper.BOTTLE_KEY_COORDINATES, bottle.getCoordinates());
+        values.put(databaseHelper.BOTTLE_KEY_CHATEAU_ID, bottle.getChateau().getId());
+
+        return values;
     }
 
     // end region

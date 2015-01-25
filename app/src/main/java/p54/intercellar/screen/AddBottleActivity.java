@@ -33,6 +33,7 @@ import java.util.List;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
+import p54.intercellar.controller.InterCellarController;
 import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Chateau;
 import p54.intercellar.model.Rating;
@@ -42,7 +43,10 @@ import p54.intercellar.view.BottleDetailsFragment;
 public class AddBottleActivity extends InterCellarActivity<BottleController> {
     private static final int PICTURE_TAKEN = 1;
     private static final int CHATEAU_CREATED = 2;
+    private static final int BOTTLE_ADDED = 10;
+    private static final int BOTTLE_EDITED = 11;
     private String pictureFileName = "";
+    private Bottle currentBottle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,12 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
                     R.layout.support_simple_spinner_dropdown_item, chateauList));
         } else {
             selectChateau.setVisibility(View.GONE);
+        }
+
+        String action = getIntent().getStringExtra("action");
+        if (action.equals("edit")) {
+            long id = getIntent().getLongExtra("bottleId", -1);
+            currentBottle = getController().getBottle(id);
         }
     }
 
@@ -117,8 +127,22 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
     }
 
     public void onAddBottleButtonPressed(View v) {
-        Bottle bottle = new Bottle();
+        Bottle bottle = extractBottleData(new Bottle());
 
+        getController().createBottle(bottle);
+        setResult(BOTTLE_ADDED);
+        finish();
+    }
+
+    public void onEditBottleButtonPressed(View v) {
+        Bottle bottle = extractBottleData(currentBottle);
+
+        getController().updateBottle(bottle);
+        setResult(BOTTLE_EDITED);
+        finish();
+    }
+
+    private Bottle extractBottleData(Bottle bottle) {
         String name = ((EditText) findViewById(R.id.edit_text_bottle_name)).getText().toString();
         String year = ((EditText) findViewById(R.id.edit_text_bottle_year)).getText().toString();
         String priceString = ((EditText) findViewById(R.id.edit_text_bottle_price)).getText().toString();
@@ -152,9 +176,6 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
         List<Rating> ratingList = new ArrayList<>();
         bottle.setRatingList(ratingList);
 
-        getController().createBottle(bottle);
-        Toast.makeText(this, R.string.bottle_successfully_added, Toast.LENGTH_LONG);
-        Intent bottleActivity = new Intent(this, BottleActivity.class);
-        startActivity(bottleActivity);
+        return bottle;
     }
 }

@@ -1,6 +1,7 @@
 package p54.intercellar.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -38,7 +39,6 @@ public class BottleFragment extends InterCellarListFragment<BottleController> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: Change Adapter to display your content
         setListAdapter(new ArrayAdapter<Bottle>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, getController().getBottleList()));
     }
@@ -61,6 +61,22 @@ public class BottleFragment extends InterCellarListFragment<BottleController> {
         mListener = null;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getListView().invalidate();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getListView().invalidate();
+    }
+
+    public void refreshList() {
+        setListAdapter(new ArrayAdapter<Bottle>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, getController().getBottleList()));
+    }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {

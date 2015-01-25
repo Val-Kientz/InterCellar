@@ -78,6 +78,8 @@ public class BottleController extends InterCellarController<BottleManager> {
         return getManager().create(bottle);
     }
 
+    public Bottle updateBottle(Bottle bottle) { return getManager().update(bottle); }
+
     public List<Chateau> getChateauList() {
         return chateauController.getChateauList();
     }

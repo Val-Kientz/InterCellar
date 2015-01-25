@@ -28,5 +28,7 @@
     <string name="chateau_domain">Domaine</string>
     <string name="no_bottle">Nous n\'avons trouvé aucune bouteille. Essayez d\'en ajouter une !</string>
     <string name="an_error_occured_while_creating_chateau">Une erreur est survenue lors de la création du chateau</string>
+    <string name="edit_bottle">Editer la bouteille</string>
+    <string name="bottle_successfully_edited">La bouteille a bien été éditée</string>
 
 </resources>
