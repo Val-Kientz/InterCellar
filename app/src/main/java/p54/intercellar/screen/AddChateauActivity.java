@@ -1,5 +1,6 @@
 package p54.intercellar.screen;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -18,6 +19,8 @@ import p54.intercellar.controller.ChateauController;
 import p54.intercellar.model.Chateau;
 
 public class AddChateauActivity extends InterCellarActivity<ChateauController> {
+    public final static int CHATEAU_CREATED = 1;
+    public final static int CHATEAU_NOT_CREATED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,14 @@ public class AddChateauActivity extends InterCellarActivity<ChateauController> {
         chateau.setRegion(region);
         chateau.setDomain(domain);
 
-        getController().createChateau(chateau);
+        Intent result = new Intent();
+        try {
+            getController().createChateau(chateau);
+            setResult(CHATEAU_CREATED, result);
+        } catch (Exception e) {
+            setResult(CHATEAU_NOT_CREATED, result);
+        }
+
+        finish();
     }
 }

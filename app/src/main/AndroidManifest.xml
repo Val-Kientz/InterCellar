@@ -44,6 +44,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="p54.intercellar.screen.AddBottleActivity" />
         </activity>
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-feature android:name="android.hardware.camera" />
+        <uses-feature android:name="android.hardware.camera.autofocus" />
     </application>
 
 </manifest>

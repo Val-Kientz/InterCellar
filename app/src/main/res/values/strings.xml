@@ -26,6 +26,7 @@
     <string name="select_a_chateau">Sélectionner un chateau</string>
     <string name="chateau_region">Région</string>
     <string name="chateau_domain">Domaine</string>
-    <string name="no_bottle">No bottles to show. Try to add one!</string>
+    <string name="no_bottle">Nous n\'avons trouvé aucune bouteille. Essayez d\'en ajouter une !</string>
+    <string name="an_error_occured_while_creating_chateau">Une erreur est survenue lors de la création du chateau</string>
 
 </resources>

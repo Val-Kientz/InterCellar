@@ -1,6 +1,11 @@
 package p54.intercellar.screen;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,10 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +33,8 @@ import p54.intercellar.model.Rating;
 import p54.intercellar.model.Shelf;
 
 public class AddBottleActivity extends InterCellarActivity<BottleController> {
-    private final int REFRESH_IMAGE = 1;
+    private static final int PICTURE_TAKEN = 1;
+    private static final int CHATEAU_CREATED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +75,45 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
     }
 
     public void onSelectImagePressed(View v) {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, REFRESH_IMAGE);
+        Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        /*Uri imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"bottle_picture_" +
+                String.valueOf(System.currentTimeMillis()) + ".jpg"));
+        camera.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUri);*/
+        startActivityForResult(camera, PICTURE_TAKEN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case PICTURE_TAKEN:
+                if (data != null) {
+                    Bundle extras = data.getExtras();
+                    Bitmap image = (Bitmap) extras.get("data");
+
+                    if (image != null) {
+                        ImageView imageView = (ImageView) findViewById(R.id.image_bottle_piture);
+                        imageView.setImageBitmap(image);
+                    }
+                }
+                break;
+            case CHATEAU_CREATED:
+                if (resultCode == AddChateauActivity.CHATEAU_CREATED) {
+                    List<Chateau> chateauList = getController().getChateauList();
+
+                    ((Spinner) findViewById(R.id.spinner_select_chateau)).setAdapter(new ArrayAdapter<Chateau>(this,
+                            R.layout.support_simple_spinner_dropdown_item, chateauList));
+                } else {
+                    Toast.makeText(this, R.string.an_error_occured_while_creating_chateau, Toast.LENGTH_LONG);
+                }
+                break;
+        }
     }
 
     public void onAddChateauButtonPressed(View v) {
         Intent addChateauActivity = new Intent(this, AddChateauActivity.class);
-        startActivity(addChateauActivity);
+        startActivityForResult(addChateauActivity, CHATEAU_CREATED);
     }
 
     public void onAddBottleButtonPressed(View v) {
