@@ -17,8 +17,11 @@ import p54.intercellar.model.Rating;
  * Created by Simon on 09/01/2015.
  */
 public class BottleController extends InterCellarController<BottleManager> {
+    private ChateauController chateauController;
+
     public BottleController(Context context) {
         super(context);
+        chateauController = new ChateauController(context);
 
         /*
         Chateau chateau = new Chateau();
@@ -63,5 +66,9 @@ public class BottleController extends InterCellarController<BottleManager> {
 
     public Bottle createBottle(Bottle bottle) {
         return getManager().create(bottle);
+    }
+
+    public List<Chateau> getChateauList() {
+        return chateauController.getChateauList();
     }
 }

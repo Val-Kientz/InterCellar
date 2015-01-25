@@ -152,23 +152,39 @@
         android:inputType="text"
         android:layout_marginBottom="15dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/select_a_chateau"
+        android:id="@+id/label_select_chateau"
+        android:layout_below="@+id/edit_text_bottle_market"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_select_chateau"
+        android:layout_below="@+id/label_select_chateau"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_a_chateau"
+        android:id="@+id/button_add_chateau"
+        android:layout_below="@+id/spinner_select_chateau"
+        android:layout_centerHorizontal="true"
+        android:onClick="onAddChateauButtonPressed" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_a_bottle"
         android:id="@+id/button_add_bottle"
-        android:layout_below="@+id/edit_text_bottle_market"
+        android:layout_below="@+id/button_add_chateau"
         android:layout_centerHorizontal="true"
-        android:onClick="onAddButtonBottlePressed" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView2"
-        android:layout_above="@+id/button_add_bottle"
-        android:layout_centerHorizontal="true" />
+        android:onClick="onAddBottleButtonPressed" />
 
 </RelativeLayout>
 </ScrollView>

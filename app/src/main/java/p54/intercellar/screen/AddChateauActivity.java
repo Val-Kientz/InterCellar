@@ -2,10 +2,16 @@ package p54.intercellar.screen;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.List;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.ChateauController;
@@ -44,6 +50,13 @@ public class AddChateauActivity extends InterCellarActivity<ChateauController> {
 
     public void onAddChateauButtonPressed(View v) {
         Chateau chateau = new Chateau();
-        Toast.makeText(this, "Adding bottle", Toast.LENGTH_LONG);
+
+        String region = ((EditText) findViewById(R.id.text_edit_chateau_region)).getText().toString();
+        String domain = ((EditText) findViewById(R.id.text_edit_chateau_domain)).getText().toString();
+
+        chateau.setRegion(region);
+        chateau.setDomain(domain);
+
+        getController().createChateau(chateau);
     }
 }

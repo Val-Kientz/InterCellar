@@ -31,4 +31,8 @@ public class Chateau {
     public void setRegion(String region) {
         this.region = region;
     }
+
+    public String toString() {
+        return region + " (" + domain + ")";
+    }
 }

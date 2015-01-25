@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,15 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bottle);
+
+        List<Chateau> chateauList = getController().getChateauList();
+        Spinner selectChateau = (Spinner) findViewById(R.id.spinner_select_chateau);
+        if (!chateauList.isEmpty()) {
+            selectChateau.setAdapter(new ArrayAdapter<Chateau>(this,
+                    R.layout.support_simple_spinner_dropdown_item, chateauList));
+        } else {
+            selectChateau.setVisibility(View.INVISIBLE);
+        }
     }
 
 
@@ -59,12 +70,23 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
         startActivityForResult(gallery, REFRESH_IMAGE);
     }
 
-    public void onAddButtonBottlePressed(View v) {
+    public void onAddChateauButtonPressed(View v) {
+        Intent addChateauActivity = new Intent(this, AddChateauActivity.class);
+        startActivity(addChateauActivity);
+    }
+
+    public void onAddBottleButtonPressed(View v) {
         Bottle bottle = new Bottle();
 
         String name = ((EditText) findViewById(R.id.edit_text_bottle_name)).getText().toString();
         String year = ((EditText) findViewById(R.id.edit_text_bottle_year)).getText().toString();
-        double price = Double.parseDouble(((EditText) findViewById(R.id.edit_text_bottle_price)).getText().toString());
+        String priceString = ((EditText) findViewById(R.id.edit_text_bottle_price)).getText().toString();
+        double price;
+        if (!priceString.equals("")) {
+            price = Double.parseDouble(priceString);
+        } else {
+            price = 0;
+        }
         String picture = "";
         String description = ((EditText) findViewById(R.id.edit_text_bottle_description)).getText().toString();
         String type = ((EditText) findViewById(R.id.edit_text_bottle_type)).getText().toString();
@@ -78,9 +100,7 @@ public class AddBottleActivity extends InterCellarActivity<BottleController> {
         bottle.setType(type);
         bottle.setMarket(market);
 
-        Chateau chateau = new Chateau();
-        chateau.setRegion("Test");
-        chateau.setDomain("Domaine Test");
+        Chateau chateau = (Chateau) ((Spinner) findViewById(R.id.spinner_select_chateau)).getSelectedItem();
         bottle.setChateau(chateau);
 
         List<Rating> ratingList = new ArrayList<>();

@@ -6,8 +6,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.List;
+
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
+import p54.intercellar.model.Bottle;
 import p54.intercellar.view.AddBottleButtonFragment;
 import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.BottleFragment;
@@ -19,6 +22,16 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_bottle);
+
+        BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
+                .findFragmentById(R.id.fragment_bottle_details_land);
+
+        if (bottleDetailsFragment != null) {
+            List<Bottle> bottleList = getController().getBottleList();
+            if (!bottleList.isEmpty()) {
+                bottleDetailsFragment.showBottleDetails(bottleList.get(0).getId());
+            }
+        }
     }
 
 
@@ -51,7 +64,7 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
 
         if (bottleDetailsFragment == null) {
             Intent bottleDetailsActivity = new Intent(this, BottleDetailsActivity.class);
-            bottleDetailsActivity.putExtra("id", id);
+            bottleDetailsActivity.putExtra("bottleId", id);
             startActivity(bottleDetailsActivity);
         } else {
             bottleDetailsFragment.showBottleDetails(id);
