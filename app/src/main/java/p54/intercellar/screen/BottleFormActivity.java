@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import p54.intercellar.R;
@@ -38,6 +39,9 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
     private String pictureFileName = "";
     private Bottle currentBottle;
 
+    private HashMap<String, Integer> formResourcesMap = new HashMap<String, Integer>();
+    private HashMap<String, String> formValuesMap = new HashMap<String, String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +52,13 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
             currentBottle = getController().getBottle(id);
             setContentView(R.layout.activity_bottle_form_edit);
             setTitle(R.string.edit_bottle);
+            fillChateauSpinner();
+            setBottleData(currentBottle);
         } else {
             setContentView(R.layout.activity_bottle_form_add);
             setTitle(R.string.add_a_bottle);
+            fillChateauSpinner();
         }
-
-        fillChateauSpinner();
     }
 
     private void fillChateauSpinner() {
@@ -65,6 +70,69 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
         } else {
             selectChateau.setVisibility(View.GONE);
         }
+    }
+
+    private void fillFormResourcesMap() {
+        formResourcesMap.put("name", R.id.edit_text_bottle_name);
+        formResourcesMap.put("year", R.id.edit_text_bottle_year);
+        formResourcesMap.put("price", R.id.edit_text_bottle_price);
+        formResourcesMap.put("description", R.id.edit_text_bottle_description);
+        formResourcesMap.put("market", R.id.edit_text_bottle_market);
+        formResourcesMap.put("type", R.id.edit_text_bottle_type);
+    }
+
+    private void fillFormValuesMap() {
+        if (formResourcesMap.isEmpty()) {
+            fillFormResourcesMap();
+        }
+
+        for (String res: formResourcesMap.keySet()) {
+            formValuesMap.put(res, ((EditText) findViewById(formResourcesMap.get(res))).getText().toString());
+        }
+    }
+
+    private void fillFormValuesMap(Bottle bottle) {
+        if (formResourcesMap.isEmpty()) {
+            fillFormResourcesMap();
+        }
+
+        for (String res: formResourcesMap.keySet()) {
+            String value;
+            switch (res) {
+                case "name":
+                    value = bottle.getName();
+                    break;
+                case "year":
+                    value = bottle.getYear();
+                    break;
+                case "price":
+                    value = String.valueOf(bottle.getPrice());
+                    break;
+                case "description":
+                    value = bottle.getDescription();
+                    break;
+                case "market":
+                    value = bottle.getMarket();
+                    break;
+                case "type":
+                    value = bottle.getType();
+                    break;
+                default:
+                    value = "";
+                    break;
+            }
+
+            formValuesMap.put(res, value);
+            ((EditText) findViewById(formResourcesMap.get(res))).setText(value);
+        }
+    }
+
+    private void setBottleData(Bottle bottle) {
+        fillFormValuesMap(currentBottle);
+
+        Spinner chateauSpinner = ((Spinner) findViewById(R.id.spinner_select_chateau));
+        int chateauPosition = ((ArrayAdapter<Chateau>) chateauSpinner.getAdapter()).getPosition(bottle.getChateau());
+        chateauSpinner.setSelection(chateauPosition);
     }
 
     @Override
@@ -104,8 +172,12 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
                 if (resultCode == AddChateauActivity.CHATEAU_CREATED) {
                     List<Chateau> chateauList = getController().getChateauList();
 
-                    ((Spinner) findViewById(R.id.spinner_select_chateau)).setAdapter(new ArrayAdapter<Chateau>(this,
+                    Spinner chateauSpinner = ((Spinner) findViewById(R.id.spinner_select_chateau));
+                    chateauSpinner.setAdapter(new ArrayAdapter<Chateau>(this,
                             R.layout.support_simple_spinner_dropdown_item, chateauList));
+                    chateauSpinner.setSelection(chateauSpinner.getAdapter().getCount() - 1);
+                    chateauSpinner.invalidate();
+
                 } else {
                     Toast.makeText(this, R.string.an_error_occured_while_creating_chateau, Toast.LENGTH_LONG);
                 }
@@ -114,18 +186,14 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
     }
 
     private Bottle extractBottleData(Bottle bottle) {
-        String name = ((EditText) findViewById(R.id.edit_text_bottle_name)).getText().toString();
-        String year = ((EditText) findViewById(R.id.edit_text_bottle_year)).getText().toString();
-        String priceString = ((EditText) findViewById(R.id.edit_text_bottle_price)).getText().toString();
+        fillFormValuesMap();
+
         double price;
-        if (!priceString.equals("")) {
-            price = Double.parseDouble(priceString);
+        if (!formValuesMap.get("price").equals("")) {
+            price = Double.parseDouble(formValuesMap.get("price"));
         } else {
             price = 0;
         }
-        String description = ((EditText) findViewById(R.id.edit_text_bottle_description)).getText().toString();
-        String type = ((EditText) findViewById(R.id.edit_text_bottle_type)).getText().toString();
-        String market = ((EditText) findViewById(R.id.edit_text_bottle_market)).getText().toString();
 
         if (!pictureFileName.equals("")) {
             bottle.setPicture(pictureFileName);
@@ -133,12 +201,12 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
             bottle.setPicture("");
         }
 
-        bottle.setName(name);
-        bottle.setYear(year);
+        bottle.setName(formValuesMap.get("name"));
+        bottle.setYear(formValuesMap.get("year"));
         bottle.setPrice(price);
-        bottle.setDescription(description);
-        bottle.setType(type);
-        bottle.setMarket(market);
+        bottle.setDescription(formValuesMap.get("description"));
+        bottle.setType(formValuesMap.get("type"));
+        bottle.setMarket(formValuesMap.get("market"));
         bottle.setPicture(pictureFileName);
 
         Chateau chateau = (Chateau) ((Spinner) findViewById(R.id.spinner_select_chateau)).getSelectedItem();

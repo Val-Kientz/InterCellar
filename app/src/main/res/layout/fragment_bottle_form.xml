@@ -10,20 +10,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/add_a_bottle"
-        android:id="@+id/text_add_bottle_title"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/bottle_name"
         android:id="@+id/label_bottle_name"
-        android:layout_below="@+id/text_add_bottle_title"
         android:layout_centerHorizontal="true" />
 
     <EditText
