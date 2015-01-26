@@ -1,14 +1,18 @@
 package p54.intercellar.screen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.view.BottleDetailsFragment;
 
 public class BottleDetailsActivity extends InterCellarActivity<BottleController> {
+    private static final int EDIT_BOTTLE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +47,23 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onEditButtonPressed(View v) {
+        Intent editBottleActivity = new Intent(this, BottleFormActivity.class);
+        editBottleActivity.putExtra("action", "edit");
+        editBottleActivity.putExtra("bottleId", getController().getCurrentBottleId());
+        startActivityForResult(editBottleActivity, EDIT_BOTTLE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case EDIT_BOTTLE:
+                Toast.makeText(this, R.string.bottle_successfully_edited, Toast.LENGTH_LONG);
+                break;
+        }
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollView"
+    android:layout_gravity="center_horizontal">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/edit_bottle"
+            android:id="@+id/title_edit_bottle"
+            android:layout_gravity="center_horizontal" />
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="p54.intercellar.view.BottleFormFragment"
+            android:id="@+id/fragment_bottle_form"
+            android:layout_gravity="center_horizontal"
+            tools:layout="@layout/fragment_bottle_form" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_bottle"
+            android:id="@+id/button_edit_bottle"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onEditClick" />
+    </LinearLayout>
+</ScrollView>

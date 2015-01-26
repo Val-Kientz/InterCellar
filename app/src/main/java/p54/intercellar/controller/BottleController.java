@@ -28,6 +28,7 @@ import p54.intercellar.model.Rating;
  */
 public class BottleController extends InterCellarController<BottleManager> {
     private ChateauController chateauController;
+    private long currentBottleId = -1;
 
     public BottleController(Context context) {
         super(context);
@@ -130,5 +131,13 @@ public class BottleController extends InterCellarController<BottleManager> {
         }
 
         return bitmap;
+    }
+
+    public void setCurrentBottleId(long bottleId) {
+        this.currentBottleId = bottleId;
+    }
+
+    public long getCurrentBottleId() {
+        return currentBottleId;
     }
 }

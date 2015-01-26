@@ -1,8 +1,5 @@
 package p54.intercellar.screen;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,13 +12,11 @@ import java.util.List;
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.model.Bottle;
-import p54.intercellar.view.AddBottleButtonFragment;
 import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.BottleFragment;
 
 public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener {
     private static final int ADD_BOTTLE = 1;
-    private static final int EDIT_BOTTLE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +31,8 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         if (bottleDetailsFragment != null) {
             List<Bottle> bottleList = getController().getBottleList();
             if (!bottleList.isEmpty()) {
-                bottleDetailsFragment.showBottleDetails(bottleList.get(0).getId());
+                getController().setCurrentBottleId(bottleList.get(0).getId());
+                bottleDetailsFragment.showBottleDetails(getController().getCurrentBottleId());
             }
         }
     }
@@ -79,16 +75,8 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     }
 
     public void onAddButtonPressed(View v) {
-        Intent addBottleActivity = new Intent(this, AddBottleActivity.class);
+        Intent addBottleActivity = new Intent(this, BottleFormActivity.class);
         startActivityForResult(addBottleActivity, ADD_BOTTLE);
-    }
-
-    public void onEditButtonPressed(View v) {
-        Intent editBottleActivity = new Intent(this, AddBottleActivity.class);
-        editBottleActivity.putExtra("action", "edit");
-        // TODO: Put bottle id in extras!!!
-        //editBottleActivity.putExtra("bottleId", );
-        startActivityForResult(editBottleActivity, EDIT_BOTTLE);
     }
 
     @Override
@@ -98,10 +86,6 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         switch (requestCode) {
             case ADD_BOTTLE:
                 Toast.makeText(this, R.string.bottle_successfully_added, Toast.LENGTH_LONG);
-                break;
-
-            case EDIT_BOTTLE:
-                Toast.makeText(this, R.string.bottle_successfully_edited, Toast.LENGTH_LONG);
                 break;
         }
 

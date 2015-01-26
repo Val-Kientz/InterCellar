@@ -1,14 +1,11 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent">
-<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="p54.intercellar.screen.AddBottleActivity">
+    tools:context="p54.intercellar.screen.BottleFormActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -95,7 +92,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="15dp"
-        android:onClick="onSelectImagePressed"/>
+        android:onClick="onPictureClick"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -176,16 +173,6 @@
         android:id="@+id/button_add_chateau"
         android:layout_below="@+id/spinner_select_chateau"
         android:layout_centerHorizontal="true"
-        android:onClick="onAddChateauButtonPressed" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_a_bottle"
-        android:id="@+id/button_add_bottle"
-        android:layout_below="@+id/button_add_chateau"
-        android:layout_centerHorizontal="true"
-        android:onClick="onAddBottleButtonPressed" />
+        android:onClick="onAddChateauClick" />
 
 </RelativeLayout>
-</ScrollView>

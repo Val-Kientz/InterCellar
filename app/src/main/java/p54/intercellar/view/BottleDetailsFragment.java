@@ -37,6 +37,7 @@ public class BottleDetailsFragment extends InterCellarFragment<BottleController>
     }
 
     public void showBottleDetails(long id) {
+        getController().setCurrentBottleId(id);
         Bottle bottle = getController().getBottle(id);
         if (bottle != null) {
             setBottleDetails(bottle);

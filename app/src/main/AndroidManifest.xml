@@ -35,7 +35,7 @@
                 android:value="p54.intercellar.screen.BottleActivity" />
         </activity>
         <activity
-            android:name=".screen.AddBottleActivity"
+            android:name=".screen.BottleFormActivity"
             android:label="@string/title_activity_add_bottle"
             android:parentActivityName=".screen.BottleActivity" >
             <meta-data
@@ -45,10 +45,10 @@
         <activity
             android:name=".screen.AddChateauActivity"
             android:label="@string/title_activity_add_chateau"
-            android:parentActivityName=".screen.AddBottleActivity" >
+            android:parentActivityName=".screen.BottleFormActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="p54.intercellar.screen.AddBottleActivity" />
+                android:value=".screen.BottleFormActivity" />
         </activity>
         <uses-permission android:name="android.permission.CAMERA" />
         <uses-feature android:name="android.hardware.camera" />
