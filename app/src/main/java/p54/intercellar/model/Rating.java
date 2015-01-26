@@ -9,7 +9,7 @@ public class Rating {
     private long id;
     private String comment;
     private Date date;
-    private float rate;
+    private double rate;
 
     public long getId() {
         return id;
@@ -35,11 +35,11 @@ public class Rating {
         this.date = date;
     }
 
-    public float getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(float rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 }

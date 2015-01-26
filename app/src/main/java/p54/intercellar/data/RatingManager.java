@@ -78,7 +78,7 @@ public class RatingManager extends InterCellarManager {
         rating.setComment(cursor.getString(cursor.getColumnIndex(databaseHelper.RATING_KEY_COMMENT)));
         Date date = new Date(Long.parseLong(cursor.getString(cursor.getColumnIndex(databaseHelper.RATING_KEY_DATE))));
         rating.setDate(date);
-        rating.setRate(cursor.getFloat(cursor.getColumnIndex(databaseHelper.RATING_KEY_RATE)));
+        rating.setRate(cursor.getDouble(cursor.getColumnIndex(databaseHelper.RATING_KEY_RATE)));
 
         return rating;
     }

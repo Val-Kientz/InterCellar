@@ -74,7 +74,7 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         }
     }
 
-    public void onAddButtonPressed(View v) {
+    public void onAddClick(View v) {
         Intent addBottleActivity = new Intent(this, BottleFormActivity.class);
         startActivityForResult(addBottleActivity, ADD_BOTTLE);
     }

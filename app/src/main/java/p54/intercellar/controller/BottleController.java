@@ -28,11 +28,13 @@ import p54.intercellar.model.Rating;
  */
 public class BottleController extends InterCellarController<BottleManager> {
     private ChateauController chateauController;
+    private RatingController ratingController;
     private long currentBottleId = -1;
 
     public BottleController(Context context) {
         super(context);
         chateauController = new ChateauController(context);
+        ratingController = new RatingController(context);
 
         /*
         Chateau chateau = new Chateau();
@@ -84,6 +86,8 @@ public class BottleController extends InterCellarController<BottleManager> {
     public List<Chateau> getChateauList() {
         return chateauController.getChateauList();
     }
+
+    public List<Rating> getRatingList(long bottleId) { return ratingController.getRatingList(bottleId); }
 
     public int getBottleCount() {
         return getManager().count();

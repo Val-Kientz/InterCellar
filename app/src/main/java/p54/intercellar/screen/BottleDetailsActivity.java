@@ -10,9 +10,11 @@ import android.widget.Toast;
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.view.BottleDetailsFragment;
+import p54.intercellar.view.RatingsFragment;
 
 public class BottleDetailsActivity extends InterCellarActivity<BottleController> {
     private static final int EDIT_BOTTLE = 2;
+    private static final int ADD_RATING = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,16 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
         return super.onOptionsItemSelected(item);
     }
 
-    public void onEditButtonPressed(View v) {
+    public void onEditClick(View v) {
         Intent editBottleActivity = new Intent(this, BottleFormActivity.class);
-        editBottleActivity.putExtra("action", "edit");
         editBottleActivity.putExtra("bottleId", getController().getCurrentBottleId());
         startActivityForResult(editBottleActivity, EDIT_BOTTLE);
+    }
+
+    public void onAddRatingClick(View v) {
+        Intent addRatingActivity = new Intent(this, AddRatingActivity.class);
+        addRatingActivity.putExtra("bottleId", getController().getCurrentBottleId());
+        startActivityForResult(addRatingActivity, ADD_RATING);
     }
 
     @Override
@@ -63,6 +70,13 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
         switch (requestCode) {
             case EDIT_BOTTLE:
                 Toast.makeText(this, R.string.bottle_successfully_edited, Toast.LENGTH_LONG);
+                BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_details);
+                bottleDetailsFragment.showBottleDetails(getController().getCurrentBottleId());
+                break;
+            case ADD_RATING:
+                RatingsFragment ratingsFragment = (RatingsFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
+                //TODO: REFRESH RATINGS
+                ratingsFragment.refreshRatingList(getController().getCurrentBottleId());
                 break;
         }
     }

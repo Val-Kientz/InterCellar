@@ -30,5 +30,11 @@
     <string name="an_error_occured_while_creating_chateau">Une erreur est survenue lors de la création du chateau</string>
     <string name="edit_bottle">Editer la bouteille</string>
     <string name="bottle_successfully_edited">La bouteille a bien été éditée</string>
+    <string name="add_rating">Ajouter une note</string>
+    <string name="title_activity_add_form">AddFormActivity</string>
+    <string name="title_activity_add_rating">AddRatingActivity</string>
+    <string name="rating_rate">Note</string>
+    <string name="rating_comment">Commentaire</string>
+    <string name="rating_date">Date</string>
 
 </resources>

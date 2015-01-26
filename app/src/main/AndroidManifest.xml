@@ -50,9 +50,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".screen.BottleFormActivity" />
         </activity>
+
         <uses-permission android:name="android.permission.CAMERA" />
+
         <uses-feature android:name="android.hardware.camera" />
         <uses-feature android:name="android.hardware.camera.autofocus" />
+
+        <activity
+            android:name=".screen.AddRatingActivity"
+            android:label="@string/title_activity_add_rating"
+            android:parentActivityName=".screen.BottleDetailsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="p54.intercellar.screen.BottleDetailsActivity" />
+        </activity>
     </application>
 
 </manifest>
