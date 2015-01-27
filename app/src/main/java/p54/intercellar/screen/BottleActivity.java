@@ -74,11 +74,6 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         }
     }
 
-    public void onAddClick(View v) {
-        Intent addBottleActivity = new Intent(this, BottleFormActivity.class);
-        startActivityForResult(addBottleActivity, ADD_BOTTLE);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -91,5 +86,10 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
 
         BottleFragment bottleFragment = (BottleFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle);
         bottleFragment.refreshList();
+    }
+
+    public void onAddClick(MenuItem menuItem) {
+        Intent addBottleActivity = new Intent(this, BottleFormActivity.class);
+        startActivityForResult(addBottleActivity, ADD_BOTTLE);
     }
 }
