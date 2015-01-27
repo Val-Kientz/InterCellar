@@ -4,37 +4,43 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import java.util.Date;
 
 import p54.intercellar.R;
+import p54.intercellar.controller.InterCellarController;
+import p54.intercellar.controller.RatingController;
+import p54.intercellar.model.Rating;
 
-public class AddRatingActivity extends ActionBarActivity {
+public class AddRatingActivity extends InterCellarActivity<RatingController> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        long bottleId = getIntent().getLongExtra("bottleId", -1);
+        getController().setCurrentBottleId(bottleId);
         setContentView(R.layout.activity_add_rating);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_rating, menu);
-        return true;
+    public void onAddClick(View v) {
+        Rating rating = getRatingFromView();
+        getController().addRatingForCurrentBottle(rating);
+        setResult(0);
+        finish();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private Rating getRatingFromView() {
+        Rating rating = new Rating();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        double rate = Double.parseDouble(((EditText) findViewById(R.id.edit_text_rating_rate)).getText().toString());
+        String comment = ((EditText) findViewById(R.id.edit_text_rating_comment)).getText().toString();
 
-        return super.onOptionsItemSelected(item);
+        rating.setRate(rate);
+        rating.setComment(comment);
+        rating.setDate(new Date());
+
+        return rating;
     }
 }

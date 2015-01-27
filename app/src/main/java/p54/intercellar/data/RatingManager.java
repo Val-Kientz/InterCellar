@@ -71,6 +71,19 @@ public class RatingManager extends InterCellarManager {
 
         return ratingList;
     }
+
+    public void addRatingForBottle(long bottleId, Rating rating) {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        Rating savedRating = create(rating);
+        ContentValues values = new ContentValues();
+        values.put(databaseHelper.BOTTLE_RATING_KEY_BOTTLE_ID, bottleId);
+        values.put(databaseHelper.BOTTLE_RATING_KEY_RATING_ID, savedRating.getId());
+
+        database.insert(databaseHelper.TABLE_BOTTLE_RATING, null, values);
+    }
+
     private Rating buildRating(InterCellarDatabase databaseHelper, Cursor cursor)
     {
         Rating rating = new Rating();

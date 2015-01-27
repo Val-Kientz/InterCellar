@@ -31,10 +31,11 @@
     <string name="edit_bottle">Editer la bouteille</string>
     <string name="bottle_successfully_edited">La bouteille a bien été éditée</string>
     <string name="add_rating">Ajouter une note</string>
-    <string name="title_activity_add_form">AddFormActivity</string>
-    <string name="title_activity_add_rating">AddRatingActivity</string>
+    <string name="title_activity_add_rating">Ajouter une note</string>
     <string name="rating_rate">Note</string>
     <string name="rating_comment">Commentaire</string>
     <string name="rating_date">Date</string>
+    <string name="add">Ajouter</string>
+    <string name="edit">Editer</string>
 
 </resources>

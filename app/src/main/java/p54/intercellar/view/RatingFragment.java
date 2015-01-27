@@ -1,8 +1,10 @@
 package p54.intercellar.view;
 
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +15,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import p54.intercellar.R;
+import p54.intercellar.controller.BottleController;
 import p54.intercellar.controller.RatingController;
+import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Rating;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RatingsFragment extends InterCellarFragment<RatingController> {
-    public RatingsFragment() {
+public class RatingFragment extends InterCellarFragment<BottleController> {
+    public RatingFragment() {
         // Required empty public constructor
     }
 
@@ -32,11 +36,13 @@ public class RatingsFragment extends InterCellarFragment<RatingController> {
         return inflater.inflate(R.layout.fragment_ratings, container, false);
     }
 
-    public void refreshRatingList(long bottleId) {
-        List<Rating> ratingList = getController().getRatingList(bottleId);
-
+    public void refreshRatingList() {
+        List<Rating> ratingList = getController().getRatingList(getController().getCurrentBottleId());
+        TableLayout ratingListTable = ((TableLayout) getView().findViewById(R.id.table_rating_list));
         for (Rating rating: ratingList) {
             TableRow tableRow = new TableRow(getActivity());
+            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
+
             TextView rateTextView = new TextView(getActivity());
             TextView commentTextView = new TextView(getActivity());
             TextView dateTextView = new TextView(getActivity());
@@ -49,7 +55,9 @@ public class RatingsFragment extends InterCellarFragment<RatingController> {
             tableRow.addView(commentTextView);
             tableRow.addView(dateTextView);
 
-            ((TableLayout) getView().findViewById(R.id.table_rating_list)).addView(tableRow);
+            ratingListTable.addView(tableRow);
         }
+
+        ratingListTable.invalidate();
     }
 }
