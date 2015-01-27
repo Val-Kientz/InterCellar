@@ -8,4 +8,9 @@
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_add"
         android:onClick="onAddClick"/>
+    <item android:id="@+id/action_add_rating"
+        android:title="@string/add_rating"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:onClick="onAddRatingClick"/>
 </menu>

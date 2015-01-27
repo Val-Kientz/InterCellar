@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -14,9 +15,11 @@ import p54.intercellar.controller.BottleController;
 import p54.intercellar.model.Bottle;
 import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.BottleFragment;
+import p54.intercellar.view.RatingFragment;
 
 public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener {
     private static final int ADD_BOTTLE = 1;
+    private static final int ADD_RATING = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_bottle, menu);
+
         return true;
     }
 
@@ -71,6 +75,11 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
             startActivity(bottleDetailsActivity);
         } else {
             bottleDetailsFragment.showBottleDetails(id);
+            RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
+            if (ratingFragment != null) {
+                ratingFragment.refreshRatingList();
+            }
+            ((ScrollView) findViewById(R.id.bottle_scroll_view_land)).fullScroll(View.FOCUS_UP);
         }
     }
 
@@ -82,14 +91,30 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
             case ADD_BOTTLE:
                 Toast.makeText(this, R.string.bottle_successfully_added, Toast.LENGTH_LONG);
                 break;
+            case ADD_RATING:
+
+                break;
         }
 
         BottleFragment bottleFragment = (BottleFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle);
-        bottleFragment.refreshList();
+        if (bottleFragment != null) {
+            bottleFragment.refreshList();
+        }
+
+        RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
+        if (ratingFragment != null) {
+            ratingFragment.refreshRatingList();
+        }
     }
 
     public void onAddClick(MenuItem menuItem) {
         Intent addBottleActivity = new Intent(this, BottleFormActivity.class);
         startActivityForResult(addBottleActivity, ADD_BOTTLE);
+    }
+
+    public void onAddRatingClick(MenuItem menuItem) {
+        Intent addRatingActivity = new Intent(this, AddRatingActivity.class);
+        addRatingActivity.putExtra("bottleId", getController().getCurrentBottleId());
+        startActivityForResult(addRatingActivity, ADD_RATING);
     }
 }

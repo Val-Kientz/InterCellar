@@ -1,8 +1,10 @@
 package p54.intercellar.view;
 
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,7 +39,6 @@ public class BottleDetailsFragment extends InterCellarFragment<BottleController>
     }
 
     public void showBottleDetails(long id) {
-        getController().setCurrentBottleId(id);
         Bottle bottle = getController().getBottle(id);
         if (bottle != null) {
             setBottleDetails(bottle);

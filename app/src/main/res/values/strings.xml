@@ -37,5 +37,8 @@
     <string name="rating_date">Date</string>
     <string name="add">Ajouter</string>
     <string name="edit">Editer</string>
+    <string name="ratings">Notes</string>
+    <string name="given_on">donnée le</string>
+    <string name="comment">Commentaire :</string>
 
 </resources>

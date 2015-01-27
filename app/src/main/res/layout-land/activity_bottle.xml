@@ -11,11 +11,28 @@
         android:id="@+id/fragment_bottle_land"
         tools:layout="@layout/simple_list_item_1" />
 
-    <fragment
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="p54.intercellar.view.BottleDetailsFragment"
-        android:id="@+id/fragment_bottle_details_land"
-        android:layout_gravity="right"
-        tools:layout="@layout/fragment_bottle_details" />
+        android:layout_height="wrap_content"
+        android:id="@+id/bottle_scroll_view_land">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="p54.intercellar.view.BottleDetailsFragment"
+                android:id="@+id/fragment_bottle_details_land"
+                android:layout_gravity="right"
+                tools:layout="@layout/fragment_bottle_details" />
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="p54.intercellar.view.RatingFragment"
+                android:id="@+id/fragment_rating_list"
+                tools:layout="@layout/fragment_ratings"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
