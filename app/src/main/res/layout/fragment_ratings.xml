@@ -10,10 +10,4 @@
 
     </TableLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_add_rating"
-        android:text="@string/add_rating"
-        android:onClick="onAddRatingClick"/>
 </LinearLayout>

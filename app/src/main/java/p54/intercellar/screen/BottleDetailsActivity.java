@@ -51,13 +51,13 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
         return super.onOptionsItemSelected(item);
     }
 
-    public void onEditClick(View v) {
+    public void onEditClick(MenuItem menuItem) {
         Intent editBottleActivity = new Intent(this, BottleFormActivity.class);
         editBottleActivity.putExtra("bottleId", getController().getCurrentBottleId());
         startActivityForResult(editBottleActivity, EDIT_BOTTLE);
     }
 
-    public void onAddRatingClick(View v) {
+    public void onAddRatingClick(MenuItem menuItem) {
         Intent addRatingActivity = new Intent(this, AddRatingActivity.class);
         addRatingActivity.putExtra("bottleId", getController().getCurrentBottleId());
         startActivityForResult(addRatingActivity, ADD_RATING);
