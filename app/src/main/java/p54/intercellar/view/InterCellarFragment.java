@@ -1,5 +1,6 @@
 package p54.intercellar.view;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
@@ -18,10 +19,10 @@ public abstract class InterCellarFragment<T> extends Fragment {
     private T controller;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
-        controller = (T) ((InterCellarActivity) getActivity()).getController();
+        controller = (T) ((InterCellarActivity) activity).getController();
     }
 
     protected T getController() {
