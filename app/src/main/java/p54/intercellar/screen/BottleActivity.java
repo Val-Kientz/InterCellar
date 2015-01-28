@@ -41,25 +41,9 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_bottle, menu);
 
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -71,13 +55,15 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
             bottleDetailsActivity.putExtra("bottleId", id);
             startActivity(bottleDetailsActivity);
         } else {
-            BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
-                    .findFragmentById(R.id.fragment_bottle_details_land);
-
-            bottleDetailsFragment.showBottleDetails(id);
+            BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_details_land);
             RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
+
+            if (bottleDetailsFragment != null) {
+                bottleDetailsFragment.showBottleDetails(id);
+            }
+
             if (ratingFragment != null) {
-                ratingFragment.refreshRatingList();
+                ratingFragment.refreshRatingList(id);
             }
             ((ScrollView) findViewById(R.id.bottle_scroll_view_land)).fullScroll(View.FOCUS_UP);
         }
@@ -103,7 +89,8 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
 
         RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
         if (ratingFragment != null) {
-            ratingFragment.refreshRatingList();
+            long bottleId = getController().getCurrentBottleId();
+            ratingFragment.refreshRatingList(bottleId);
         }
     }
 

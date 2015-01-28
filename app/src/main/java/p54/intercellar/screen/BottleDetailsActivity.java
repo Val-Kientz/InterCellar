@@ -60,7 +60,8 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
                 break;
             case ADD_RATING:
                 RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
-                ratingFragment.refreshRatingList();
+                long bottleId = getController().getCurrentBottleId();
+                ratingFragment.refreshRatingList(bottleId);
                 break;
         }
     }

@@ -39,7 +39,8 @@ public class RatingFragment extends InterCellarFragment<BottleController> {
     @Override
     public void onStart() {
         super.onStart();
-        refreshRatingList();
+        long bottleId = getController().getCurrentBottleId();
+        refreshRatingList(bottleId);
     }
 
     private List<Map<String, String>> formatForDetailedList(List<Rating> ratingList) {
@@ -57,10 +58,10 @@ public class RatingFragment extends InterCellarFragment<BottleController> {
         return formatedRatingList;
     }
 
-    public void refreshRatingList() {
+    public void refreshRatingList(long bottleId) {
         String[] stringAdapter = new String[]{"text1", "text2"};
         int[] layoutIds = new int[]{android.R.id.text1, android.R.id.text2};
-        List<Rating> ratingList = getController().getRatingList(getController().getCurrentBottleId());
+        List<Rating> ratingList = getController().getRatingList(bottleId);
         List<Map<String, String>> detailedList = formatForDetailedList(ratingList);
 
         ListView ratingListView = ((ListView) getView().findViewById(R.id.list_rating_list));
