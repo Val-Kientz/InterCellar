@@ -66,14 +66,14 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     public void onBottleClick(long id) {
         getController().setCurrentBottleId(id);
 
-        BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
-                .findFragmentById(R.id.fragment_bottle_details_land);
-
-        if (bottleDetailsFragment == null) {
+        if (findViewById(R.id.fragment_bottle_details_land) == null) {
             Intent bottleDetailsActivity = new Intent(this, BottleDetailsActivity.class);
             bottleDetailsActivity.putExtra("bottleId", id);
             startActivity(bottleDetailsActivity);
         } else {
+            BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
+                    .findFragmentById(R.id.fragment_bottle_details_land);
+
             bottleDetailsFragment.showBottleDetails(id);
             RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
             if (ratingFragment != null) {
