@@ -52,8 +52,6 @@ public class CellarFragment extends InterCellarListFragment<CellarController> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CellarController cc = getController();
-
         // TODO: Change Adapter to display your content
         setListAdapter(new ArrayAdapter<Cellar>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, getController().getCellarList()));

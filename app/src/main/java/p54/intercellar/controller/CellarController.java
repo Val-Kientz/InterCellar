@@ -14,8 +14,13 @@ import p54.intercellar.model.Shelf;
  */
 public class CellarController extends InterCellarController<CellarManager>
 {
+    private ShelfController shelfController;
+    private long currentCellarId =-1;
+
     public CellarController(Context context) {
         super(context);
+
+        shelfController = new ShelfController(context);
 
         Cellar cellar = new Cellar();
         cellar.setName("Epic Cellar");
@@ -24,8 +29,34 @@ public class CellarController extends InterCellarController<CellarManager>
 
     }
 
-    public List<Cellar> getCellarList() {
+    public List<Cellar> getCellarList()
+    {
         return getManager().findAll();
     }
+    public Cellar getCellar(long id)
+    {
+        return getManager().findById(id);
+    }
+    public Cellar createCellar(Cellar cellar)
+    {
+        return getManager().create(cellar);
+    }
+    public Cellar updateCellar(Cellar cellar)
+    {
+        return getManager().update(cellar);
+    }
+    public List<Shelf> getShelvesList()
+    {
+        return shelfController.getShelvesList();
+    }
+    public void setCurrentCellarId(long cellarId)
+    {
+        currentCellarId = cellarId;
+    }
+    public long getCurrentCellarId()
+    {
+        return currentCellarId;
+    }
+
 
 }

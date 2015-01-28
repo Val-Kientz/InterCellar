@@ -40,5 +40,6 @@
     <string name="ratings">Notes</string>
     <string name="given_on">donnée le</string>
     <string name="comment">Commentaire :</string>
+    <string name="title_activity_shelf">ShelfActivity</string>
 
 </resources>
