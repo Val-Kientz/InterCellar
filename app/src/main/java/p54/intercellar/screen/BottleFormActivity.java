@@ -25,6 +25,7 @@ import p54.intercellar.controller.BottleController;
 import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Chateau;
 import p54.intercellar.model.Rating;
+import p54.intercellar.view.BottleFormFragment;
 
 public class BottleFormActivity extends InterCellarActivity<BottleController> {
     // region requestCodes
@@ -40,8 +41,6 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
     private String pictureFileName = "";
     private Bottle currentBottle;
 
-    private HashMap<String, Integer> formResourcesMap = new HashMap<String, Integer>();
-    private HashMap<String, String> formValuesMap = new HashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,82 +72,21 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
         }
     }
 
-    private void fillFormResourcesMap() {
-        formResourcesMap.put("name", R.id.edit_text_bottle_name);
-        formResourcesMap.put("year", R.id.edit_text_bottle_year);
-        formResourcesMap.put("price", R.id.edit_text_bottle_price);
-        formResourcesMap.put("description", R.id.edit_text_bottle_description);
-        formResourcesMap.put("market", R.id.edit_text_bottle_market);
-        formResourcesMap.put("type", R.id.edit_text_bottle_type);
-    }
-
-    private void fillFormValuesMap() {
-        if (formResourcesMap.isEmpty()) {
-            fillFormResourcesMap();
-        }
-
-        for (String res: formResourcesMap.keySet()) {
-            formValuesMap.put(res, ((EditText) findViewById(formResourcesMap.get(res))).getText().toString());
-        }
-    }
-
-    private void fillFormValuesMap(Bottle bottle) {
-        if (formResourcesMap.isEmpty()) {
-            fillFormResourcesMap();
-        }
-
-        for (String res: formResourcesMap.keySet()) {
-            String value;
-            switch (res) {
-                case "name":
-                    value = bottle.getName();
-                    break;
-                case "year":
-                    value = bottle.getYear();
-                    break;
-                case "price":
-                    value = String.valueOf(bottle.getPrice());
-                    break;
-                case "description":
-                    value = bottle.getDescription();
-                    break;
-                case "market":
-                    value = bottle.getMarket();
-                    break;
-                case "type":
-                    value = bottle.getType();
-                    break;
-                default:
-                    value = "";
-                    break;
-            }
-
-            formValuesMap.put(res, value);
-            ((EditText) findViewById(formResourcesMap.get(res))).setText(value);
-        }
-    }
-
     private void setBottleData(Bottle bottle) {
-        fillFormValuesMap(currentBottle);
+        Map<String, String> values = new HashMap<String, String>();
+        values.put("name", bottle.getName());
+        values.put("year", bottle.getYear());
+        values.put("price", String.valueOf(bottle.getPrice()));
+        values.put("description", bottle.getDescription());
+        values.put("market", bottle.getMarket());
+        values.put("type", bottle.getType());
+
+        BottleFormFragment bottleFormFragment = (BottleFormFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_form);
+        bottleFormFragment.setValues(values);
 
         Spinner chateauSpinner = ((Spinner) findViewById(R.id.spinner_select_chateau));
         int chateauPosition = ((ArrayAdapter<Chateau>) chateauSpinner.getAdapter()).getPosition(bottle.getChateau());
         chateauSpinner.setSelection(chateauPosition);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -179,12 +117,12 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
         }
     }
 
-    private Bottle extractBottleData(Bottle bottle) {
-        fillFormValuesMap();
+    private Bottle extractBottleData(Bottle bottle, BottleFormFragment bottleFormFragment) {
+        Map<String, String> values = bottleFormFragment.getValues();
 
         double price;
-        if (!formValuesMap.get("price").equals("")) {
-            price = Double.parseDouble(formValuesMap.get("price"));
+        if (!values.get("price").equals("")) {
+            price = Double.parseDouble(values.get("price"));
         } else {
             price = 0;
         }
@@ -195,12 +133,12 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
             bottle.setPicture("");
         }
 
-        bottle.setName(formValuesMap.get("name"));
-        bottle.setYear(formValuesMap.get("year"));
+        bottle.setName(values.get("name"));
+        bottle.setYear(values.get("year"));
         bottle.setPrice(price);
-        bottle.setDescription(formValuesMap.get("description"));
-        bottle.setType(formValuesMap.get("type"));
-        bottle.setMarket(formValuesMap.get("market"));
+        bottle.setDescription(values.get("description"));
+        bottle.setType(values.get("type"));
+        bottle.setMarket(values.get("market"));
         bottle.setPicture(pictureFileName);
 
         Chateau chateau = (Chateau) ((Spinner) findViewById(R.id.spinner_select_chateau)).getSelectedItem();
@@ -215,9 +153,10 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
     // region eventHandlers
 
     public void onAddClick(View v) {
-        Bottle bottle = extractBottleData(new Bottle());
+        BottleFormFragment bottleFormFragment = (BottleFormFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_form);
 
-        if (checkRequiredFields()) {
+        if (bottleFormFragment.checkRequiredFields()) {
+            Bottle bottle = extractBottleData(new Bottle(), bottleFormFragment);
             getController().createBottle(bottle);
             setResult(BOTTLE_ADDED);
             finish();
@@ -225,9 +164,10 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
     }
 
     public void onEditClick(View v) {
-        Bottle bottle = extractBottleData(currentBottle);
+        BottleFormFragment bottleFormFragment = (BottleFormFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_form);
 
-        if (checkRequiredFields()) {
+        if (bottleFormFragment.checkRequiredFields()) {
+            Bottle bottle = extractBottleData(currentBottle, bottleFormFragment);
             getController().updateBottle(bottle);
             setResult(BOTTLE_EDITED);
             finish();
@@ -245,23 +185,4 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
     }
 
     // endregion
-
-    private boolean checkRequiredFields() {
-        boolean checked = true;
-
-        Map<String, Integer> requiredFields = new HashMap<String, Integer>();
-        requiredFields.put("name", R.string.name_is_required);
-        requiredFields.put("price", R.string.price_is_required);
-        requiredFields.put("year", R.string.year_is_required);
-        requiredFields.put("type", R.string.type_is_required);
-
-        for (String field: requiredFields.keySet()) {
-            if (formValuesMap.get(field).trim().equals("")) {
-                checked = false;
-                Toast.makeText(this, getString(requiredFields.get(field)), Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        return checked;
-    }
 }
