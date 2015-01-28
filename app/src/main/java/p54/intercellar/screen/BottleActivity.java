@@ -75,22 +75,18 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
 
         switch (requestCode) {
             case ADD_BOTTLE:
-                Toast.makeText(this, R.string.bottle_successfully_added, Toast.LENGTH_LONG);
+                BottleFragment bottleFragment = (BottleFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle);
+                if (bottleFragment != null) {
+                    bottleFragment.refreshList();
+                }
                 break;
             case ADD_RATING:
-
+                RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
+                if (ratingFragment != null) {
+                    long bottleId = getController().getCurrentBottleId();
+                    ratingFragment.refreshRatingList(bottleId);
+                }
                 break;
-        }
-
-        BottleFragment bottleFragment = (BottleFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle);
-        if (bottleFragment != null) {
-            bottleFragment.refreshList();
-        }
-
-        RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
-        if (ratingFragment != null) {
-            long bottleId = getController().getCurrentBottleId();
-            ratingFragment.refreshRatingList(bottleId);
         }
     }
 
@@ -100,8 +96,9 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     }
 
     public void onAddRatingClick(MenuItem menuItem) {
+        long bottleId = getController().getCurrentBottleId();
         Intent addRatingActivity = new Intent(this, AddRatingActivity.class);
-        addRatingActivity.putExtra("bottleId", getController().getCurrentBottleId());
+        addRatingActivity.putExtra("bottleId", bottleId);
         startActivityForResult(addRatingActivity, ADD_RATING);
     }
 }

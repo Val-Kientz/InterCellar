@@ -24,7 +24,6 @@ public class BottleFragment extends InterCellarListFragment<BottleController> {
                 android.R.layout.simple_list_item_1, android.R.id.text1, getController().getBottleList()));
     }
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
