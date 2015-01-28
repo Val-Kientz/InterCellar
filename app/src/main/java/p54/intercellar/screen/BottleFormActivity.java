@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
@@ -172,7 +173,7 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
                     chateauSpinner.invalidate();
 
                 } else {
-                    Toast.makeText(this, R.string.an_error_occured_while_creating_chateau, Toast.LENGTH_LONG);
+                    Toast.makeText(this, R.string.an_error_occured_while_creating_chateau, Toast.LENGTH_LONG).show();
                 }
                 break;
         }
@@ -216,17 +217,21 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
     public void onAddClick(View v) {
         Bottle bottle = extractBottleData(new Bottle());
 
-        getController().createBottle(bottle);
-        setResult(BOTTLE_ADDED);
-        finish();
+        if (checkRequiredFields()) {
+            getController().createBottle(bottle);
+            setResult(BOTTLE_ADDED);
+            finish();
+        }
     }
 
     public void onEditClick(View v) {
         Bottle bottle = extractBottleData(currentBottle);
 
-        getController().updateBottle(bottle);
-        setResult(BOTTLE_EDITED);
-        finish();
+        if (checkRequiredFields()) {
+            getController().updateBottle(bottle);
+            setResult(BOTTLE_EDITED);
+            finish();
+        }
     }
 
     public void onAddChateauClick(View v) {
@@ -240,4 +245,23 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> {
     }
 
     // endregion
+
+    private boolean checkRequiredFields() {
+        boolean checked = true;
+
+        Map<String, Integer> requiredFields = new HashMap<String, Integer>();
+        requiredFields.put("name", R.string.name_is_required);
+        requiredFields.put("price", R.string.price_is_required);
+        requiredFields.put("year", R.string.year_is_required);
+        requiredFields.put("type", R.string.type_is_required);
+
+        for (String field: requiredFields.keySet()) {
+            if (formValuesMap.get(field).trim().equals("")) {
+                checked = false;
+                Toast.makeText(this, getString(requiredFields.get(field)), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        return checked;
+    }
 }
