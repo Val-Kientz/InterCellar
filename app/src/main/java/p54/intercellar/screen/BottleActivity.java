@@ -1,6 +1,7 @@
 package p54.intercellar.screen;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,29 +18,26 @@ import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.BottleFragment;
 import p54.intercellar.view.RatingFragment;
 
-public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnFragmentInteractionListener {
+public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnBottleClick {
     private static final int ADD_BOTTLE = 1;
     private static final int ADD_RATING = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_bottle);
 
-        BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
-                .findFragmentById(R.id.fragment_bottle_details_land);
-
-
-        if (bottleDetailsFragment != null) {
+        if (findViewById(R.id.fragment_bottle_details_land) != null) {
             List<Bottle> bottleList = getController().getBottleList();
+            BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
+                    .findFragmentById(R.id.fragment_bottle_details_land);
+
             if (!bottleList.isEmpty()) {
                 getController().setCurrentBottleId(bottleList.get(0).getId());
                 bottleDetailsFragment.showBottleDetails(getController().getCurrentBottleId());
             }
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,7 +63,9 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     }
 
     @Override
-    public void onFragmentInteraction(long id) {
+    public void onBottleClick(long id) {
+        getController().setCurrentBottleId(id);
+
         BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_bottle_details_land);
 

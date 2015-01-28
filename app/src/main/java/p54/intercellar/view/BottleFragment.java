@@ -10,28 +10,9 @@ import android.widget.ListView;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.model.Bottle;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
- */
 public class BottleFragment extends InterCellarListFragment<BottleController> {
-    private OnFragmentInteractionListener mListener;
+    private OnBottleClick mListener;
 
-    // TODO: Rename and change types of parameters
-    public static BottleFragment newInstance() {
-        BottleFragment fragment = new BottleFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public BottleFragment() {
     }
 
@@ -48,10 +29,10 @@ public class BottleFragment extends InterCellarListFragment<BottleController> {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnBottleClick) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnBottleClick");
         }
     }
 
@@ -83,14 +64,11 @@ public class BottleFragment extends InterCellarListFragment<BottleController> {
         super.onListItemClick(l, v, position, id);
 
         if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(getController().getBottleList().get(position).getId());
+            mListener.onBottleClick(getController().getBottleList().get(position).getId());
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(long id);
+    public interface OnBottleClick {
+        public void onBottleClick(long id);
     }
 }
