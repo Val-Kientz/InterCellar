@@ -40,5 +40,11 @@
     <string name="ratings">Notes</string>
     <string name="given_on">donnée le</string>
     <string name="comment">Commentaire :</string>
-
+    <string name="title_activity_shelf">Etagère</string>
+    <string name="rate_is_required">La note est requise</string>
+    <string name="comment_is_required">Un commentaire est requis</string>
+    <string name="name_is_required">Le nom est obligatoire</string>
+    <string name="price_is_required">Le prix est requis</string>
+    <string name="type_is_required">Le type doit être renseigné</string>
+    <string name="year_is_required">L\'année est requise</string>
 </resources>
