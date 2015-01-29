@@ -50,4 +50,7 @@
     <string name="search_bottle">Rechercher une bouteille</string>
     <string name="title_activity_search_bottle">SearchBottleActivity</string>
     <string name="search_results_for">Résultats de la recherche :</string>
+    <string name="domain_is_required">Le domaine est requis</string>
+    <string name="region_is_required">La région est obligatoire</string>
+
 </resources>

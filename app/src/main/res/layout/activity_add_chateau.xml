@@ -4,7 +4,7 @@
     android:layout_width="fill_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -20,47 +20,23 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp" />
 
-    <TextView
+    <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/chateau_region"
-        android:id="@+id/label_chateau_region"
-        android:layout_below="@+id/text_view_title_add_a_chateau"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_edit_chateau_region"
-        android:layout_below="@+id/label_chateau_region"
+        android:name="p54.intercellar.view.ChateauFormFragment"
+        android:id="@+id/fragment_chateau_form"
         android:layout_centerHorizontal="true"
-        android:inputType="text" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/chateau_domain"
-        android:id="@+id/label_chateau_domain"
-        android:layout_below="@+id/text_edit_chateau_region"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_edit_chateau_domain"
-        android:layout_below="@+id/label_chateau_domain"
-        android:layout_centerHorizontal="true"
-        android:inputType="text" />
+        tools:layout="@layout/fragment_chateau_form"
+        android:layout_below="@id/text_view_title_add_a_chateau"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_a_chateau"
         android:id="@+id/button_add_chateau"
-        android:layout_below="@+id/text_edit_chateau_domain"
         android:layout_centerHorizontal="true"
-        android:onClick="onAddChateauButtonPressed" />
+        android:onClick="onAddChateauButtonPressed"
+        android:layout_below="@+id/fragment_chateau_form" />
+
 </RelativeLayout>
 </ScrollView>

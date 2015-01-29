@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="p54.intercellar.view.ChateauFormFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/chateau_region"
+        android:id="@+id/label_chateau_region"
+        android:layout_below="@+id/text_view_title_add_a_chateau"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_edit_chateau_region"
+        android:layout_below="@+id/label_chateau_region"
+        android:layout_centerHorizontal="true"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/chateau_domain"
+        android:id="@+id/label_chateau_domain"
+        android:layout_below="@+id/text_edit_chateau_region"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_edit_chateau_domain"
+        android:layout_below="@+id/label_chateau_domain"
+        android:layout_centerHorizontal="true"
+        android:inputType="text" />
+
+</RelativeLayout>
