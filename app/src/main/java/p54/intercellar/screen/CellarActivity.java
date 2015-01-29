@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import p54.intercellar.R;
 import p54.intercellar.controller.CellarController;
+import p54.intercellar.model.Cellar;
 import p54.intercellar.view.CellarDetailsFragment;
 
 public class CellarActivity extends InterCellarActivity<CellarController> implements CellarFragment.OnFragmentInteractionListener {
@@ -14,12 +17,20 @@ public class CellarActivity extends InterCellarActivity<CellarController> implem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_cellar);
 
+        if (findViewById(R.id.fragment_cellar_details_land) != null) {
+            List<Cellar> cellarList = getController().getCellarList();
+            CellarDetailsFragment cellarDetailsFragment = (CellarDetailsFragment) getFragmentManager()
+                    .findFragmentById(R.id.fragment_cellar_details_land);
+
+            if (!cellarList.isEmpty()) {
+                getController().setCurrentCellarId(cellarList.get(0).getId());
+                cellarDetailsFragment.showCellarDetails(getController().getCurrentCellarId());
+            }
+        }
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -13,38 +13,20 @@ import p54.intercellar.controller.CellarController;
 import p54.intercellar.model.Cellar;
 import p54.intercellar.view.InterCellarListFragment;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Large screen devices (such as tablets) are supported by replacing the ListView
- * with a GridView.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
- * interface.
- */
 public class CellarFragment extends InterCellarListFragment<CellarController> {
 
     private OnFragmentInteractionListener mListener;
     private AbsListView mListView;
-
-    /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
-     */
     private ListAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
-    public static CellarFragment newInstance() {
+    /*public static CellarFragment newInstance() {
         CellarFragment fragment = new CellarFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public CellarFragment() {
     }
 
@@ -52,7 +34,6 @@ public class CellarFragment extends InterCellarListFragment<CellarController> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: Change Adapter to display your content
         setListAdapter(new ArrayAdapter<Cellar>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, getController().getCellarList()));
     }

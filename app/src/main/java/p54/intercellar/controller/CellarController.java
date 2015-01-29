@@ -5,8 +5,11 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+import p54.intercellar.data.BottleManager;
 import p54.intercellar.data.CellarManager;
+import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Cellar;
+import p54.intercellar.model.Rating;
 import p54.intercellar.model.Shelf;
 
 /**
@@ -21,18 +24,13 @@ public class CellarController extends InterCellarController<CellarManager>
         super(context);
 
         shelfController = new ShelfController(context);
-
-        Cellar cellar = new Cellar();
-        cellar.setName("Epic Cellar");
-        cellar.setShelfList(new ArrayList<Shelf>());
-        getManager().create(cellar);
-
     }
 
     public List<Cellar> getCellarList()
     {
         return getManager().findAll();
     }
+
     public Cellar getCellar(long id)
     {
         return getManager().findById(id);

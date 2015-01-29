@@ -12,7 +12,11 @@ import p54.intercellar.model.Shelf;
  */
 public class ShelfController extends InterCellarController<ShelfManager> {
 
-    protected ShelfController(Context context) {
+    public Shelf createShelf(Shelf shelf) {
+        return getManager().create(shelf);
+    }
+
+    public ShelfController(Context context) {
         super(context);
     }
 

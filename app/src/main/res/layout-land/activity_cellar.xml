@@ -13,7 +13,7 @@
 
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="match_parent"
         android:name="p54.intercellar.view.CellarDetailsFragment"
         android:id="@+id/fragment_cellar_details_land"
         tools:layout="@layout/fragment_cellar_details" />

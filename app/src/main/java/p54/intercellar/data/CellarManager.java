@@ -21,6 +21,7 @@ public class CellarManager extends InterCellarManager
     public CellarManager(InterCellarDatabase databaseHelper)
     {
         super(databaseHelper);
+        shelfManager = new ShelfManager(databaseHelper);
     }
 
     public Cellar create(Cellar cellar)
@@ -104,6 +105,8 @@ public class CellarManager extends InterCellarManager
         Cellar cellar = new Cellar();
         cellar.setId(cursor.getLong(cursor.getColumnIndex(databaseHelper.COMMON_KEY_ID)));
         cellar.setName(cursor.getString(cursor.getColumnIndex(databaseHelper.CELLAR_KEY_NAME)));
+
+        List<Shelf> shelfList = shelfManager.shelvesByCellarId(cellar.getId());
 
         return cellar;
     }

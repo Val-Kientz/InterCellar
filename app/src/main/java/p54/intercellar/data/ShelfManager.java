@@ -14,13 +14,14 @@ import p54.intercellar.model.Shelf;
  */
 public class ShelfManager extends InterCellarManager
 {
-    CellarManager cellarManager;
+    //CellarManager cellarManager;
     BottleManager bottleManager;
 
     public ShelfManager(InterCellarDatabase databaseHelper)
     {
         super(databaseHelper);
-        this.cellarManager = new CellarManager(databaseHelper);
+
+        //this.cellarManager = new CellarManager(databaseHelper);
         this.bottleManager = new BottleManager(databaseHelper);
     }
 
@@ -92,6 +93,35 @@ public class ShelfManager extends InterCellarManager
         cursor.close();
 
         return shelfList;
+    }
+
+    public List<Shelf> shelvesByCellarId(long cellarId)
+    {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        //BOTTLE_RATING_KEY_BOTTLE_ID
+        String sql = "SELECT s.* FROM "
+                + databaseHelper.TABLE_SHELF + " AS s, "
+                + databaseHelper.TABLE_CELLAR_SHELF + " AS cs "
+                + "WHERE cs." + databaseHelper.CELLAR_SHELF_KEY_CELLAR_ID + " = ? "
+                + "AND cs." + databaseHelper.CELLAR_SHELF_KEY_SHELF_ID+ " = s." + databaseHelper.COMMON_KEY_ID + " "
+                + "ORDER BY s." + databaseHelper.COMMON_KEY_ID;
+        String[] selectionArgs = new String[] {
+                Long.toString(cellarId)
+        };
+        Cursor cursor = database.rawQuery(sql, selectionArgs);
+
+        List<Shelf> shelfList = new ArrayList<Shelf>();
+        while(cursor.moveToNext()) {
+
+            Shelf shelf = buildShelf(databaseHelper, cursor);
+            shelfList.add(shelf);
+        }
+
+        cursor.close();
+
+        return shelfList;
+
     }
 
     private Shelf buildShelf(InterCellarDatabase databaseHelper, Cursor cursor)
