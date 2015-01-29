@@ -24,9 +24,6 @@ import p54.intercellar.view.RatingFormFragment;
 
 public class AddRatingActivity extends InterCellarActivity<RatingController> implements InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
 
-    private SharedPreferences ratingInfos;
-    private RatingFormFragment ratingFormFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +60,7 @@ public class AddRatingActivity extends InterCellarActivity<RatingController> imp
     }
 
     @Override
-    public void onFormDestory(String fragmentClass) {
+    public void onFormDestroy(String fragmentClass) {
 
     }
 }

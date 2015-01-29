@@ -120,6 +120,10 @@ public class BottleController extends InterCellarController<BottleManager> {
         return getManager().getBottlesLike(search);
     }
 
+    public Bottle getBottleByBarCode(String barCode) {
+        return getManager().findBottleByBarCode(barCode);
+    }
+
     public void deleteBottle(long id) {
         getManager().delete(id);
     }

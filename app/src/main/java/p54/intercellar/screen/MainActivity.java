@@ -2,19 +2,27 @@ package p54.intercellar.screen;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.controller.CellarController;
 import p54.intercellar.controller.ChateauController;
+import p54.intercellar.controller.InterCellarController;
 import p54.intercellar.controller.ShelfController;
 import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Cellar;
@@ -23,7 +31,7 @@ import p54.intercellar.model.Rating;
 import p54.intercellar.model.Shelf;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends InterCellarActivity<BottleController> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +69,6 @@ public class MainActivity extends ActionBarActivity {
 
     public void createDummies()
     {
-        BottleController bc = new BottleController(this);
         ShelfController sc = new ShelfController(this);
         CellarController cc = new CellarController(this);
         ChateauController chc = new ChateauController(this);
@@ -90,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
             b.setType("Type" + cpt);
             b.setRatingList(new ArrayList<Rating>());
 
-            b.setId(bc.createBottle(b).getId());
+            b.setId(getController().createBottle(b).getId());
 
             bottleList.add(b);
         }
@@ -115,5 +122,35 @@ public class MainActivity extends ActionBarActivity {
         c.setShelfList(shelfList);
         c.setId(cc.createCellar(c).getId());
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case IntentIntegrator.REQUEST_CODE:
+                IntentResult barCode = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+                if (barCode != null) {
+                    Bottle bottle = getController().getBottleByBarCode(barCode.getContents());
+                    if (bottle != null) {
+                        Intent bottleDetails = new Intent(this, BottleDetailsActivity.class);
+                        bottleDetails.putExtra("bottleId", bottle.getId());
+                        startActivity(bottleDetails);
+                    } else {
+                        Toast.makeText(this, R.string.no_bottle_found_with_that_barcode, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, getString(R.string.scan_error), Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+        }
+    }
+
+    public void onSearchBarCodeClick(View v) {
+        IntentIntegrator scanIntent = new IntentIntegrator(this);
+        scanIntent.initiateScan();
     }
 }

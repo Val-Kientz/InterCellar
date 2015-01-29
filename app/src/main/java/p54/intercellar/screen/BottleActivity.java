@@ -52,6 +52,10 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
                     .findFragmentById(R.id.fragment_bottle_details_land);
             ratingFragment = (RatingFragment) getFragmentManager()
                     .findFragmentById(R.id.fragment_rating_list);
+            long bottleId;
+            if ((bottleId = getIntent().getLongExtra("bottleId", -1)) >= 0 ) {
+                bottleDetailsFragment.showBottleDetails(bottleId);
+            }
             if (!bottleList.isEmpty()) {
                 getController().setCurrentBottleId(bottleList.get(0).getId());
                 bottleDetailsFragment.showBottleDetails(getController().getCurrentBottleId());
@@ -125,9 +129,12 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
                 }
                 break;
             case ADD_RATING:
+                long bottleId = getController().getCurrentBottleId();
                 if (ratingFragment != null) {
-                    long bottleId = getController().getCurrentBottleId();
                     ratingFragment.refreshRatingList(bottleId);
+                }
+                if (bottleDetailsFragment != null) {
+                    bottleDetailsFragment.showBottleDetails(bottleId);
                 }
                 break;
         }
@@ -155,6 +162,9 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
                         if (bottleDetailsFragment != null) {
                             bottleDetailsFragment.showBottleDetails(bottleId);
                         }
+                        if (ratingFragment != null) {
+                            ratingFragment.refreshRatingList(bottleId);
+                        }
                     }
                 }
         );
@@ -180,7 +190,7 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     }
 
     @Override
-    public void onFormDestory(String fragmentClass) {
+    public void onFormDestroy(String fragmentClass) {
 
     }
 }

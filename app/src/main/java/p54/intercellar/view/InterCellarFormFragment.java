@@ -119,6 +119,6 @@ public abstract class InterCellarFormFragment<T> extends InterCellarFragment<T> 
     }
 
     public interface OnFormDestroy {
-        public void onFormDestory(String fragmentClass);
+        public void onFormDestroy(String fragmentClass);
     }
 }

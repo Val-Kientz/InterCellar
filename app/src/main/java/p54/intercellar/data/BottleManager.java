@@ -136,6 +136,23 @@ public class BottleManager extends InterCellarManager<Bottle> {
         return bottleList;
     }
 
+    public Bottle findBottleByBarCode(String barCode) {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        String[] selectionArgs = new String[]{barCode};
+        Cursor cursor = database.query(databaseHelper.TABLE_BOTTLE, null, databaseHelper.BOTTLE_KEY_SCAN_CONTENT + " = ?", selectionArgs, null, null, null);
+
+        Bottle bottle = null;
+        if (cursor.moveToFirst()) {
+            bottle = buildBottle(databaseHelper, cursor);
+        }
+
+        cursor.close();
+
+        return bottle;
+    }
+
     public int count() {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();

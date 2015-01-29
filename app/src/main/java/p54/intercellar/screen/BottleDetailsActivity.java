@@ -79,7 +79,7 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
     }
 
     @Override
-    public void onFormDestory(String fragmentClass) {
+    public void onFormDestroy(String fragmentClass) {
         Toast.makeText(this, fragmentClass, Toast.LENGTH_LONG).show();
     }
 

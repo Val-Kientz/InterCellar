@@ -82,7 +82,7 @@ public class BottleFormFragment extends InterCellarFormFragment<BottleController
     public void onStop() {
         super.onStop();
         if (formDestoryListener != null) {
-            formDestoryListener.onFormDestory(this.getClass().getName());
+            formDestoryListener.onFormDestroy(this.getClass().getName());
         }
     }
 

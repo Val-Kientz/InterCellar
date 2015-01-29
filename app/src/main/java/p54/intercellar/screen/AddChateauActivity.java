@@ -55,7 +55,7 @@ public class AddChateauActivity extends InterCellarActivity<ChateauController> i
     }
 
     @Override
-    public void onFormDestory(String fragmentClass) {
+    public void onFormDestroy(String fragmentClass) {
 
     }
 

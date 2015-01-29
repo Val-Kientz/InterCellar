@@ -62,5 +62,6 @@
     <string name="bottle_deleted">Bouteille supprimée</string>
     <string name="are_you_sure">Êtes-vous certain de vouloir faire cela ?</string>
     <string name="yes">Oui</string>
-
+    <string name="search_bottle_by_bar_code">Chercher une bouteille par code bar</string>
+    <string name="no_bottle_found_with_that_barcode">Aucune bouteille trouvée portant ce code bar</string>
 </resources>

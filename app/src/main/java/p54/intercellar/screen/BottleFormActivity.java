@@ -93,7 +93,11 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
                 bottleFormFragment = (BottleFormFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_form);
             }
 
-            if (sharedPreferences.getAll().size() > 0 && intent.getClass().getName().equals(BottleFormActivity.class.getName())) {
+            if (sharedPreferences == null) {
+                sharedPreferences = getSharedPreferences("currentBottle", MODE_PRIVATE);
+            }
+
+            if (sharedPreferences.getAll().size() > 0) {
                 List<String> fieldNames = bottleFormFragment.getFieldNames();
                 Map<String, String> values = new HashMap<String, String>();
                 for (String field : fieldNames) {
@@ -120,10 +124,6 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
                     bottleFormFragment.setPicture(picture);
                 }
             }
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.commit();
         }
     }
 
@@ -160,6 +160,11 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
                     values.put("scanContent", barCode.getContents());
                     values.put("scanFormat", barCode.getFormatName());
                     bottleFormFragment.setValues(values);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("scanContent", barCode.getContents());
+                    editor.putString("scanFormat", barCode.getFormatName());
+                    editor.commit();
                 } else {
                     Toast.makeText(this, getString(R.string.scan_error), Toast.LENGTH_SHORT).show();
                 }
@@ -204,17 +209,16 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     }
 
     @Override
-    public void onFormDestory(String fragmentClass) {
+    public void onFormDestroy(String fragmentClass) {
         if (fragmentClass.equals(BottleFormFragment.class.getName())) {
-            /*SharedPreferences.Editor editor = sharedPreferences.edit();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             Map<String, String> values = bottleFormFragment.getValues();
             for (String field : values.keySet()) {
                 editor.putString(field, values.get(field));
             }
             // editor.putString("picture", pictureFileName);
             editor.putInt("chateauIndex", bottleFormFragment.getChateauIndex());
-
-            editor.commit();*/
+            editor.commit();
         }
     }
 
