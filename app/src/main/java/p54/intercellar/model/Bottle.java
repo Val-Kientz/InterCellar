@@ -14,6 +14,8 @@ public class Bottle {
     private String description;
     private String type;
     private String market;
+    private String scanFormat;
+    private String scanContent;
     private int coordinates = -1;
 
     private Shelf shelf;
@@ -115,6 +117,22 @@ public class Bottle {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getScanContent() {
+        return scanContent;
+    }
+
+    public void setScanContent(String scanContent) {
+        this.scanContent = scanContent;
+    }
+
+    public String getScanFormat() {
+        return scanFormat;
+    }
+
+    public void setScanFormat(String scanFormat) {
+        this.scanFormat = scanFormat;
     }
 
     @Override

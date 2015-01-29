@@ -36,6 +36,17 @@ public abstract class InterCellarFormFragment<T> extends InterCellarFragment<T> 
         this.requiredFields = requiredFields;
     }
 
+    protected Map<String, TextView> getFieldViews() {
+        Map<String, TextView> fieldViews = new HashMap<String, TextView>();
+
+        for (String field: fields.keySet()) {
+            TextView textView = (TextView) getView().findViewById(fields.get(field));
+            fieldViews.put(field, textView);
+        }
+
+        return fieldViews;
+    }
+
     public boolean checkRequiredFields() {
         boolean checked = true;
         Map<String, String> values = getValues();
@@ -65,6 +76,7 @@ public abstract class InterCellarFormFragment<T> extends InterCellarFragment<T> 
         for (String field: values.keySet()) {
             TextView textView = (TextView) getView().findViewById(fields.get(field));
             textView.setText(values.get(field));
+            textView.invalidate();
         }
     }
 }

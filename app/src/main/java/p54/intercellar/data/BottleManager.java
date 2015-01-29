@@ -119,12 +119,12 @@ public class BottleManager extends InterCellarManager<Bottle> {
 
         String[] selectionArgs = new String[1];
         for (int i = 0; i < 1; i += 1) {
-            selectionArgs[i] = search;
+            selectionArgs[i] = "%" + search + "%";
         }
 
         // TODO : make search work
         String sql = "SELECT * FROM " + databaseHelper.TABLE_BOTTLE + " "
-                + "WHERE " + databaseHelper.BOTTLE_KEY_NAME + " LIKE '%?%'";
+                + "WHERE " + databaseHelper.BOTTLE_KEY_NAME + " LIKE ?";
         Cursor cursor = database.rawQuery(sql, selectionArgs);
 
         while (cursor.moveToNext()) {
@@ -168,6 +168,8 @@ public class BottleManager extends InterCellarManager<Bottle> {
         bottle.setType(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_TYPE)));
         bottle.setMarket(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_MARKET)));
         bottle.setCoordinates(cursor.getInt(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_COORDINATES)));
+        bottle.setScanFormat(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_SCAN_FORMAT)));
+        bottle.setScanContent(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_SCAN_CONTENT)));
 
         Long chateauId = cursor.getLong(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_CHATEAU_ID));
 
@@ -191,6 +193,8 @@ public class BottleManager extends InterCellarManager<Bottle> {
         values.put(databaseHelper.BOTTLE_KEY_TYPE, bottle.getType());
         values.put(databaseHelper.BOTTLE_KEY_MARKET, bottle.getMarket());
         values.put(databaseHelper.BOTTLE_KEY_COORDINATES, bottle.getCoordinates());
+        values.put(databaseHelper.BOTTLE_KEY_SCAN_FORMAT, bottle.getScanFormat());
+        values.put(databaseHelper.BOTTLE_KEY_SCAN_CONTENT, bottle.getScanContent());
         values.put(databaseHelper.BOTTLE_KEY_CHATEAU_ID, bottle.getChateau().getId());
 
         return values;

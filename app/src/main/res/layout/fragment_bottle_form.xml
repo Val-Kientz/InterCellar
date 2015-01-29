@@ -164,4 +164,29 @@
         android:layout_centerHorizontal="true"
         android:onClick="onAddChateauClick" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_barcode"
+        android:id="@+id/button_bottle_scan"
+        android:layout_below="@+id/button_add_chateau"
+        android:layout_centerHorizontal="true"
+        android:onClick="onScanClick"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/text_view_scan_format"
+        android:layout_below="@+id/button_bottle_scan"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/text_view_scan_content"
+        android:layout_below="@+id/text_view_scan_format"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

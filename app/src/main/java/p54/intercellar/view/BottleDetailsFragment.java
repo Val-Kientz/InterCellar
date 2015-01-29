@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.model.Bottle;
@@ -20,7 +23,7 @@ import p54.intercellar.model.Bottle;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BottleDetailsFragment extends InterCellarFragment<BottleController> {
+public class BottleDetailsFragment extends InterCellarFormFragment<BottleController> {
 
     public BottleDetailsFragment() {
         // Required empty public constructor
@@ -29,6 +32,18 @@ public class BottleDetailsFragment extends InterCellarFragment<BottleController>
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Map<String, Integer> fields = new HashMap<String, Integer>();
+        fields.put("name", R.id.text_view_bottle_name);
+        fields.put("year", R.id.text_view_bottle_year);
+        fields.put("market", R.id.text_view_bottle_market);
+        fields.put("price", R.id.text_view_bottle_price);
+        fields.put("chateau", R.id.text_view_bottle_chateau);
+        fields.put("description", R.id.text_view_bottle_description);
+        fields.put("type", R.id.text_view_bottle_type);
+        fields.put("scanContent", R.id.text_view_scan_content);
+        fields.put("scanFormat", R.id.text_view_scan_format);
+        setFields(fields);
     }
 
     @Override
@@ -51,13 +66,19 @@ public class BottleDetailsFragment extends InterCellarFragment<BottleController>
     private void setBottleDetails(Bottle bottle) {
         ((TextView) getView().findViewById(R.id.text_view_no_bottle)).setVisibility(View.GONE);
 
-        ((TextView) getView().findViewById(R.id.text_view_bottle_name)).setText(bottle.getName());
-        ((TextView) getView().findViewById(R.id.text_view_bottle_year)).setText(bottle.getYear());
-        ((TextView) getView().findViewById(R.id.text_view_bottle_market)).setText(bottle.getMarket());
-        ((TextView) getView().findViewById(R.id.text_view_bottle_price)).setText(String.valueOf(bottle.getPrice()));
-        ((TextView) getView().findViewById(R.id.text_view_bottle_chateau)).setText(bottle.getChateau().toString());
-        ((TextView) getView().findViewById(R.id.text_view_bottle_description)).setText(bottle.getDescription());
-        ((TextView) getView().findViewById(R.id.text_view_bottle_type)).setText(bottle.getType());
+        BottleDetailsFragment bottleFormFragment = (BottleDetailsFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_details);
+
+        Map<String, String> values = new HashMap<String, String>();
+        values.put("name", bottle.getName());
+        values.put("year", bottle.getYear());
+        values.put("market", bottle.getMarket());
+        values.put("price", String.valueOf(bottle.getPrice()));
+        values.put("chateau", bottle.getChateau().toString());
+        values.put("description", bottle.getDescription());
+        values.put("type", bottle.getType());
+        values.put("scanContent", bottle.getScanContent());
+        values.put("scanFormat", bottle.getScanFormat());
+        bottleFormFragment.setValues(values);
 
         String picturePath = bottle.getPicture();
         ImageView imageView = ((ImageView) getView().findViewById(R.id.image_bottle_piture));
@@ -70,11 +91,10 @@ public class BottleDetailsFragment extends InterCellarFragment<BottleController>
     }
 
     private void setNoBottleMessage() {
-        ((TextView) getView().findViewById(R.id.text_view_bottle_name)).setVisibility(View.INVISIBLE);
-        ((TextView) getView().findViewById(R.id.text_view_bottle_year)).setVisibility(View.INVISIBLE);
-        ((TextView) getView().findViewById(R.id.text_view_bottle_market)).setVisibility(View.INVISIBLE);
-        ((TextView) getView().findViewById(R.id.text_view_bottle_price)).setVisibility(View.INVISIBLE);
-        ((TextView) getView().findViewById(R.id.text_view_bottle_chateau)).setVisibility(View.INVISIBLE);
-        ((TextView) getView().findViewById(R.id.text_view_bottle_type)).setVisibility(View.INVISIBLE);
+        Map<String, TextView> fieldViews = getFieldViews();
+
+        for (TextView fieldView: fieldViews.values()) {
+            fieldView.setVisibility(View.INVISIBLE);
+        }
     }
 }

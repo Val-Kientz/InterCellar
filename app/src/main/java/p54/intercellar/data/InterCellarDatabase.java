@@ -13,67 +13,69 @@ public class InterCellarDatabase extends SQLiteOpenHelper {
 
     // region Table Names
 
-    public static final String TABLE_BOTTLE = "bottle";
-    public static final String TABLE_CELLAR = "cellar";
-    public static final String TABLE_CHATEAU = "chateau";
-    public static final String TABLE_RATING = "rating";
-    public static final String TABLE_SHELF = "shelf";
-    public static final String TABLE_BOTTLE_CHATEAU = "bottle_chateau";
-    public static final String TABLE_BOTTLE_RATING = "bottle_rating";
-    public static final String TABLE_CELLAR_SHELF = "cellar_shelf";
-    public static final String TABLE_SHELF_BOTTLE = "shelf_bottle";
+    protected static final String TABLE_BOTTLE = "bottle";
+    protected static final String TABLE_CELLAR = "cellar";
+    protected static final String TABLE_CHATEAU = "chateau";
+    protected static final String TABLE_RATING = "rating";
+    protected static final String TABLE_SHELF = "shelf";
+    protected static final String TABLE_BOTTLE_CHATEAU = "bottle_chateau";
+    protected static final String TABLE_BOTTLE_RATING = "bottle_rating";
+    protected static final String TABLE_CELLAR_SHELF = "cellar_shelf";
+    protected static final String TABLE_SHELF_BOTTLE = "shelf_bottle";
 
     // endregion
 
     // region Fields
 
     // id field for all
-    public static final String COMMON_KEY_ID = "id";
+    protected static final String COMMON_KEY_ID = "id";
 
     // bottle fields
-    public static final String BOTTLE_KEY_YEAR = "year";
-    public static final String BOTTLE_KEY_NAME = "name";
-    public static final String BOTTLE_KEY_PRICE = "price";
-    public static final String BOTTLE_KEY_PICTURE = "picture";
-    public static final String BOTTLE_KEY_DESCRIPTION = "description";
-    public static final String BOTTLE_KEY_TYPE = "type";
-    public static final String BOTTLE_KEY_MARKET = "market";
-    public static final String BOTTLE_KEY_COORDINATES = "coordinates";
-    public static final String BOTTLE_KEY_CHATEAU_ID = "chateau_id";
-    public static final String BOTTLE_KEY_SHELF_ID = "shelf_id";
+    protected static final String BOTTLE_KEY_YEAR = "year";
+    protected static final String BOTTLE_KEY_NAME = "name";
+    protected static final String BOTTLE_KEY_PRICE = "price";
+    protected static final String BOTTLE_KEY_PICTURE = "picture";
+    protected static final String BOTTLE_KEY_DESCRIPTION = "description";
+    protected static final String BOTTLE_KEY_TYPE = "type";
+    protected static final String BOTTLE_KEY_MARKET = "market";
+    protected static final String BOTTLE_KEY_COORDINATES = "coordinates";
+    protected static final String BOTTLE_KEY_SCAN_FORMAT = "scan_format";
+    protected static final String BOTTLE_KEY_SCAN_CONTENT = "scan_content";
+    protected static final String BOTTLE_KEY_CHATEAU_ID = "chateau_id";
+    protected static final String BOTTLE_KEY_SHELF_ID = "shelf_id";
 
     // cellar fields
-    public static final String CELLAR_KEY_NAME = "name";
+    protected static final String CELLAR_KEY_NAME = "name";
 
     // chateau fields
-    public static final String CHATEAU_KEY_DOMAIN = "domain";
-    public static final String CHATEAU_KEY_REGION = "region";
+    protected static final String CHATEAU_KEY_DOMAIN = "domain";
+    protected static final String CHATEAU_KEY_REGION = "region";
 
     // rating fields
-    public static final String RATING_KEY_COMMENT = "comment";
-    public static final String RATING_KEY_DATE = "date";
-    public static final String RATING_KEY_RATE = "rate";
+    protected static final String RATING_KEY_COMMENT = "comment";
+    protected static final String RATING_KEY_DATE = "date";
+    protected static final String RATING_KEY_RATE = "rate";
 
     // shelf fields
-    public static final String SHELF_KEY_CAPACITY = "capacity";
-    public static final String SHELF_KEY_WIDTH = "width";
-    public static final String SHELF_KEY_HEIGHT = "height";
+    protected static final String SHELF_KEY_CAPACITY = "capacity";
+    protected static final String SHELF_KEY_WIDTH = "width";
+    protected static final String SHELF_KEY_HEIGHT = "height";
 
     // bottle_chateau fields
-    public static final String BOTTLE_CHATEAU_KEY_BOTTLE_ID = "bottle_id";
-    public static final String BOTTLE_CHATEAU_KEY_CHATEAU_ID = "chateau_id";
+    protected static final String BOTTLE_CHATEAU_KEY_BOTTLE_ID = "bottle_id";
+    protected static final String BOTTLE_CHATEAU_KEY_CHATEAU_ID = "chateau_id";
 
     // bottle_rating fields
-    public static final String BOTTLE_RATING_KEY_BOTTLE_ID = "bottle_id";
-    public static final String BOTTLE_RATING_KEY_RATING_ID = "rating_id";
+    protected static final String BOTTLE_RATING_KEY_BOTTLE_ID = "bottle_id";
+    protected static final String BOTTLE_RATING_KEY_RATING_ID = "rating_id";
 
     // cellar_shelf fields
-    public static final String CELLAR_SHELF_KEY_CELLAR_ID = "cellar_id";
-    public static final String CELLAR_SHELF_KEY_SHELF_ID = "shelf_id";
+    protected static final String CELLAR_SHELF_KEY_CELLAR_ID = "cellar_id";
+    protected static final String CELLAR_SHELF_KEY_SHELF_ID = "shelf_id";
 
     // shelf_bottle fields
-    public static final String SHELF_BOTTLE_KEY_SHELF_ID = "shelf_id";
-    public static final String SHELF_BOTTLE_KEY_BOTTLE_ID = "bottle_id";
+    protected static final String SHELF_BOTTLE_KEY_SHELF_ID = "shelf_id";
+    protected static final String SHELF_BOTTLE_KEY_BOTTLE_ID = "bottle_id";
 
     // endregion
 
@@ -89,6 +91,8 @@ public class InterCellarDatabase extends SQLiteOpenHelper {
             + BOTTLE_KEY_TYPE + " TEXT,"
             + BOTTLE_KEY_MARKET + " TEXT,"
             + BOTTLE_KEY_COORDINATES + " TEXT,"
+            + BOTTLE_KEY_SCAN_FORMAT + " TEXT,"
+            + BOTTLE_KEY_SCAN_CONTENT + " TEXT,"
             + BOTTLE_KEY_CHATEAU_ID + " INTEGER,"
             + BOTTLE_KEY_SHELF_ID + " INTEGER,"
             + "FOREIGN KEY (" + BOTTLE_KEY_SHELF_ID + ") REFERENCES " + TABLE_SHELF + "(" + COMMON_KEY_ID + "),"

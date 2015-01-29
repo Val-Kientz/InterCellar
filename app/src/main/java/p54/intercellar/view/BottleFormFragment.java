@@ -46,6 +46,8 @@ public class BottleFormFragment extends InterCellarFormFragment<BottleController
         fields.put("description", R.id.edit_text_bottle_description);
         fields.put("market", R.id.edit_text_bottle_market);
         fields.put("type", R.id.edit_text_bottle_type);
+        fields.put("scanContent", R.id.text_view_scan_content);
+        fields.put("scanFormat", R.id.text_view_scan_format);
         setFields(fields);
 
         Map<String, Integer> requiredFields = new HashMap<String, Integer>();
