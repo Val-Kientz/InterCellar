@@ -60,4 +60,7 @@
     <string name="delete">Supprimer</string>
     <string name="cancel">Annuler</string>
     <string name="bottle_deleted">Bouteille supprimée</string>
+    <string name="are_you_sure">Êtes-vous certain de vouloir faire cela ?</string>
+    <string name="yes">Oui</string>
+
 </resources>

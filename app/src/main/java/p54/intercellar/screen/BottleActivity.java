@@ -24,6 +24,7 @@ import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.BottleFragment;
 import p54.intercellar.view.InterCellarFormFragment;
 import p54.intercellar.view.RatingFragment;
+import p54.intercellar.view.YesCancelAlert;
 
 public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnBottleClick, InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
     private static final int ADD_BOTTLE = 1;
@@ -133,30 +134,32 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     }
 
     public void onDeleteClick(MenuItem menuItem) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        YesCancelAlert alert = new YesCancelAlert(this,
+                getString(R.string.are_you_sure),
+                getString(R.string.delete_bottle),
+                getString(R.string.yes),
+                getString(R.string.cancel),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getController().deleteBottle(getController().getCurrentBottleId());
 
-        alertDialog.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getController().deleteBottle(getController().getCurrentBottleId());
-
-                Toast.makeText(BottleActivity.this, R.string.bottle_deleted, Toast.LENGTH_SHORT).show();
-                List<Bottle> bottleList = getController().getBottleList();
-                long bottleId = -1;
-                if (bottleList.size() > 0) {
-                    bottleId = bottleList.get(0).getId();
+                        Toast.makeText(BottleActivity.this, R.string.bottle_deleted, Toast.LENGTH_SHORT).show();
+                        List<Bottle> bottleList = getController().getBottleList();
+                        long bottleId = -1;
+                        if (bottleList.size() > 0) {
+                            bottleId = bottleList.get(0).getId();
+                        }
+                        getController().setCurrentBottleId(bottleId);
+                        bottleFragment.refreshList();
+                        if (bottleDetailsFragment != null) {
+                            bottleDetailsFragment.showBottleDetails(bottleId);
+                        }
+                    }
                 }
-                getController().setCurrentBottleId(bottleId);
-                bottleFragment.refreshList();
-                if (bottleDetailsFragment != null) {
-                    bottleDetailsFragment.showBottleDetails(bottleId);
-                }
-            }
-        });
+        );
 
-        alertDialog.setCancelable(true);
-
-        alertDialog.show();
+        alert.show();
     }
 
     public void onAddClick(MenuItem menuItem) {

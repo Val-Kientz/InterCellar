@@ -14,6 +14,7 @@ import p54.intercellar.controller.BottleController;
 import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.InterCellarFormFragment;
 import p54.intercellar.view.RatingFragment;
+import p54.intercellar.view.YesCancelAlert;
 
 public class BottleDetailsActivity extends InterCellarActivity<BottleController> implements InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
     private static final int EDIT_BOTTLE = 2;
@@ -52,22 +53,24 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
     }
 
     public void onDeleteClick(MenuItem menuItem) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        YesCancelAlert alert = new YesCancelAlert(this,
+                getString(R.string.are_you_sure),
+                getString(R.string.delete_bottle),
+                getString(R.string.yes),
+                getString(R.string.cancel),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getController().deleteBottle(getController().getCurrentBottleId());
 
-        alertDialog.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getController().deleteBottle(getController().getCurrentBottleId());
+                        Intent bottleList = new Intent(BottleDetailsActivity.this, BottleActivity.class);
+                        bottleList.putExtra("bottleDeleted", true);
+                        startActivity(bottleList);
+                    }
+                }
+        );
 
-                Intent bottleList = new Intent(BottleDetailsActivity.this, BottleActivity.class);
-                bottleList.putExtra("bottleDeleted", true);
-                startActivity(bottleList);
-            }
-        });
-
-        alertDialog.setCancelable(true);
-
-        alertDialog.show();
+        alert.show();
     }
 
     @Override
