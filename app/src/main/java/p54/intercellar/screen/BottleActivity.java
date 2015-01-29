@@ -20,9 +20,10 @@ import p54.intercellar.controller.BottleController;
 import p54.intercellar.model.Bottle;
 import p54.intercellar.view.BottleDetailsFragment;
 import p54.intercellar.view.BottleFragment;
+import p54.intercellar.view.InterCellarFormFragment;
 import p54.intercellar.view.RatingFragment;
 
-public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnBottleClick {
+public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnBottleClick, InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
     private static final int ADD_BOTTLE = 1;
     private static final int ADD_RATING = 2;
 
@@ -129,5 +130,15 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         Intent addRatingActivity = new Intent(this, AddRatingActivity.class);
         addRatingActivity.putExtra("bottleId", bottleId);
         startActivityForResult(addRatingActivity, ADD_RATING);
+    }
+
+    @Override
+    public void onFormReady(String fragmentClass) {
+
+    }
+
+    @Override
+    public void onFormDestory(String fragmentClass) {
+
     }
 }

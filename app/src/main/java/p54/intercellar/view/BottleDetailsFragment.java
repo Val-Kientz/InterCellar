@@ -66,8 +66,6 @@ public class BottleDetailsFragment extends InterCellarFormFragment<BottleControl
     private void setBottleDetails(Bottle bottle) {
         ((TextView) getView().findViewById(R.id.text_view_no_bottle)).setVisibility(View.GONE);
 
-        BottleDetailsFragment bottleFormFragment = (BottleDetailsFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_details);
-
         Map<String, String> values = new HashMap<String, String>();
         values.put("name", bottle.getName());
         values.put("year", bottle.getYear());
@@ -78,7 +76,7 @@ public class BottleDetailsFragment extends InterCellarFormFragment<BottleControl
         values.put("type", bottle.getType());
         values.put("scanContent", bottle.getScanContent());
         values.put("scanFormat", bottle.getScanFormat());
-        bottleFormFragment.setValues(values);
+        setValues(values);
 
         String picturePath = bottle.getPicture();
         ImageView imageView = ((ImageView) getView().findViewById(R.id.image_bottle_piture));

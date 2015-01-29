@@ -19,8 +19,9 @@ import p54.intercellar.R;
 import p54.intercellar.controller.ChateauController;
 import p54.intercellar.model.Chateau;
 import p54.intercellar.view.ChateauFormFragment;
+import p54.intercellar.view.InterCellarFormFragment;
 
-public class AddChateauActivity extends InterCellarActivity<ChateauController> {
+public class AddChateauActivity extends InterCellarActivity<ChateauController> implements InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
     public final static int CHATEAU_CREATED = 1;
     public final static int CHATEAU_NOT_CREATED = 2;
 
@@ -46,6 +47,16 @@ public class AddChateauActivity extends InterCellarActivity<ChateauController> {
 
             finish();
         }
+    }
+
+    @Override
+    public void onFormReady(String fragmentClass) {
+
+    }
+
+    @Override
+    public void onFormDestory(String fragmentClass) {
+
     }
 
     private Chateau getChateauFromView(ChateauFormFragment chateauFormFragment) {

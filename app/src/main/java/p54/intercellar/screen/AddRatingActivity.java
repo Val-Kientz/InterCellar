@@ -1,5 +1,6 @@
 package p54.intercellar.screen;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,16 +8,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.zxing.client.android.Intents;
+
+import java.security.PrivateKey;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.InterCellarController;
 import p54.intercellar.controller.RatingController;
 import p54.intercellar.model.Rating;
+import p54.intercellar.view.InterCellarFormFragment;
 import p54.intercellar.view.RatingFormFragment;
 
-public class AddRatingActivity extends InterCellarActivity<RatingController> {
+public class AddRatingActivity extends InterCellarActivity<RatingController> implements InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
+
+    private SharedPreferences ratingInfos;
+    private RatingFormFragment ratingFormFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,5 +55,15 @@ public class AddRatingActivity extends InterCellarActivity<RatingController> {
         rating.setDate(new Date());
 
         return rating;
+    }
+
+    @Override
+    public void onFormReady(String fragmentClass) {
+
+    }
+
+    @Override
+    public void onFormDestory(String fragmentClass) {
+
     }
 }

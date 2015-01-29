@@ -1,12 +1,17 @@
 package p54.intercellar.view;
 
 
+import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -16,12 +21,15 @@ import java.util.Map;
 
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
+import p54.intercellar.model.Chateau;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class BottleFormFragment extends InterCellarFormFragment<BottleController> {
 
+    private Spinner chateauSpinner;
+    private ImageView pictureImageView;
 
     public BottleFormFragment() {
         // Required empty public constructor
@@ -56,5 +64,42 @@ public class BottleFormFragment extends InterCellarFormFragment<BottleController
         requiredFields.put("year", R.string.year_is_required);
         requiredFields.put("type", R.string.type_is_required);
         setRequiredFields(requiredFields);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        chateauSpinner = (Spinner) getView().findViewById(R.id.spinner_select_chateau);
+        pictureImageView = (ImageView) getView().findViewById(R.id.image_bottle_piture);
+
+        if (formReadyListener != null) {
+            formReadyListener.onFormReady(this.getClass().getName());
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (formDestoryListener != null) {
+            formDestoryListener.onFormDestory(this.getClass().getName());
+        }
+    }
+
+    public void setChateauIndex(Chateau chateau) {
+        int chateauPosition = ((ArrayAdapter<Chateau>) chateauSpinner.getAdapter()).getPosition(chateau);
+        chateauSpinner.setSelection(chateauPosition);
+    }
+
+    public void setChateauIndex(int index) {
+        chateauSpinner.setSelection(index);
+    }
+
+    public int getChateauIndex() {
+        return chateauSpinner.getSelectedItemPosition();
+    }
+
+    public void setPicture(Bitmap picture) {
+        pictureImageView.setImageBitmap(picture);
     }
 }

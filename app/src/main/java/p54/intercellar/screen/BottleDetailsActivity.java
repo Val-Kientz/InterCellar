@@ -10,9 +10,10 @@ import android.widget.Toast;
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.view.BottleDetailsFragment;
+import p54.intercellar.view.InterCellarFormFragment;
 import p54.intercellar.view.RatingFragment;
 
-public class BottleDetailsActivity extends InterCellarActivity<BottleController> {
+public class BottleDetailsActivity extends InterCellarActivity<BottleController> implements InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
     private static final int EDIT_BOTTLE = 2;
     private static final int ADD_RATING = 1;
 
@@ -46,6 +47,16 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
         Intent addRatingActivity = new Intent(this, AddRatingActivity.class);
         addRatingActivity.putExtra("bottleId", getController().getCurrentBottleId());
         startActivityForResult(addRatingActivity, ADD_RATING);
+    }
+
+    @Override
+    public void onFormReady(String fragmentClass) {
+        Toast.makeText(this, fragmentClass, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFormDestory(String fragmentClass) {
+        Toast.makeText(this, fragmentClass, Toast.LENGTH_LONG).show();
     }
 
     @Override

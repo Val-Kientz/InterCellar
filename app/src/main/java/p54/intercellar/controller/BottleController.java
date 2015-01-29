@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
