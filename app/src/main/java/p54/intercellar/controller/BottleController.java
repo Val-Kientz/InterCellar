@@ -68,9 +68,8 @@ public class BottleController extends InterCellarController<BottleManager> {
         String imagePath = "";
 
         if (imageData != null) {
-            ContextWrapper contextWrapper = new ContextWrapper(context.getApplicationContext());
-
             Bundle extras = imageData.getExtras();
+            // TODO: get real image !!
             Bitmap image = (Bitmap) extras.get("data");
 
             if (image != null) {
