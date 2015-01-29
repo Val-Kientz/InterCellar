@@ -47,4 +47,7 @@
     <string name="price_is_required">Le prix est requis</string>
     <string name="type_is_required">Le type doit être renseigné</string>
     <string name="year_is_required">L\'année est requise</string>
+    <string name="search_bottle">Rechercher une bouteille</string>
+    <string name="title_activity_search_bottle">SearchBottleActivity</string>
+    <string name="search_results_for">Résultats de la recherche :</string>
 </resources>

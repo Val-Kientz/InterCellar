@@ -112,22 +112,28 @@ public class BottleManager extends InterCellarManager<Bottle> {
         // TODO : Find all with ratings and chateau
     }
 
-    public List<String> findAllNames() {
+    public List<Bottle> getBottlesLike(String search) {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
+        List<Bottle> bottleList = new ArrayList<Bottle>();
 
-        List<String> nameList = new ArrayList<String>();
-
-        String[] columns = new String[] {
-          databaseHelper.BOTTLE_KEY_NAME
-        };
-        Cursor cursor = database.query(databaseHelper.TABLE_BOTTLE, columns, null, null, null, null, null);
-
-        while (cursor.moveToNext()) {
-            nameList.add(cursor.getString(cursor.getColumnIndex(databaseHelper.BOTTLE_KEY_NAME)));
+        String[] selectionArgs = new String[1];
+        for (int i = 0; i < 1; i += 1) {
+            selectionArgs[i] = search;
         }
 
-        return nameList;
+        // TODO : make search work
+        String sql = "SELECT * FROM " + databaseHelper.TABLE_BOTTLE + " "
+                + "WHERE " + databaseHelper.BOTTLE_KEY_NAME + " LIKE '%?%'";
+        Cursor cursor = database.rawQuery(sql, selectionArgs);
+
+        while (cursor.moveToNext()) {
+            bottleList.add(buildBottle(databaseHelper, cursor));
+        }
+
+        cursor.close();
+
+        return bottleList;
     }
 
     public int count() {

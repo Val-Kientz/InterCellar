@@ -39,8 +39,8 @@
         android:id="@+id/edit_text_bottle_year"
         android:layout_below="@+id/label_bottle_year"
         android:layout_centerHorizontal="true"
-        android:inputType="text"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        android:inputType="number"/>
 
     <TextView
         android:layout_width="wrap_content"

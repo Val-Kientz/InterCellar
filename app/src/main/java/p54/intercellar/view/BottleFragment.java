@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.List;
+
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.model.Bottle;
 
@@ -56,6 +58,11 @@ public class BottleFragment extends InterCellarListFragment<BottleController> {
     public void refreshList() {
         setListAdapter(new ArrayAdapter<Bottle>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, getController().getBottleList()));
+    }
+
+    public void refreshList(List<Bottle> bottleList) {
+        setListAdapter(new ArrayAdapter<Bottle>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, bottleList));
     }
 
     @Override

@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="p54.intercellar.screen.BottleActivity">
+    <item android:id="@+id/search_bottle"
+        android:title="@string/search_bottle"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.widget.SearchView"/>
     <item android:id="@+id/action_add_bottle"
         android:title="@string/add_a_bottle"
         android:orderInCategory="100"

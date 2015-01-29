@@ -1,12 +1,16 @@
 package p54.intercellar.screen;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ScrollView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -37,11 +41,36 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
                 bottleDetailsFragment.showBottleDetails(getController().getCurrentBottleId());
             }
         }
+
+        handleSearchIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleSearchIntent(intent);
+    }
+
+    private void handleSearchIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String search = intent.getStringExtra(SearchManager.QUERY);
+            List<Bottle> filteredBottleList = getController().getBottlesLike(search);
+            BottleFragment bottleFragment = (BottleFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle);
+            bottleFragment.refreshList(filteredBottleList);
+            Toast.makeText(this, getString(R.string.search_results_for) + " " + search, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_bottle, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search_bottle).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
 
         return true;
     }
