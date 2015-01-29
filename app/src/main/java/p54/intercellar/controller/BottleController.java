@@ -119,4 +119,8 @@ public class BottleController extends InterCellarController<BottleManager> {
     public List<Bottle> getBottlesLike(String search) {
         return getManager().getBottlesLike(search);
     }
+
+    public void deleteBottle(long id) {
+        getManager().delete(id);
+    }
 }

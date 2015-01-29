@@ -51,12 +51,14 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     private Bottle currentBottle;
     private SharedPreferences sharedPreferences;
     private BottleFormFragment bottleFormFragment;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bottleFormFragment = (BottleFormFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_form);
         sharedPreferences = getSharedPreferences("currentBottle", MODE_PRIVATE);
+        intent = getIntent();
 
         long id = getIntent().getLongExtra("bottleId", -1);
 
@@ -91,7 +93,7 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
                 bottleFormFragment = (BottleFormFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_form);
             }
 
-            if (sharedPreferences.getAll().size() > 0) {
+            if (sharedPreferences.getAll().size() > 0 && intent.getClass().getName().equals(BottleFormActivity.class.getName())) {
                 List<String> fieldNames = bottleFormFragment.getFieldNames();
                 Map<String, String> values = new HashMap<String, String>();
                 for (String field : fieldNames) {
@@ -101,25 +103,27 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
                 bottleFormFragment.setValues(values);
                 int chateauIndex = sharedPreferences.getInt("chateauIndex", 0);
                 bottleFormFragment.setChateauIndex(chateauIndex);
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
             } else {
-                Map<String, String> values = new HashMap<String, String>();
-                values.put("name", currentBottle.getName());
-                values.put("year", currentBottle.getYear());
-                values.put("price", String.valueOf(currentBottle.getPrice()));
-                values.put("description", currentBottle.getDescription());
-                values.put("market", currentBottle.getMarket());
-                values.put("type", currentBottle.getType());
-                values.put("scanContent", currentBottle.getScanContent());
-                values.put("scanFormat", currentBottle.getScanFormat());
-                bottleFormFragment.setValues(values);
-                bottleFormFragment.setChateauIndex(currentBottle.getChateau());
-                Bitmap picture = getController().getPicture(this, currentBottle.getPicture());
-                bottleFormFragment.setPicture(picture);
+                if (currentBottle != null) {
+                    Map<String, String> values = new HashMap<String, String>();
+                    values.put("name", currentBottle.getName());
+                    values.put("year", currentBottle.getYear());
+                    values.put("price", String.valueOf(currentBottle.getPrice()));
+                    values.put("description", currentBottle.getDescription());
+                    values.put("market", currentBottle.getMarket());
+                    values.put("type", currentBottle.getType());
+                    values.put("scanContent", currentBottle.getScanContent());
+                    values.put("scanFormat", currentBottle.getScanFormat());
+                    bottleFormFragment.setValues(values);
+                    bottleFormFragment.setChateauIndex(currentBottle.getChateau());
+                    Bitmap picture = getController().getPicture(this, currentBottle.getPicture());
+                    bottleFormFragment.setPicture(picture);
+                }
             }
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.commit();
         }
     }
 
@@ -202,7 +206,7 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     @Override
     public void onFormDestory(String fragmentClass) {
         if (fragmentClass.equals(BottleFormFragment.class.getName())) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+            /*SharedPreferences.Editor editor = sharedPreferences.edit();
             Map<String, String> values = bottleFormFragment.getValues();
             for (String field : values.keySet()) {
                 editor.putString(field, values.get(field));
@@ -210,7 +214,7 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
             // editor.putString("picture", pictureFileName);
             editor.putInt("chateauIndex", bottleFormFragment.getChateauIndex());
 
-            editor.commit();
+            editor.commit();*/
         }
     }
 

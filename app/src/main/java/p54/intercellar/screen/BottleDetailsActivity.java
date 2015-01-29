@@ -1,5 +1,7 @@
 package p54.intercellar.screen;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -47,6 +49,25 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
         Intent addRatingActivity = new Intent(this, AddRatingActivity.class);
         addRatingActivity.putExtra("bottleId", getController().getCurrentBottleId());
         startActivityForResult(addRatingActivity, ADD_RATING);
+    }
+
+    public void onDeleteClick(MenuItem menuItem) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        alertDialog.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getController().deleteBottle(getController().getCurrentBottleId());
+
+                Intent bottleList = new Intent(BottleDetailsActivity.this, BottleActivity.class);
+                bottleList.putExtra("bottleDeleted", true);
+                startActivity(bottleList);
+            }
+        });
+
+        alertDialog.setCancelable(true);
+
+        alertDialog.show();
     }
 
     @Override

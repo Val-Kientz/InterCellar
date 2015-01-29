@@ -13,4 +13,9 @@
         android:orderInCategory="120"
         app:showAsAction="never"
         android:onClick="onAddRatingClick"/>
+    <item android:id="@+id/action_delete_bottle"
+        android:title="@string/delete_bottle"
+        android:orderInCategory="130"
+        app:showAsAction="never"
+        android:onClick="onDeleteClick"/>
 </menu>

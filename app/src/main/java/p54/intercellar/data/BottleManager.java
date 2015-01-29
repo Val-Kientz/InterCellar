@@ -155,6 +155,15 @@ public class BottleManager extends InterCellarManager<Bottle> {
         return count;
     }
 
+    public void delete (long id) {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        String[] whereArgs = new String[] {String.valueOf(id)};
+        database.delete(databaseHelper.TABLE_BOTTLE_RATING, databaseHelper.BOTTLE_RATING_KEY_BOTTLE_ID + " = ?", whereArgs);
+        database.delete(databaseHelper.TABLE_BOTTLE, databaseHelper.COMMON_KEY_ID + " = ?", whereArgs);
+    }
+
     // region builders
 
     private Bottle buildBottle(InterCellarDatabase databaseHelper, Cursor cursor) {

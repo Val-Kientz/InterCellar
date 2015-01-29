@@ -1,7 +1,9 @@
 package p54.intercellar.screen;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -26,17 +28,29 @@ import p54.intercellar.view.RatingFragment;
 public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnBottleClick, InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
     private static final int ADD_BOTTLE = 1;
     private static final int ADD_RATING = 2;
+    private static final int DELETE_BOTTLE = 3;
+
+    private BottleDetailsFragment bottleDetailsFragment;
+    private BottleFragment bottleFragment;
+    private RatingFragment ratingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottle);
 
+        if (getIntent().getBooleanExtra("bottleDeleted", false)) {
+            Toast.makeText(this, R.string.bottle_deleted, Toast.LENGTH_SHORT).show();
+        }
+
+        bottleFragment = (BottleFragment) getFragmentManager()
+                .findFragmentById(R.id.fragment_bottle);
         if (findViewById(R.id.fragment_bottle_details_land) != null) {
             List<Bottle> bottleList = getController().getBottleList();
-            BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
+            bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
                     .findFragmentById(R.id.fragment_bottle_details_land);
-
+            ratingFragment = (RatingFragment) getFragmentManager()
+                    .findFragmentById(R.id.fragment_rating_list);
             if (!bottleList.isEmpty()) {
                 getController().setCurrentBottleId(bottleList.get(0).getId());
                 bottleDetailsFragment.showBottleDetails(getController().getCurrentBottleId());
@@ -83,7 +97,7 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
         if (findViewById(R.id.fragment_bottle_details_land) == null) {
             Intent bottleDetailsActivity = new Intent(this, BottleDetailsActivity.class);
             bottleDetailsActivity.putExtra("bottleId", id);
-            startActivity(bottleDetailsActivity);
+            startActivityForResult(bottleDetailsActivity, DELETE_BOTTLE);
         } else {
             BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_details_land);
             RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
@@ -105,19 +119,44 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
 
         switch (requestCode) {
             case ADD_BOTTLE:
-                BottleFragment bottleFragment = (BottleFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle);
                 if (bottleFragment != null) {
                     bottleFragment.refreshList();
                 }
                 break;
             case ADD_RATING:
-                RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
                 if (ratingFragment != null) {
                     long bottleId = getController().getCurrentBottleId();
                     ratingFragment.refreshRatingList(bottleId);
                 }
                 break;
         }
+    }
+
+    public void onDeleteClick(MenuItem menuItem) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        alertDialog.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                getController().deleteBottle(getController().getCurrentBottleId());
+
+                Toast.makeText(BottleActivity.this, R.string.bottle_deleted, Toast.LENGTH_SHORT).show();
+                List<Bottle> bottleList = getController().getBottleList();
+                long bottleId = -1;
+                if (bottleList.size() > 0) {
+                    bottleId = bottleList.get(0).getId();
+                }
+                getController().setCurrentBottleId(bottleId);
+                bottleFragment.refreshList();
+                if (bottleDetailsFragment != null) {
+                    bottleDetailsFragment.showBottleDetails(bottleId);
+                }
+            }
+        });
+
+        alertDialog.setCancelable(true);
+
+        alertDialog.show();
     }
 
     public void onAddClick(MenuItem menuItem) {
