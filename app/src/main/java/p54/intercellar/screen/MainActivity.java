@@ -14,6 +14,7 @@ import java.util.List;
 import p54.intercellar.R;
 import p54.intercellar.controller.BottleController;
 import p54.intercellar.controller.CellarController;
+import p54.intercellar.controller.ChateauController;
 import p54.intercellar.controller.ShelfController;
 import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Cellar;
@@ -63,9 +64,17 @@ public class MainActivity extends ActionBarActivity {
         BottleController bc = new BottleController(this);
         ShelfController sc = new ShelfController(this);
         CellarController cc = new CellarController(this);
+        ChateauController chc = new ChateauController(this);
+
 
         List<Bottle> bottleList = new ArrayList<Bottle>();
         List<Shelf> shelfList = new ArrayList<Shelf>();
+
+        Chateau ch = new Chateau();
+        ch.setDomain("Chateau Tamaire");
+        ch.setRegion("Elsass");
+
+        ch.setId(chc.createChateau(ch).getId());
 
 
         for(int cpt=1 ; cpt<9; cpt++)
@@ -75,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
             b.setDescription("Description de la bouteille " + cpt);
             b.setMarket("Lidle " + cpt);
             b.setPrice(cpt);
-            b.setChateau(new Chateau());
+            b.setChateau(ch);
             b.setCoordinates(cpt);
             b.setYear("199" + cpt);
             b.setType("Type" + cpt);
