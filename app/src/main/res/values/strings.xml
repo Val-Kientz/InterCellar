@@ -64,4 +64,6 @@
     <string name="yes">Oui</string>
     <string name="search_bottle_by_bar_code">Chercher une bouteille par code bar</string>
     <string name="no_bottle_found_with_that_barcode">Aucune bouteille trouvée portant ce code bar</string>
+    <string name="generate_dummies">Générer un jeu d\'essai</string>
+    <string name="dummies_generated">Jeu d\'essai généré</string>
 </resources>

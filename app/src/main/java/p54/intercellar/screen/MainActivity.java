@@ -36,8 +36,6 @@ public class MainActivity extends InterCellarActivity<BottleController> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createDummies();
-
         setContentView(R.layout.activity_main);
 
     }
@@ -78,8 +76,8 @@ public class MainActivity extends InterCellarActivity<BottleController> {
         List<Shelf> shelfList = new ArrayList<Shelf>();
 
         Chateau ch = new Chateau();
-        ch.setDomain("Chateau Tamaire");
-        ch.setRegion("Elsass");
+        ch.setDomain("Chateau Bonvin");
+        ch.setRegion("D'Alsace");
 
         ch.setId(chc.createChateau(ch).getId());
 
@@ -152,5 +150,10 @@ public class MainActivity extends InterCellarActivity<BottleController> {
     public void onSearchBarCodeClick(View v) {
         IntentIntegrator scanIntent = new IntentIntegrator(this);
         scanIntent.initiateScan();
+    }
+
+    public void onDummiesClick(View v) {
+        createDummies();
+        Toast.makeText(this, R.string.dummies_generated, Toast.LENGTH_SHORT).show();
     }
 }
