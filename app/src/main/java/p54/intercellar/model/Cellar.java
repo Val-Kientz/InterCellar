@@ -17,7 +17,10 @@ public class Cellar {
     public void setName(String name) {
         this.name = name;
     }
-
+    public String toString()
+    {
+        return name;
+    }
     public List<Shelf> getShelfList() {
         return shelfList;
     }

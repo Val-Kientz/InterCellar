@@ -99,26 +99,42 @@ public class MainActivity extends InterCellarActivity<BottleController> {
 
             bottleList.add(b);
         }
-        int prout=0;
-        for(int cpt=1; cpt<4; cpt++)
-        {
-            Shelf s = new Shelf();
-            s.setCapacity(10);
-            s.setWidth(10);
-            s.setHeight(10);
-            if(cpt == 1 || cpt==3)
-            {
-                s.setBottleList(bottleList);
-            }
 
-            s.setId(sc.createShelf(s).getId());
-            shelfList.add(s);
-        }
 
-        Cellar c = new Cellar();
-        c.setName("My Epic Cellar");
-        c.setShelfList(shelfList);
-        c.setId(cc.createCellar(c).getId());
+        Shelf s1 = new Shelf();
+        s1.setCapacity(10);
+        s1.setWidth(10);
+        s1.setHeight(10);
+        s1.setBottleList(bottleList);
+        s1.setId(sc.createShelf(s1).getId());
+        shelfList.add(s1);
+
+        Shelf s2 = new Shelf();
+        s2.setCapacity(10);
+        s2.setWidth(10);
+        s2.setHeight(10);
+        s2.setBottleList(bottleList);
+        s2.setId(sc.createShelf(s2).getId());
+        shelfList.add(s2);
+
+        Shelf s3 = new Shelf();
+        s3.setCapacity(10);
+        s3.setWidth(10);
+        s3.setHeight(10);
+        s3.setBottleList(bottleList);
+        s3.setId(sc.createShelf(s3).getId());
+        shelfList.add(s3);
+
+
+        Cellar c1 = new Cellar();
+        c1.setName("My Epic Cellar");
+        c1.setShelfList(shelfList);
+        c1.setId(cc.createCellar(c1).getId());
+        
+        Cellar c2 = new Cellar();
+        c2.setName("My Epic Cellar");
+        c2.setShelfList(shelfList);
+        c2.setId(cc.createCellar(c1).getId());
 
     }
 

@@ -11,6 +11,7 @@ import p54.intercellar.R;
 import p54.intercellar.controller.CellarController;
 import p54.intercellar.model.Cellar;
 import p54.intercellar.view.CellarDetailsFragment;
+import p54.intercellar.view.CellarFragment;
 
 public class CellarActivity extends InterCellarActivity<CellarController> implements CellarFragment.OnFragmentInteractionListener {
 
@@ -19,12 +20,14 @@ public class CellarActivity extends InterCellarActivity<CellarController> implem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cellar);
 
-        if (findViewById(R.id.fragment_cellar_details_land) != null) {
+        if (findViewById(R.id.fragment_cellar_details_land) != null)
+        {
             List<Cellar> cellarList = getController().getCellarList();
             CellarDetailsFragment cellarDetailsFragment = (CellarDetailsFragment) getFragmentManager()
                     .findFragmentById(R.id.fragment_cellar_details_land);
 
-            if (!cellarList.isEmpty()) {
+            if (!cellarList.isEmpty())
+            {
                 getController().setCurrentCellarId(cellarList.get(0).getId());
                 cellarDetailsFragment.showCellarDetails(getController().getCurrentCellarId());
             }
@@ -54,14 +57,15 @@ public class CellarActivity extends InterCellarActivity<CellarController> implem
     public void onFragmentInteraction(long id)
     {
         CellarDetailsFragment cellarDetailsFragment = (CellarDetailsFragment) getFragmentManager()
-                .findFragmentById(R.id.fragment_cellar_land);
+                .findFragmentById(R.id.cellar_details);
 
         if (cellarDetailsFragment == null) {
-            Intent bottleDetailsActivity = new Intent(this, BottleDetailsActivity.class);
-            bottleDetailsActivity.putExtra("id", id);
-            startActivity(bottleDetailsActivity);
-        } else {
-            //cellarDetailsFragment.showBottleDetails(id);
+            Intent cellarDetailsActivity = new Intent(this, CellarDetailsActivity.class);
+            cellarDetailsActivity.putExtra("cellarId", id);
+            startActivity(cellarDetailsActivity);
+        } else
+        {
+            //cellarDetailsFragment.showCellarDetails(id);
         }
     }
 }

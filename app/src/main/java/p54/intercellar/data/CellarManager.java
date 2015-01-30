@@ -107,7 +107,7 @@ public class CellarManager extends InterCellarManager
         cellar.setName(cursor.getString(cursor.getColumnIndex(databaseHelper.CELLAR_KEY_NAME)));
 
         List<Shelf> shelfList = shelfManager.shelvesByCellarId(cellar.getId());
-
+        cellar.setShelfList(shelfList);
         return cellar;
     }
 }

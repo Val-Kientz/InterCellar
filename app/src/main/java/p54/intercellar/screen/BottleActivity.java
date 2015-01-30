@@ -46,17 +46,22 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
 
         bottleFragment = (BottleFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_bottle);
-        if (findViewById(R.id.fragment_bottle_details_land) != null) {
+
+        if (findViewById(R.id.fragment_bottle_details_land) != null)
+        {
             List<Bottle> bottleList = getController().getBottleList();
             bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager()
                     .findFragmentById(R.id.fragment_bottle_details_land);
             ratingFragment = (RatingFragment) getFragmentManager()
                     .findFragmentById(R.id.fragment_rating_list);
             long bottleId;
-            if ((bottleId = getIntent().getLongExtra("bottleId", -1)) >= 0 ) {
+            
+            if ((bottleId = getIntent().getLongExtra("bottleId", -1)) >= 0 )
+            {
                 bottleDetailsFragment.showBottleDetails(bottleId);
             }
-            if (!bottleList.isEmpty()) {
+            if (!bottleList.isEmpty())
+            {
                 getController().setCurrentBottleId(bottleList.get(0).getId());
                 bottleDetailsFragment.showBottleDetails(getController().getCurrentBottleId());
             }
@@ -96,22 +101,27 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     }
 
     @Override
-    public void onBottleClick(long id) {
+    public void onBottleClick(long id)
+    {
         getController().setCurrentBottleId(id);
 
-        if (findViewById(R.id.fragment_bottle_details_land) == null) {
+        if (findViewById(R.id.fragment_bottle_details_land) == null)
+        {
             Intent bottleDetailsActivity = new Intent(this, BottleDetailsActivity.class);
             bottleDetailsActivity.putExtra("bottleId", id);
             startActivityForResult(bottleDetailsActivity, DELETE_BOTTLE);
-        } else {
+        } else
+        {
             BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_details_land);
             RatingFragment ratingFragment = (RatingFragment) getFragmentManager().findFragmentById(R.id.fragment_rating_list);
 
-            if (bottleDetailsFragment != null) {
+            if (bottleDetailsFragment != null)
+            {
                 bottleDetailsFragment.showBottleDetails(id);
             }
 
-            if (ratingFragment != null) {
+            if (ratingFragment != null)
+            {
                 ratingFragment.refreshRatingList(id);
             }
             ((ScrollView) findViewById(R.id.bottle_scroll_view_land)).fullScroll(View.FOCUS_UP);
@@ -188,7 +198,6 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     public void onFormReady(String fragmentClass) {
 
     }
-
     @Override
     public void onFormDestroy(String fragmentClass) {
 

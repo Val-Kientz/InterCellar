@@ -25,6 +25,7 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -39,11 +40,11 @@
         </activity>
         <activity
             android:name=".screen.BottleFormActivity"
-            android:label="@string/title_activity_add_bottle">
+            android:label="@string/title_activity_add_bottle" >
         </activity>
         <activity
             android:name=".screen.AddChateauActivity"
-            android:label="@string/title_activity_add_chateau">
+            android:label="@string/title_activity_add_chateau" >
         </activity>
 
         <uses-permission android:name="android.permission.CAMERA" />
@@ -53,11 +54,15 @@
 
         <activity
             android:name=".screen.AddRatingActivity"
-            android:label="@string/title_activity_add_rating">
+            android:label="@string/title_activity_add_rating" >
         </activity>
         <activity
             android:name=".screen.ShelfActivity"
             android:label="@string/title_activity_shelf" >
+        </activity>
+        <activity
+            android:name=".screen.CellarDetailsActivity"
+            android:label="@string/title_activity_cellar_details" >
         </activity>
     </application>
 

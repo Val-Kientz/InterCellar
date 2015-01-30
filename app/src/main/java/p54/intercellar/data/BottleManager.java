@@ -74,6 +74,37 @@ public class BottleManager extends InterCellarManager<Bottle> {
         return bottle;
     }
 
+    public List<Bottle> findByShelfId(long shelfId)
+    {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+
+        Cursor cursor = database.query(databaseHelper.TABLE_BOTTLE, null, null, null, null, null, null);
+
+       /* String sql = "SELECT b.* FROM "
+                + databaseHelper.TABLE_BOTTLE + " AS b, "
+                + databaseHelper.TABLE_SHELF_BOTTLE + " AS sb "
+                + "WHERE sb." + databaseHelper.SHELF_BOTTLE_KEY_SHELF_ID + " = ? "
+                + "AND sb." + databaseHelper.BOTTLE_SHELF_KEY_SHELF_ID+ " = b." + databaseHelper.COMMON_KEY_ID;
+
+        String[] selectionArgs = new String[] {
+                Long.toString(shelfId)
+        };
+        Cursor cursor = database.rawQuery(sql, selectionArgs);
+*/
+        List<Bottle> bottleList = new ArrayList<Bottle>();
+        while(cursor.moveToNext()) {
+
+            Bottle shelf = buildBottle(databaseHelper, cursor);
+            bottleList.add(shelf);
+        }
+
+        cursor.close();
+
+        return bottleList;
+    }
+
     public Bottle findById(long id) {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = getDatabaseHelper().getWritableDatabase();

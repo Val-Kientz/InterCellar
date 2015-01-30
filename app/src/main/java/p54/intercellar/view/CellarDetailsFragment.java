@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import p54.intercellar.R;
@@ -22,6 +23,7 @@ import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Cellar;
 import p54.intercellar.model.Shelf;
 import p54.intercellar.screen.BottleDetailsActivity;
+import p54.intercellar.screen.BottleFormActivity;
 
 public class CellarDetailsFragment  extends InterCellarFragment<CellarController>
 {
@@ -85,19 +87,31 @@ public class CellarDetailsFragment  extends InterCellarFragment<CellarController
     //TO BE TESTED
     public void setCellarDetail(Cellar cellar)
     {
+        List<Integer> indexToFill = new ArrayList<Integer>();
         List<Shelf> listShelves = cellar.getShelfList();
         GridLayout shelfLayout = (GridLayout) getView().findViewById(R.id.shelf_grid_layout);
         int rowCount = 0;
+        int columnCount = 0;
+
+        shelfLayout.setRowCount(listShelves.size());
+
         for(Shelf s : listShelves)
         {
-            List<Bottle> listBottle = s.getBottleList();
-            shelfLayout.setRowCount(1);
-            shelfLayout.setColumnCount(listBottle.size());
 
-            int columnCount = 0;
-            for (final Bottle b : listBottle) {
+            List<Bottle> listBottle = s.getBottleList();
+            shelfLayout.setColumnCount(s.getWidth());
+            columnCount = 1;
+            for (final Bottle b : listBottle)
+            {
                 GridLayout.Spec row = GridLayout.spec(rowCount, 1);
-                GridLayout.Spec col = GridLayout.spec(columnCount, 1);
+                GridLayout.Spec col = GridLayout.spec(b.getCoordinates(), 1);
+
+                if(b.getCoordinates()!=columnCount)
+                {
+                    indexToFill.add(columnCount);
+                    columnCount++;
+                }
+
                 GridLayout.LayoutParams shelfLayoutParams = new GridLayout.LayoutParams(row, col);
 
                 Button button = new Button(getActivity());
@@ -115,8 +129,30 @@ public class CellarDetailsFragment  extends InterCellarFragment<CellarController
                 shelfLayout.addView(button, shelfLayoutParams);
                 columnCount++;
             }
+            if(indexToFill.size()!=0)
+            {
+                for (Integer i : indexToFill)
+                {
+                    GridLayout.Spec row = GridLayout.spec(rowCount, 1);
+                    GridLayout.Spec col = GridLayout.spec(i, 1);
+                    GridLayout.LayoutParams shelfLayoutParams = new GridLayout.LayoutParams(row, col);
+
+                    Button button = new Button(getActivity());
+                    button.setText("Vide");
+
+                    button.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), BottleFormActivity.class);
+                            //intent.putExtra("bottleId",b.getId());
+                            startActivity(intent);
+                        }
+                    });
+                    shelfLayout.addView(button, shelfLayoutParams);
+                }
+            }
             rowCount++;
         }
+
 
     }
 

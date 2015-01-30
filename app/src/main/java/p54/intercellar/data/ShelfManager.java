@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import p54.intercellar.model.Bottle;
 import p54.intercellar.model.Shelf;
 
 /**
@@ -99,18 +100,21 @@ public class ShelfManager extends InterCellarManager
     {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        //BOTTLE_RATING_KEY_BOTTLE_ID
-        String sql = "SELECT s.* FROM "
+
+
+        Cursor cursor = database.query(databaseHelper.TABLE_SHELF, null, null, null, null, null, null);
+
+       /* String sql = "SELECT s.* FROM "
                 + databaseHelper.TABLE_SHELF + " AS s, "
                 + databaseHelper.TABLE_CELLAR_SHELF + " AS cs "
                 + "WHERE cs." + databaseHelper.CELLAR_SHELF_KEY_CELLAR_ID + " = ? "
-                + "AND cs." + databaseHelper.CELLAR_SHELF_KEY_SHELF_ID+ " = s." + databaseHelper.COMMON_KEY_ID + " "
-                + "ORDER BY s." + databaseHelper.COMMON_KEY_ID;
+                + "AND cs." + databaseHelper.CELLAR_SHELF_KEY_SHELF_ID+ " = s." + databaseHelper.COMMON_KEY_ID;
+
         String[] selectionArgs = new String[] {
                 Long.toString(cellarId)
         };
         Cursor cursor = database.rawQuery(sql, selectionArgs);
-
+*/
         List<Shelf> shelfList = new ArrayList<Shelf>();
         while(cursor.moveToNext()) {
 
@@ -131,6 +135,9 @@ public class ShelfManager extends InterCellarManager
         shelf.setCapacity(cursor.getInt(cursor.getColumnIndex(databaseHelper.SHELF_KEY_CAPACITY)));
         shelf.setWidth(cursor.getInt(cursor.getColumnIndex(databaseHelper.SHELF_KEY_WIDTH)));
         shelf.setHeight(cursor.getInt(cursor.getColumnIndex(databaseHelper.SHELF_KEY_HEIGHT)));
+
+        List<Bottle> bottleList = bottleManager.findByShelfId(shelf.getId());
+        shelf.setBottleList(bottleList);
 
         return shelf;
     }
