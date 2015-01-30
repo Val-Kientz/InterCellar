@@ -154,18 +154,20 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
             case IntentIntegrator.REQUEST_CODE:
                 IntentResult barCode = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-                if (getController().getBottleCountByBarCode(barCode.getContents()) > 0) {
-                    Toast.makeText(this, R.string.bar_code_exists, Toast.LENGTH_SHORT).show();
-                } else if (barCode != null) {
-                    Map<String, String> values = new HashMap<String, String>();
-                    values.put("scanContent", barCode.getContents());
-                    values.put("scanFormat", barCode.getFormatName());
-                    bottleFormFragment.setValues(values);
+                if (barCode.getContents() != null) {
+                    if (getController().getBottleCountByBarCode(barCode.getContents()) > 0) {
+                        Toast.makeText(this, R.string.bar_code_exists, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Map<String, String> values = new HashMap<String, String>();
+                        values.put("scanContent", barCode.getContents());
+                        values.put("scanFormat", barCode.getFormatName());
+                        bottleFormFragment.setValues(values);
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("scanContent", barCode.getContents());
-                    editor.putString("scanFormat", barCode.getFormatName());
-                    editor.commit();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("scanContent", barCode.getContents());
+                        editor.putString("scanFormat", barCode.getFormatName());
+                        editor.commit();
+                    }
                 } else {
                     Toast.makeText(this, getString(R.string.scan_error), Toast.LENGTH_SHORT).show();
                 }
