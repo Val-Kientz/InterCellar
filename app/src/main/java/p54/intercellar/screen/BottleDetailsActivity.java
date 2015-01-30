@@ -3,6 +3,7 @@ package p54.intercellar.screen;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,11 @@ public class BottleDetailsActivity extends InterCellarActivity<BottleController>
 
         BottleDetailsFragment bottleDetailsFragment = (BottleDetailsFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_details);
         bottleDetailsFragment.showBottleDetails(getController().getCurrentBottleId());
+
+        SharedPreferences currentBottle = getSharedPreferences("currentBottle", MODE_PRIVATE);
+        SharedPreferences.Editor editor = currentBottle.edit();
+        editor.clear();
+        editor.commit();
     }
 
     @Override
