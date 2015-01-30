@@ -60,6 +60,7 @@ public class InterCellarDatabase extends SQLiteOpenHelper {
     protected static final String SHELF_KEY_CAPACITY = "capacity";
     protected static final String SHELF_KEY_WIDTH = "width";
     protected static final String SHELF_KEY_HEIGHT = "height";
+    protected static final String SHELF_KEY_CELLAR_ID ="cellar_id";
 
     // bottle_chateau fields
     protected static final String BOTTLE_CHATEAU_KEY_BOTTLE_ID = "bottle_id";
@@ -117,7 +118,8 @@ public class InterCellarDatabase extends SQLiteOpenHelper {
             + TABLE_SHELF + "(" + COMMON_KEY_ID + " INTEGER PRIMARY KEY,"
             + SHELF_KEY_CAPACITY + " INTEGER,"
             + SHELF_KEY_HEIGHT + " INTEGER,"
-            + SHELF_KEY_WIDTH + " INTEGER)";
+            + SHELF_KEY_WIDTH + " INTEGER,"
+            + SHELF_KEY_CELLAR_ID + " INTEGER)";
 
     private static final String CREATE_BOTTLE_CHATEAU = "CREATE TABLE "
             + TABLE_BOTTLE_CHATEAU + "(" + COMMON_KEY_ID + " INTEGER PRIMARY KEY,"

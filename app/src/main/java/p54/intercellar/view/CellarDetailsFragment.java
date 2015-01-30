@@ -61,56 +61,33 @@ public class CellarDetailsFragment  extends InterCellarFragment<CellarController
 
     }
 
-        /*test test test
-
-        GridLayout shelfLayout = ((GridLayout) getView().findViewById(R.id.shelf_grid_layout));
-        shelfLayout.setRowCount(1);
-        shelfLayout.setColumnCount(8);
-
-        int cpt;
-        for(cpt=0; cpt<8;cpt++)
-        {
-            GridLayout.Spec row = GridLayout.spec(0,1);
-            GridLayout.Spec col = GridLayout.spec(cpt,1);
-            GridLayout.LayoutParams shelfLayoutParams = new GridLayout.LayoutParams(row,col);
-
-            Context cont = getController().getContext();
-            Button b = new Button(getActivity());
-            b.setText("TEST");
-
-            shelfLayout.addView(b,shelfLayoutParams);
-            cpt++;
-        }
-*/
-
-
-    //TO BE TESTED
     public void setCellarDetail(Cellar cellar)
     {
-        List<Integer> indexToFill = new ArrayList<Integer>();
+        //List<Integer> indexToFill = new ArrayList<Integer>();
         List<Shelf> listShelves = cellar.getShelfList();
         GridLayout shelfLayout = (GridLayout) getView().findViewById(R.id.shelf_grid_layout);
         int rowCount = 0;
-        int columnCount = 0;
+        //int columnCount = 0;
 
         shelfLayout.setRowCount(listShelves.size());
 
         for(Shelf s : listShelves)
         {
-
             List<Bottle> listBottle = s.getBottleList();
+            List<Integer> integerList = new ArrayList<Integer>();
             shelfLayout.setColumnCount(s.getWidth());
-            columnCount = 1;
-            for (final Bottle b : listBottle)
+            //columnCount = 1;
+
+           for(int cpt=0 ; cpt<s.getWidth();cpt++)
+           {
+               integerList.add(cpt);
+           }
+           for (final Bottle b : listBottle)
             {
                 GridLayout.Spec row = GridLayout.spec(rowCount, 1);
                 GridLayout.Spec col = GridLayout.spec(b.getCoordinates(), 1);
 
-                if(b.getCoordinates()!=columnCount)
-                {
-                    indexToFill.add(columnCount);
-                    columnCount++;
-                }
+                integerList.remove(b.getCoordinates());
 
                 GridLayout.LayoutParams shelfLayoutParams = new GridLayout.LayoutParams(row, col);
 
@@ -118,7 +95,8 @@ public class CellarDetailsFragment  extends InterCellarFragment<CellarController
                 button.setText(b.getName());
 
 
-                button.setOnClickListener(new View.OnClickListener() {
+                button.setOnClickListener(new View.OnClickListener()
+                {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), BottleDetailsActivity.class);
                         intent.putExtra("bottleId",b.getId());
@@ -127,28 +105,25 @@ public class CellarDetailsFragment  extends InterCellarFragment<CellarController
                 });
 
                 shelfLayout.addView(button, shelfLayoutParams);
-                columnCount++;
+                //columnCount++;
             }
-            if(indexToFill.size()!=0)
+
+            for(Integer i : integerList)
             {
-                for (Integer i : indexToFill)
-                {
-                    GridLayout.Spec row = GridLayout.spec(rowCount, 1);
-                    GridLayout.Spec col = GridLayout.spec(i, 1);
-                    GridLayout.LayoutParams shelfLayoutParams = new GridLayout.LayoutParams(row, col);
+                GridLayout.Spec row = GridLayout.spec(rowCount, 1);
+                GridLayout.Spec col = GridLayout.spec(i, 1);
+                GridLayout.LayoutParams shelfLayoutParams = new GridLayout.LayoutParams(row, col);
 
-                    Button button = new Button(getActivity());
-                    button.setText("Vide");
+                Button button = new Button(getActivity());
+                button.setText("Vide");
 
-                    button.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), BottleFormActivity.class);
-                            //intent.putExtra("bottleId",b.getId());
-                            startActivity(intent);
-                        }
-                    });
-                    shelfLayout.addView(button, shelfLayoutParams);
-                }
+                button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), BottleFormActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                shelfLayout.addView(button, shelfLayoutParams);
             }
             rowCount++;
         }

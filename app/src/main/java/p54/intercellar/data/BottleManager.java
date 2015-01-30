@@ -54,7 +54,8 @@ public class BottleManager extends InterCellarManager<Bottle> {
         return bottle;
     }
 
-    private Bottle saveBottleRatings(InterCellarDatabase databaseHelper, SQLiteDatabase database, Bottle bottle) {
+    private Bottle saveBottleRatings(InterCellarDatabase databaseHelper, SQLiteDatabase database, Bottle bottle)
+    {
         for (int i = 0; i < bottle.getRatingList().size(); i += 1) {
             Rating rating = bottle.getRatingList().get(i);
             if (rating.getId() > 0) {
@@ -80,19 +81,19 @@ public class BottleManager extends InterCellarManager<Bottle> {
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
 
-        Cursor cursor = database.query(databaseHelper.TABLE_BOTTLE, null, null, null, null, null, null);
+        //Cursor cursor = database.query(databaseHelper.TABLE_BOTTLE, null, null, null, null, null, null);
 
-       /* String sql = "SELECT b.* FROM "
+        String sql = "SELECT b.* FROM "
                 + databaseHelper.TABLE_BOTTLE + " AS b, "
                 + databaseHelper.TABLE_SHELF_BOTTLE + " AS sb "
                 + "WHERE sb." + databaseHelper.SHELF_BOTTLE_KEY_SHELF_ID + " = ? "
-                + "AND sb." + databaseHelper.BOTTLE_SHELF_KEY_SHELF_ID+ " = b." + databaseHelper.COMMON_KEY_ID;
+                + "AND sb." + databaseHelper.SHELF_BOTTLE_KEY_BOTTLE_ID+ " = b." + databaseHelper.COMMON_KEY_ID;
 
         String[] selectionArgs = new String[] {
                 Long.toString(shelfId)
         };
         Cursor cursor = database.rawQuery(sql, selectionArgs);
-*/
+
         List<Bottle> bottleList = new ArrayList<Bottle>();
         while(cursor.moveToNext()) {
 

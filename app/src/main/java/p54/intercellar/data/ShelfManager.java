@@ -102,19 +102,17 @@ public class ShelfManager extends InterCellarManager
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
 
-        Cursor cursor = database.query(databaseHelper.TABLE_SHELF, null, null, null, null, null, null);
+        //Cursor cursor = database.query(databaseHelper.TABLE_SHELF, null, null, null, null, null, null);
 
-       /* String sql = "SELECT s.* FROM "
-                + databaseHelper.TABLE_SHELF + " AS s, "
-                + databaseHelper.TABLE_CELLAR_SHELF + " AS cs "
-                + "WHERE cs." + databaseHelper.CELLAR_SHELF_KEY_CELLAR_ID + " = ? "
-                + "AND cs." + databaseHelper.CELLAR_SHELF_KEY_SHELF_ID+ " = s." + databaseHelper.COMMON_KEY_ID;
+        String sql = "SELECT s.* FROM "
+                + databaseHelper.TABLE_SHELF + " AS s "
+                + " WHERE s." + databaseHelper.SHELF_KEY_CELLAR_ID+ " = ?";
 
         String[] selectionArgs = new String[] {
                 Long.toString(cellarId)
         };
         Cursor cursor = database.rawQuery(sql, selectionArgs);
-*/
+
         List<Shelf> shelfList = new ArrayList<Shelf>();
         while(cursor.moveToNext()) {
 
@@ -128,6 +126,42 @@ public class ShelfManager extends InterCellarManager
 
     }
 
+    public Shelf updateShelf(Shelf shelf)
+    {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        ContentValues values = buildShelfContentValues(databaseHelper, shelf);
+
+        String whereClause = databaseHelper.COMMON_KEY_ID + " = ?";
+        String[] whereArgs = { String.valueOf(shelf.getId()) };
+        database.update(databaseHelper.TABLE_SHELF, values, whereClause, whereArgs);
+
+        shelf = saveShelfBottle(databaseHelper, database, shelf);
+
+        return shelf;
+    }
+    private Shelf saveShelfBottle(InterCellarDatabase databaseHelper, SQLiteDatabase database, Shelf shelf)
+    {
+        for (int i = 0; i < shelf.getBottleList().size(); i += 1) {
+            Bottle bottle = shelf.getBottleList().get(i);
+            if (bottle.getId() > 0) {
+                bottle = bottleManager.update(bottle);
+            } else {
+                bottle = bottleManager.create(bottle);
+            }
+
+            ContentValues shelfBottleContent = new ContentValues();
+            shelfBottleContent.put(databaseHelper.SHELF_BOTTLE_KEY_BOTTLE_ID, shelf.getId());
+            shelfBottleContent.put(databaseHelper.BOTTLE_KEY_SHELF_ID, bottle.getId());
+            database.insert(databaseHelper.TABLE_SHELF_BOTTLE, null, shelfBottleContent);
+
+            shelf.getBottleList().set(i, bottle);
+        }
+
+        return shelf;
+    }
+
     private Shelf buildShelf(InterCellarDatabase databaseHelper, Cursor cursor)
     {
         Shelf shelf = new Shelf();
@@ -135,10 +169,21 @@ public class ShelfManager extends InterCellarManager
         shelf.setCapacity(cursor.getInt(cursor.getColumnIndex(databaseHelper.SHELF_KEY_CAPACITY)));
         shelf.setWidth(cursor.getInt(cursor.getColumnIndex(databaseHelper.SHELF_KEY_WIDTH)));
         shelf.setHeight(cursor.getInt(cursor.getColumnIndex(databaseHelper.SHELF_KEY_HEIGHT)));
-
+        shelf.setCellar_id(cursor.getLong(cursor.getColumnIndex(databaseHelper.SHELF_KEY_CELLAR_ID)));
         List<Bottle> bottleList = bottleManager.findByShelfId(shelf.getId());
         shelf.setBottleList(bottleList);
 
         return shelf;
+    }
+
+    private ContentValues buildShelfContentValues(InterCellarDatabase databaseHelper, Shelf shelf) {
+        ContentValues values = new ContentValues();
+
+        values.put(databaseHelper.SHELF_KEY_HEIGHT, shelf.getHeight());
+        values.put(databaseHelper.SHELF_KEY_CAPACITY, shelf.getCapacity());
+        values.put(databaseHelper.SHELF_KEY_WIDTH, shelf.getWidth());
+        values.put(databaseHelper.SHELF_KEY_CELLAR_ID, shelf.getCellar_id());
+
+        return values;
     }
 }

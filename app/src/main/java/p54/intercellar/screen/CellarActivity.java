@@ -57,7 +57,7 @@ public class CellarActivity extends InterCellarActivity<CellarController> implem
     public void onFragmentInteraction(long id)
     {
         CellarDetailsFragment cellarDetailsFragment = (CellarDetailsFragment) getFragmentManager()
-                .findFragmentById(R.id.cellar_details);
+                .findFragmentById(R.id.fragment_cellar_details_land);
 
         if (cellarDetailsFragment == null) {
             Intent cellarDetailsActivity = new Intent(this, CellarDetailsActivity.class);

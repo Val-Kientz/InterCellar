@@ -72,8 +72,11 @@ public class MainActivity extends InterCellarActivity<BottleController> {
         ChateauController chc = new ChateauController(this);
 
 
-        List<Bottle> bottleList = new ArrayList<Bottle>();
-        List<Shelf> shelfList = new ArrayList<Shelf>();
+        List<Bottle> bottleList1 = new ArrayList<Bottle>();
+        List<Bottle> bottleList2 = new ArrayList<Bottle>();
+        List<Bottle> bottleList3 = new ArrayList<Bottle>();
+        List<Shelf> shelfList1 = new ArrayList<Shelf>();
+        List<Shelf> shelfList2 = new ArrayList<Shelf>();
 
         Chateau ch = new Chateau();
         ch.setDomain("Chateau Bonvin");
@@ -82,7 +85,7 @@ public class MainActivity extends InterCellarActivity<BottleController> {
         ch.setId(chc.createChateau(ch).getId());
 
 
-        for(int cpt=1 ; cpt<9; cpt++)
+        for(int cpt=1 ; cpt<11; cpt++)
         {
             Bottle b = new Bottle();
             b.setName("Bouteille " + cpt);
@@ -96,8 +99,18 @@ public class MainActivity extends InterCellarActivity<BottleController> {
             b.setRatingList(new ArrayList<Rating>());
 
             b.setId(getController().createBottle(b).getId());
-
-            bottleList.add(b);
+            if(cpt==1||cpt==4||cpt==7||cpt==10)
+            {
+                bottleList1.add(b);
+            }
+            else if(cpt==2||cpt==5||cpt==8)
+            {
+                bottleList2.add(b);
+            }
+            else
+            {
+                bottleList3.add(b);
+            }
         }
 
 
@@ -105,36 +118,66 @@ public class MainActivity extends InterCellarActivity<BottleController> {
         s1.setCapacity(10);
         s1.setWidth(10);
         s1.setHeight(10);
-        s1.setBottleList(bottleList);
+        s1.setBottleList(bottleList1);
         s1.setId(sc.createShelf(s1).getId());
-        shelfList.add(s1);
+        shelfList1.add(s1);
+
+        for(Bottle b : bottleList1)
+        {
+            b.setShelf(s1);
+            getController().updateBottle(b);
+        }
+
 
         Shelf s2 = new Shelf();
         s2.setCapacity(10);
         s2.setWidth(10);
         s2.setHeight(10);
-        s2.setBottleList(bottleList);
+        s2.setBottleList(bottleList2);
         s2.setId(sc.createShelf(s2).getId());
-        shelfList.add(s2);
+        shelfList1.add(s2);
+
+        for(Bottle b : bottleList2)
+        {
+            b.setShelf(s2);
+            getController().updateBottle(b);
+        }
+
 
         Shelf s3 = new Shelf();
         s3.setCapacity(10);
         s3.setWidth(10);
         s3.setHeight(10);
-        s3.setBottleList(bottleList);
+        s3.setBottleList(bottleList3);
         s3.setId(sc.createShelf(s3).getId());
-        shelfList.add(s3);
+        shelfList2.add(s3);
+
+        for(Bottle b : bottleList3)
+        {
+            b.setShelf(s3);
+            getController().updateBottle(b);
+        }
 
 
         Cellar c1 = new Cellar();
-        c1.setName("My Epic Cellar");
-        c1.setShelfList(shelfList);
+        c1.setName("My first Epic Cellar");
+        c1.setShelfList(shelfList1);
         c1.setId(cc.createCellar(c1).getId());
-        
+
+        s1.setCellar_id(c1.getId());
+        sc.updateShelf(s1);
+        s2.setCellar_id(c1.getId());
+        sc.updateShelf(s2);
+
         Cellar c2 = new Cellar();
-        c2.setName("My Epic Cellar");
-        c2.setShelfList(shelfList);
-        c2.setId(cc.createCellar(c1).getId());
+        c2.setName("My second Epic Cellar");
+        c2.setShelfList(shelfList2);
+        c2.setId(cc.createCellar(c2).getId());
+
+
+        s3.setCellar_id(c2.getId());
+        sc.updateShelf(s3);
+
 
     }
 

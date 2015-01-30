@@ -24,4 +24,7 @@ public class ShelfController extends InterCellarController<ShelfManager> {
     {
         return getManager().findAll();
     }
+
+    public Shelf updateShelf(Shelf s) { return getManager().updateShelf(s);
+    }
 }

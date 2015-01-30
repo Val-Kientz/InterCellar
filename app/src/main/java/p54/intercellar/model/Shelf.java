@@ -11,6 +11,16 @@ public class Shelf {
     private int width;
     private int height;
     private List<Bottle> bottleList;
+    private long cellar_id;
+
+    public long getCellar_id()
+    {
+        return cellar_id;
+    }
+    public void setCellar_id(long id)
+    {
+        cellar_id=id;
+    }
 
     public long getId() {
         return id;
