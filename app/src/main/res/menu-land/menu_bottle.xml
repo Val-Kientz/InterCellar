@@ -24,4 +24,9 @@
         android:orderInCategory="110"
         app:showAsAction="never"
         android:onClick="onDeleteClick"/>
+    <item android:id="@+id/action_edit_bottle"
+        android:title="@string/edit_bottle"
+        android:orderInCategory="120"
+        app:showAsAction="never"
+        android:onClick="onEditClick"/>
 </menu>

@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +30,7 @@ import p54.intercellar.view.YesCancelAlert;
 public class BottleActivity extends InterCellarActivity<BottleController> implements BottleFragment.OnBottleClick, InterCellarFormFragment.OnFormReady, InterCellarFormFragment.OnFormDestroy {
     private static final int ADD_BOTTLE = 1;
     private static final int ADD_RATING = 2;
+    private static final int EDIT_BOTTLE = 4;
     private static final int DELETE_BOTTLE = 3;
 
     private BottleDetailsFragment bottleDetailsFragment;
@@ -183,8 +185,24 @@ public class BottleActivity extends InterCellarActivity<BottleController> implem
     }
 
     public void onAddClick(MenuItem menuItem) {
+        SharedPreferences currentBottle = getSharedPreferences("currentBottle", MODE_PRIVATE);
+        SharedPreferences.Editor editor = currentBottle.edit();
+        editor.clear();
+        editor.commit();
+
         Intent addBottleActivity = new Intent(this, BottleFormActivity.class);
         startActivityForResult(addBottleActivity, ADD_BOTTLE);
+    }
+
+    public void onEditClick(MenuItem menuItem) {
+        SharedPreferences currentBottle = getSharedPreferences("currentBottle", MODE_PRIVATE);
+        SharedPreferences.Editor editor = currentBottle.edit();
+        editor.clear();
+        editor.commit();
+
+        Intent editBottleActivity = new Intent(this, BottleFormActivity.class);
+        editBottleActivity.putExtra("bottleId", getController().getCurrentBottleId());
+        startActivityForResult(editBottleActivity, EDIT_BOTTLE);
     }
 
     public void onAddRatingClick(MenuItem menuItem) {
