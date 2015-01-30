@@ -51,6 +51,7 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     private Bottle currentBottle;
     private SharedPreferences sharedPreferences;
     private BottleFormFragment bottleFormFragment;
+    private int position = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
         sharedPreferences = getSharedPreferences("currentBottle", MODE_PRIVATE);
 
         long id = getIntent().getLongExtra("bottleId", -1);
+        position = getIntent().getIntExtra("position", -1);
 
         if (id != -1) {
             currentBottle = getController().getBottle(id);
@@ -229,6 +231,7 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     public void onAddClick(View v) {
         if (bottleFormFragment.checkRequiredFields()) {
             Bottle bottle = extractBottleData(new Bottle(), bottleFormFragment);
+            bottle.setCoordinates(position);
             getController().createBottle(bottle);
             setResult(BOTTLE_ADDED);
             finish();
