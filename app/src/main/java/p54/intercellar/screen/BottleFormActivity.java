@@ -51,14 +51,13 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     private Bottle currentBottle;
     private SharedPreferences sharedPreferences;
     private BottleFormFragment bottleFormFragment;
-    private Intent intent;
+    private boolean backPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bottleFormFragment = (BottleFormFragment) getFragmentManager().findFragmentById(R.id.fragment_bottle_form);
         sharedPreferences = getSharedPreferences("currentBottle", MODE_PRIVATE);
-        intent = getIntent();
 
         long id = getIntent().getLongExtra("bottleId", -1);
 
@@ -211,15 +210,28 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     @Override
     public void onFormDestroy(String fragmentClass) {
         if (fragmentClass.equals(BottleFormFragment.class.getName())) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            Map<String, String> values = bottleFormFragment.getValues();
-            for (String field : values.keySet()) {
-                editor.putString(field, values.get(field));
+            if (!backPressed) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Map<String, String> values = bottleFormFragment.getValues();
+                for (String field : values.keySet()) {
+                    editor.putString(field, values.get(field));
+                }
+                // editor.putString("picture", pictureFileName);
+                editor.putInt("chateauIndex", bottleFormFragment.getChateauIndex());
+                editor.commit();
+            } else {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
             }
-            // editor.putString("picture", pictureFileName);
-            editor.putInt("chateauIndex", bottleFormFragment.getChateauIndex());
-            editor.commit();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        backPressed = true;
     }
 
     // region eventHandlers

@@ -36,25 +36,14 @@
         <activity
             android:name=".screen.BottleDetailsActivity"
             android:label="@string/title_activity_bottle_details" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="p54.intercellar.screen.BottleActivity" />
         </activity>
         <activity
             android:name=".screen.BottleFormActivity"
-            android:label="@string/title_activity_add_bottle"
-            android:parentActivityName=".screen.BottleActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="p54.intercellar.screen.BottleActivity" />
+            android:label="@string/title_activity_add_bottle">
         </activity>
         <activity
             android:name=".screen.AddChateauActivity"
-            android:label="@string/title_activity_add_chateau"
-            android:parentActivityName=".screen.BottleFormActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".screen.BottleFormActivity" />
+            android:label="@string/title_activity_add_chateau">
         </activity>
 
         <uses-permission android:name="android.permission.CAMERA" />
@@ -66,9 +55,6 @@
             android:name=".screen.AddRatingActivity"
             android:label="@string/title_activity_add_rating"
             android:parentActivityName=".screen.BottleDetailsActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="p54.intercellar.screen.BottleDetailsActivity" />
         </activity>
         <activity
             android:name=".screen.ShelfActivity"
