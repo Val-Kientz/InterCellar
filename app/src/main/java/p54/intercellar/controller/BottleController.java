@@ -126,4 +126,8 @@ public class BottleController extends InterCellarController<BottleManager> {
     public void deleteBottle(long id) {
         getManager().delete(id);
     }
+
+    public int getBottleCountByBarCode(String barCode) {
+        return getManager().countByBarCode(barCode);
+    }
 }

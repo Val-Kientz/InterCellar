@@ -172,6 +172,25 @@ public class BottleManager extends InterCellarManager<Bottle> {
         return count;
     }
 
+    public int countByBarCode(String barCode) {
+        InterCellarDatabase databaseHelper = getDatabaseHelper();
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
+
+        String[] selectionArgs = new String[] {barCode};
+        String sql = "SELECT COUNT(*) FROM " + databaseHelper.TABLE_BOTTLE
+                + " WHERE " + databaseHelper.BOTTLE_KEY_SCAN_CONTENT + " = ?";
+        Cursor cursor = database.rawQuery(sql, selectionArgs);
+
+        int count;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        } else {
+            count = 0;
+        }
+
+        return count;
+    }
+
     public void delete (long id) {
         InterCellarDatabase databaseHelper = getDatabaseHelper();
         SQLiteDatabase database = databaseHelper.getWritableDatabase();

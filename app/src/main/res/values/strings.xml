@@ -66,4 +66,7 @@
     <string name="no_bottle_found_with_that_barcode">Aucune bouteille trouvée portant ce code bar</string>
     <string name="generate_dummies">Générer un jeu d\'essai</string>
     <string name="dummies_generated">Jeu d\'essai généré</string>
+    <string name="no_ratings_yet">Pas de notes pour le moment</string>
+    <string name="bar_code_exists">Le code bar scanné existe déjà</string>
+
 </resources>

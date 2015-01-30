@@ -154,7 +154,9 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
             case IntentIntegrator.REQUEST_CODE:
                 IntentResult barCode = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-                if (barCode != null) {
+                if (getController().getBottleCountByBarCode(barCode.getContents()) > 0) {
+                    Toast.makeText(this, R.string.bar_code_exists, Toast.LENGTH_SHORT).show();
+                } else if (barCode != null) {
                     Map<String, String> values = new HashMap<String, String>();
                     values.put("scanContent", barCode.getContents());
                     values.put("scanFormat", barCode.getFormatName());

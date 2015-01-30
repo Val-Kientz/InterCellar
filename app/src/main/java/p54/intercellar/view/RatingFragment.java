@@ -1,13 +1,16 @@
 package p54.intercellar.view;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -25,6 +28,8 @@ import p54.intercellar.model.Rating;
  */
 public class RatingFragment extends InterCellarFragment<BottleController> {
 
+    private TextView titleRatingList;
+
     public RatingFragment() {
         // Required empty public constructor
     }
@@ -40,6 +45,7 @@ public class RatingFragment extends InterCellarFragment<BottleController> {
     public void onStart() {
         super.onStart();
         long bottleId = getController().getCurrentBottleId();
+        titleRatingList = (TextView) getView().findViewById(R.id.title_rating_list);
         refreshRatingList(bottleId);
     }
 
@@ -62,21 +68,31 @@ public class RatingFragment extends InterCellarFragment<BottleController> {
         String[] stringAdapter = new String[]{"text1", "text2"};
         int[] layoutIds = new int[]{android.R.id.text1, android.R.id.text2};
         List<Rating> ratingList = getController().getRatingList(bottleId);
-        List<Map<String, String>> detailedList = formatForDetailedList(ratingList);
 
-        ListView ratingListView = ((ListView) getView().findViewById(R.id.list_rating_list));
+        if (ratingList != null && !ratingList.isEmpty()) {
+            List<Map<String, String>> detailedList = formatForDetailedList(ratingList);
 
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(),
-                detailedList,
-                android.R.layout.simple_list_item_2,
-                stringAdapter,
-                layoutIds
-        );
+            ListView ratingListView = ((ListView) getView().findViewById(R.id.list_rating_list));
 
-        ratingListView.setAdapter(adapter);
-        ViewGroup.LayoutParams layoutParams = ratingListView.getLayoutParams();
-        layoutParams.height = computeListViewHeight(ratingListView);
-        ratingListView.setLayoutParams(layoutParams);
+            SimpleAdapter adapter = new SimpleAdapter(getActivity(),
+                    detailedList,
+                    android.R.layout.simple_list_item_2,
+                    stringAdapter,
+                    layoutIds
+            );
+
+            ratingListView.setAdapter(adapter);
+            ViewGroup.LayoutParams layoutParams = ratingListView.getLayoutParams();
+            layoutParams.height = computeListViewHeight(ratingListView);
+            ratingListView.setLayoutParams(layoutParams);
+            titleRatingList.setText(R.string.ratings);
+            titleRatingList.setTextAppearance(getActivity(), android.R.style.TextAppearance_DeviceDefault_Large);
+            titleRatingList.invalidate();
+        } else {
+            titleRatingList.setText(R.string.no_ratings_yet);
+            titleRatingList.setTextAppearance(getActivity(), android.R.style.TextAppearance_DeviceDefault_Small);
+            titleRatingList.invalidate();
+        }
     }
 
     private int computeListViewHeight(ListView listView) {
