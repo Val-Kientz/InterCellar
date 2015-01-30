@@ -51,7 +51,6 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     private Bottle currentBottle;
     private SharedPreferences sharedPreferences;
     private BottleFormFragment bottleFormFragment;
-    private boolean backPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,28 +213,15 @@ public class BottleFormActivity extends InterCellarActivity<BottleController> im
     @Override
     public void onFormDestroy(String fragmentClass) {
         if (fragmentClass.equals(BottleFormFragment.class.getName())) {
-            if (!backPressed) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Map<String, String> values = bottleFormFragment.getValues();
-                for (String field : values.keySet()) {
-                    editor.putString(field, values.get(field));
-                }
-                // editor.putString("picture", pictureFileName);
-                editor.putInt("chateauIndex", bottleFormFragment.getChateauIndex());
-                editor.commit();
-            } else {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Map<String, String> values = bottleFormFragment.getValues();
+            for (String field : values.keySet()) {
+                editor.putString(field, values.get(field));
             }
+            // editor.putString("picture", pictureFileName);
+            editor.putInt("chateauIndex", bottleFormFragment.getChateauIndex());
+            editor.commit();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        backPressed = true;
     }
 
     // region eventHandlers

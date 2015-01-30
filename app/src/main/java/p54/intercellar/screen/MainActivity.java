@@ -146,7 +146,7 @@ public class MainActivity extends InterCellarActivity<BottleController> {
             case IntentIntegrator.REQUEST_CODE:
                 IntentResult barCode = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
-                if (barCode != null) {
+                if (barCode.getContents() != null) {
                     Bottle bottle = getController().getBottleByBarCode(barCode.getContents());
                     if (bottle != null) {
                         Intent bottleDetails = new Intent(this, BottleDetailsActivity.class);
